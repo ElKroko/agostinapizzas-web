@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agostina Pizzas — Pizzería a la Piedra, New York Style</title>
+<meta name="description" content="Pizza a la piedra premium, New York Style. Masa hecha a mano, horneada al momento. Delivery en Providencia, Las Condes, Vitacura y Ñuñoa. Eventos con la Barra de Pizzas Agostina.">
+<link rel="icon" href="data:,">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
+
+:root{
+  --cream:#F5EFE6;
+  --cream-2:#EDE4D6;
+  --cream-3:#e2dbcd;
+  --black:#111111;
+  --charcoal:#201f1c;
+  --red:#C73A2A;
+  --red-dark:#a72e21;
+  --olive:#5D6A42;
+  --olive-dark:#3f4830;
+  --olive-light:#7c8a5e;
+  --white:#FFFFFF;
+  --display:'Bebas Neue', 'Arial Narrow', sans-serif;
+  --body:'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--cream);}
+body{
+  font-family:var(--body);
+  color:var(--black);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:0.01em;text-transform:uppercase;}
+p{margin:0;}
+a{color:var(--red);text-decoration:none;}
+a:hover{color:var(--red-dark);}
+button{font-family:var(--body);cursor:pointer;border:none;}
+.container{max-width:1240px;margin:0 auto;padding:0 6vw;}
+@media(min-width:1400px){.container{padding:0 40px;}}
+
+.ov-tag{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:12.5px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--body);font-weight:700;font-size:14px;
+  letter-spacing:0.06em;text-transform:uppercase;
+  padding:17px 30px;border-radius:2px;
+  transition:transform .25s ease, background .25s ease, color .25s ease;
+}
+.btn svg{width:16px;height:16px;flex:none;transition:transform .25s ease;}
+.btn:hover svg{transform:translateX(4px);}
+.btn-primary{background:var(--red);color:var(--white);}
+.btn-primary:hover{background:var(--red-dark);color:var(--white);}
+.btn-ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(245,239,230,0.45);}
+.btn-ghost:hover{background:rgba(245,239,230,0.1);color:var(--cream);border-color:var(--cream);}
+.btn-dark-ghost{background:transparent;color:var(--black);border:1.5px solid rgba(17,17,17,0.35);}
+.btn-dark-ghost:hover{background:rgba(17,17,17,0.06);color:var(--black);border-color:var(--black);}
+.btn-olive{background:var(--cream);color:var(--olive-dark);}
+.btn-olive:hover{background:var(--white);color:var(--olive-dark);}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,.8,.24,1), transform .8s cubic-bezier(.16,.8,.24,1);}
+.reveal.in{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.08s;}
+.reveal-delay-2{transition-delay:.16s;}
+.reveal-delay-3{transition-delay:.24s;}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 6vw;
+  background:transparent;
+  transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+}
+.nav.solid{
+  background:rgba(245,239,230,0.96);
+  padding:14px 6vw;
+  box-shadow:0 1px 0 rgba(17,17,17,0.08);
+  backdrop-filter:blur(6px);
+}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:38px;width:auto;transition:filter .35s ease;filter:brightness(0) invert(1);}
+.nav.solid .nav-logo img{filter:none;}
+.nav-word{font-family:var(--display);font-size:22px;letter-spacing:0.03em;color:var(--cream);transition:color .35s ease;}
+.nav.solid .nav-word{color:var(--black);}
+.nav-links{display:none;align-items:center;gap:34px;}
+.nav-links a{
+  font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--cream);opacity:.88;transition:color .35s ease,opacity .2s ease;
+}
+.nav.solid .nav-links a{color:var(--black);}
+.nav-links a:hover{opacity:1;color:var(--red);}
+.nav-cta{display:none;}
+@media(min-width:860px){.nav-cta{display:flex;} .nav-links{display:flex;}}
+.nav-burger{display:flex;width:42px;height:42px;align-items:center;justify-content:center;border:1.5px solid rgba(245,239,230,.5);color:var(--cream);border-radius:2px;}
+.nav.solid .nav-burger{color:var(--black);border-color:rgba(17,17,17,.3);}
+@media(min-width:860px){.nav-burger{display:none;}}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:#0c0b0a url("assets/hero-pepperoni.jpg") center 38% / cover no-repeat;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(10,9,8,.72) 0%, rgba(10,9,8,.28) 32%, rgba(10,9,8,.18) 55%, rgba(10,9,8,.86) 100%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size:3px 3px;
+  mix-blend-mode:overlay;opacity:.5;
+}
+.hero-inner{position:relative;z-index:2;padding:150px 6vw 74px;display:flex;flex-direction:column;gap:26px;}
+.hero-badge-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.hero-badge-row .ov-tag{color:var(--cream);opacity:.85;}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:var(--red);}
+.hero-title{
+  color:var(--cream);
+  font-size:clamp(48px, 9.6vw, 132px);
+  line-height:0.92;
+  max-width:16ch;
+  text-shadow:0 2px 40px rgba(0,0,0,.25);
+}
+.hero-title em{
+  font-style:normal;color:var(--red);
+}
+.hero-sub{
+  max-width:520px;color:var(--cream-2);
+  font-size:16.5px;line-height:1.65;font-weight:500;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px;}
+.hero-scroll{
+  position:absolute;right:6vw;bottom:38px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  color:var(--cream);opacity:.75;
+}
+.hero-scroll span{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;writing-mode:vertical-rl;font-weight:600;}
+.hero-scroll .line{width:1px;height:52px;background:linear-gradient(var(--cream), transparent);animation:scrollpulse 2.2s ease-in-out infinite;}
+@keyframes scrollpulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+@media(max-width:600px){.hero-scroll{display:none;}}
+
+/* ---------- TRUST STRIP ---------- */
+.trust{
+  background:var(--cream);
+  border-bottom:1px solid var(--cream-3);
+}
+.trust-row{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:28px 20px;
+  padding:44px 0;
+}
+@media(min-width:760px){.trust-row{grid-template-columns:repeat(4,1fr);gap:24px;}}
+.trust-item{display:flex;flex-direction:column;gap:12px;align-items:flex-start;}
+.trust-item svg{width:26px;height:26px;color:var(--red);flex:none;}
+.trust-item p{font-family:var(--body);font-weight:700;font-size:13.5px;letter-spacing:0.02em;color:var(--black);line-height:1.4;}
+
+/* ---------- MARQUEE ---------- */
+.marquee-wrap{
+  background:var(--black);
+  padding:22px 0;overflow:hidden;
+  border-top:1px solid rgba(245,239,230,.08);
+  border-bottom:1px solid rgba(245,239,230,.08);
+}
+.marquee{display:flex;width:max-content;animation:marquee 42s linear infinite;}
+.marquee:hover{animation-play-state:paused;}
+.marquee-group{display:flex;align-items:center;flex:none;}
+.marquee-item{
+  font-family:var(--display);font-size:clamp(26px,3.4vw,40px);
+  color:var(--cream);letter-spacing:0.02em;
+  padding:0 26px;white-space:nowrap;
+}
+.marquee-item.accent{color:var(--red);}
+.marquee-sep{width:9px;height:9px;flex:none;background:var(--olive);border-radius:1px;transform:rotate(45deg);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ---------- SECTION HEADS ---------- */
+.section{padding:120px 0;position:relative;}
+.section-head{max-width:760px;margin-bottom:64px;}
+.section-head .ov-tag{color:var(--red);display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.section-head .ov-tag::before{content:"";width:28px;height:2px;background:var(--red);display:block;}
+.section-title{font-size:clamp(34px,5.4vw,64px);line-height:0.98;}
+.section-body{font-size:16.5px;line-height:1.7;color:#4a453e;max-width:56ch;margin-top:20px;font-weight:500;}
+
+/* ---------- PRODUCT SPOTLIGHT ---------- */
+.spotlight{background:var(--cream);}
+.spotlight-grid{
+  display:grid;grid-template-columns:1fr;gap:52px;align-items:center;
+}
+@media(min-width:920px){.spotlight-grid{grid-template-columns:1.05fr 1fr;gap:70px;}}
+.spotlight-media{position:relative;}
+.spotlight-media .frame{
+  position:relative;border-radius:3px;overflow:hidden;
+  box-shadow:0 40px 80px -30px rgba(17,17,17,.35);
+}
+.spotlight-media img{width:100%;height:560px;object-fit:cover;}
+.spotlight-media .badge-float{
+  position:absolute;left:-26px;bottom:-26px;width:118px;height:118px;
+  filter:drop-shadow(0 12px 24px rgba(17,17,17,.25));
+}
+@media(max-width:520px){.spotlight-media img{height:360px;}.spotlight-media .badge-float{width:84px;height:84px;left:-14px;bottom:-14px;}}
+.spotlight-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--black);color:var(--cream);
+  font-size:11.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  padding:8px 14px;border-radius:2px;margin-bottom:22px;
+}
+.spotlight-tag::before{content:"";width:6px;height:6px;background:var(--red);border-radius:50%;}
+.spotlight h2{font-size:clamp(52px,8vw,96px);line-height:0.9;color:var(--black);}
+.spotlight-desc{font-size:17px;line-height:1.7;color:#4a453e;font-weight:500;margin-top:22px;max-width:46ch;}
+.tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+.ing-tag{
+  border:1.5px solid rgba(17,17,17,.18);
+  padding:9px 16px;border-radius:2px;
+  font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--black);
+}
+.spotlight-actions{margin-top:36px;}
+
+/* ---------- MENU PREVIEW ---------- */
+.menu-section{background:var(--cream-2);}
+.menu-grid{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(17,17,17,.14);border:1px solid rgba(17,17,17,.14);}
+@media(min-width:700px){.menu-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1080px){.menu-grid{grid-template-columns:repeat(3,1fr);}}
+.menu-card{
+  background:var(--cream-2);padding:38px 32px;
+  display:flex;flex-direction:column;gap:16px;min-height:220px;
+  transition:background .3s ease;
+}
+.menu-card:hover{background:var(--cream);}
+.menu-card .num{font-family:var(--display);font-size:13px;color:var(--red);letter-spacing:0.1em;}
+.menu-card h3{font-size:34px;color:var(--black);}
+.menu-card p{font-size:14px;line-height:1.6;color:#5a5449;font-weight:500;flex:1;}
+.menu-card .hero-pick{
+  display:inline-flex;align-self:flex-start;background:var(--red);color:var(--white);
+  font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 10px;border-radius:2px;
+}
+.menu-cta{display:flex;justify-content:center;margin-top:56px;}
+
+/* ---------- HISTORIA ---------- */
+.historia{background:var(--black);color:var(--cream);overflow:hidden;}
+.historia-grid{display:grid;grid-template-columns:1fr;gap:56px;align-items:center;}
+@media(min-width:920px){.historia-grid{grid-template-columns:0.95fr 1.05fr;gap:80px;}}
+.historia-media{position:relative;}
+.historia-media .frame{border-radius:3px;overflow:hidden;position:relative;}
+.historia-media img{width:100%;height:520px;object-fit:cover;filter:saturate(1.05) contrast(1.03);}
+.historia-media .frame::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,.55) 100%);
+}
+.historia-mark{position:absolute;width:150px;height:auto;top:-46px;right:-30px;opacity:.9;}
+@media(max-width:600px){.historia-media img{height:360px;}.historia-mark{width:100px;top:-30px;right:-14px;}}
+.historia h2{color:var(--cream);font-size:clamp(36px,5.6vw,58px);line-height:1.02;}
+.historia-body{margin-top:24px;font-size:16px;line-height:1.75;color:#cfc7b9;max-width:52ch;font-weight:500;}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:40px;border-top:1px solid rgba(245,239,230,.16);}
+.timeline-row{display:flex;gap:24px;padding:22px 0;border-bottom:1px solid rgba(245,239,230,.16);align-items:baseline;}
+.timeline-row .yr{font-family:var(--display);font-size:26px;color:var(--red);min-width:74px;flex:none;}
+.timeline-row .tx{font-size:14.5px;color:#cfc7b9;line-height:1.6;font-weight:500;}
+.timeline-row .tx b{color:var(--cream);}
+.founder-line{margin-top:32px;display:flex;align-items:center;gap:14px;}
+.founder-line .who{font-family:var(--display);font-size:15px;letter-spacing:.04em;color:var(--cream);}
+.founder-line .rule{width:34px;height:1px;background:rgba(245,239,230,.4);}
+.founder-line .role{font-size:12px;color:#a89f8f;letter-spacing:.08em;text-transform:uppercase;font-weight:600;}
+
+/* ---------- EVENTOS / B2B ---------- */
+.eventos{
+  background:var(--olive-dark);
+  color:var(--cream);
+  position:relative;overflow:hidden;
+}
+.eventos::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(245,239,230,0.05) 1px, transparent 1px);
+  background-size:4px 4px;pointer-events:none;
+}
+.eventos-top{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;position:relative;z-index:1;}
+@media(min-width:920px){.eventos-top{grid-template-columns:1fr 0.85fr;gap:70px;}}
+.eventos .ov-tag{color:var(--cream);opacity:.8;display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.eventos .ov-tag::before{content:"";width:28px;height:2px;background:var(--cream);opacity:.7;}
+.eventos h2{color:var(--cream);font-size:clamp(36px,6vw,68px);line-height:0.98;}
+.eventos-lead{font-size:16.5px;line-height:1.7;color:#eef2e8;font-weight:500;max-width:44ch;margin-top:22px;}
+.eventos-media{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);}
+.eventos-media img{width:100%;height:420px;object-fit:cover;filter:saturate(1.05);}
+.eventos-media::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg, rgba(63,72,48,.55) 0%, rgba(63,72,48,.05) 45%, rgba(17,17,17,.3) 100%);}
+.eventos-media .badge-float{position:absolute;right:-22px;top:-22px;width:96px;height:96px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35));}
+@media(max-width:600px){.eventos-media img{height:300px;}}
+
+.usecases{display:grid;grid-template-columns:1fr;gap:1px;margin-top:64px;background:rgba(245,239,230,.16);border:1px solid rgba(245,239,230,.16);position:relative;z-index:1;}
+@media(min-width:760px){.usecases{grid-template-columns:repeat(3,1fr);}}
+.usecase{background:var(--olive-dark);padding:34px 30px;display:flex;flex-direction:column;gap:16px;}
+.usecase svg{width:30px;height:30px;color:var(--cream);}
+.usecase h3{font-size:22px;color:var(--cream);font-family:var(--display);letter-spacing:.02em;}
+.usecase p{font-size:13.5px;line-height:1.65;color:#dfe4d4;font-weight:500;}
+
+.event-package{
+  margin-top:64px;background:rgba(245,239,230,.07);
+  border:1px solid rgba(245,239,230,.2);border-radius:3px;
+  padding:44px;position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr;gap:36px;
+}
+@media(min-width:860px){.event-package{grid-template-columns:1fr auto;align-items:center;gap:40px;}}
+.event-package .ep-label{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#c4cdb3;font-weight:700;margin-bottom:14px;}
+.ep-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 28px;}
+@media(min-width:560px){.ep-stats{grid-template-columns:repeat(4,1fr);}}
+.ep-stat b{display:block;font-family:var(--display);font-size:30px;color:var(--cream);line-height:1;}
+.ep-stat span{display:block;font-size:11.5px;color:#c4cdb3;margin-top:8px;font-weight:600;letter-spacing:.02em;line-height:1.4;}
+.ep-note{font-size:12.5px;color:#c4cdb3;margin-top:20px;font-weight:500;font-style:italic;}
+.ep-cta{display:flex;flex-direction:column;gap:12px;align-items:flex-start;}
+.ep-placeholder{font-size:11.5px;color:#c4cdb3;letter-spacing:.03em;}
+.ep-placeholder b{color:var(--cream);font-weight:700;}
+
+/* ---------- FOOTER ---------- */
+.footer{background:var(--black);color:var(--cream);padding:88px 0 0;}
+.footer-top{display:grid;grid-template-columns:1fr;gap:56px;padding-bottom:64px;border-bottom:1px solid rgba(245,239,230,.14);}
+@media(min-width:900px){.footer-top{grid-template-columns:1.2fr 1fr 1fr 1fr;}}
+.footer-brand img{height:64px;width:auto;margin-bottom:18px;}
+.footer-brand p{font-size:13.5px;color:#a89f8f;line-height:1.6;max-width:32ch;font-weight:500;}
+.footer-col h4{font-family:var(--body);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#a89f8f;font-weight:700;margin-bottom:18px;}
+.footer-col a, .footer-col p{display:block;font-size:14.5px;color:var(--cream);margin-bottom:10px;font-weight:500;}
+.footer-col a:hover{color:var(--red);}
+.footer-bottom{display:flex;flex-direction:column;gap:18px;padding:28px 0 34px;}
+@media(min-width:700px){.footer-bottom{flex-direction:row;justify-content:space-between;align-items:center;}}
+.footer-bottom p{font-size:12px;color:#7c766c;font-weight:500;letter-spacing:.02em;}
+.footer-bottom .fine{display:flex;gap:22px;flex-wrap:wrap;}
+
+/* ---------- ICONS COMMON ---------- */
+.icon{stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="site-nav">
+  <div class="nav-logo">
+    <img src="assets/mark-pinup.png" alt="Agostina Pizzas">
+    <span class="nav-word">AGOSTINA</span>
+  </div>
+  <div class="nav-links">
+    <a href="#historia">Historia</a>
+    <a href="#menu">Menú</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#ubicacion">Ubicación</a>
+  </div>
+  <a class="btn btn-primary nav-cta" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+    Pedir ahora
+    <svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+  <div class="nav-burger">
+    <svg viewBox="0 0 24 24" width="18" height="18" class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge-row reveal">
+      <span class="ov-tag">Pizzería a la piedra</span>
+      <span class="hero-dot"></span>
+      <span class="ov-tag">New York Style</span>
+      <span class="hero-dot"></span>
+      <span class="ov-tag">Est. 2013</span>
+    </div>
+    <h1 class="hero-title reveal reveal-delay-1">Se dobla. <em>Gotea.</em> Se pide otra vez.</h1>
+    <p class="hero-sub reveal reveal-delay-2">Masa hecha a mano, horneada al momento sobre piedra, con la actitud de las slice shops de Nueva York — armada en Providencia, para todo Santiago.</p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a class="btn btn-primary" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+        Pedir ahora
+        <svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#menu">Ver el menú</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Desliza</span>
+    <div class="line"></div>
+  </div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-item reveal">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M4 14c0-5 3.5-9 8-9s8 4 8 9"/><path d="M3 14h18l-1.5 6h-15z"/></svg>
+        <p>Masa hecha a mano, todos los días</p>
+      </div>
+      <div class="trust-item reveal reveal-delay-1">
+        <svg viewBox="0 0 24 24" class="icon"><rect x="4" y="9" width="16" height="10" rx="1"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg>
+        <p>Horneada al momento, sobre piedra</p>
+      </div>
+      <div class="trust-item reveal reveal-delay-2">
+        <svg viewBox="0 0 24 24" class="icon"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+        <p>Ingredientes seleccionados</p>
+      </div>
+      <div class="trust-item reveal reveal-delay-3">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+        <p>Local en Los Leones, Providencia · desde 2013</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-wrap">
+  <div class="marquee" id="marquee-track">
+    <div class="marquee-group">
+      <span class="marquee-item accent">Giulianna</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Bianca</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Delfina</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Cate</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Isabella</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Margarita</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Martina</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Sofía</span><span class="marquee-sep"></span>
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      <span class="marquee-item accent">Giulianna</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Bianca</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Delfina</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Cate</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Isabella</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Margarita</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Martina</span><span class="marquee-sep"></span>
+      <span class="marquee-item">Sofía</span><span class="marquee-sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PRODUCT SPOTLIGHT ============ -->
+<section class="spotlight section">
+  <div class="container">
+    <div class="spotlight-grid">
+      <div class="spotlight-media reveal">
+        <div class="frame">
+          <img src="assets/product-pizza.jpg" alt="Pizza Giulianna, triple pepperoni, base pomodoro y mozzarella">
+        </div>
+        <img class="badge-float" src="assets/badge-red.png" alt="Agostina Pizzas, New York Style, Est. 2013">
+      </div>
+      <div class="spotlight-copy reveal reveal-delay-2">
+        <span class="spotlight-tag">Producto héroe</span>
+        <h2>Giulianna</h2>
+        <p class="spotlight-desc">Base pomodoro, mozzarella y triple pepperoni. La que puso a Agostina en el radar de Santiago — y la razón por la que la gente empieza a pedir con el nombre, no con el número.</p>
+        <div class="tag-row">
+          <span class="ing-tag">Pomodoro</span>
+          <span class="ing-tag">Mozzarella</span>
+          <span class="ing-tag">Triple Pepperoni</span>
+          <span class="ing-tag">Masa a la piedra</span>
+        </div>
+        <div class="spotlight-actions">
+          <a class="btn btn-dark-ghost" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+            Pedir la Giulianna
+            <svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU PREVIEW ============ -->
+<section class="menu-section section" id="menu">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="ov-tag">La carta</span>
+      <h2 class="section-title">Veintitantas razones<br>para no pedir siempre lo mismo</h2>
+      <p class="section-body">De las Basics de siempre a las Lovers con más carácter. Cada una con nombre propio, porque en Agostina las pizzas se piden por quiénes son, no por número de combo.</p>
+    </div>
+    <div class="menu-grid reveal">
+      <div class="menu-card">
+        <span class="hero-pick">La más pedida</span>
+        <span class="num">01</span>
+        <h3>Giulianna</h3>
+        <p>Pomodoro, mozzarella y triple pepperoni. Sin vueltas.</p>
+      </div>
+      <div class="menu-card">
+        <span class="num">02</span>
+        <h3>Bianca</h3>
+        <p>Pomodoro, mozzarella, parmesano, queso ahumado y roquefort. Para los que aman el queso sin pedir permiso.</p>
+      </div>
+      <div class="menu-card">
+        <span class="num">03</span>
+        <h3>Cate</h3>
+        <p>Pomodoro, mozzarella, carne mechada, pimentón rojo y cebolla caramelizada.</p>
+      </div>
+      <div class="menu-card">
+        <span class="num">04</span>
+        <h3>Delfina</h3>
+        <p>Pomodoro, mozzarella y camarón salteado con ajo y ciboulette. Alcaparras aparte, por si acaso.</p>
+      </div>
+      <div class="menu-card">
+        <span class="num">05</span>
+        <h3>Isabella</h3>
+        <p>Camarón, pollo, queso crema, ciboulette y pesto de albahaca. La más cargada de la carta.</p>
+      </div>
+      <div class="menu-card">
+        <span class="num">06</span>
+        <h3>Margarita</h3>
+        <p>Pomodoro, mozzarella, tomate y albahaca. La simple que nunca falla.</p>
+      </div>
+    </div>
+    <div class="menu-cta reveal">
+      <a class="btn btn-dark-ghost" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+        Ver la carta completa
+        <svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HISTORIA ============ -->
+<section class="historia section" id="historia">
+  <div class="container">
+    <div class="historia-grid">
+      <div class="historia-media reveal">
+        <div class="frame">
+          <img src="assets/kitchen-atmo.jpg" alt="Pizza a la piedra recién horneada, cocina Agostina">
+        </div>
+        <img class="historia-mark" src="assets/mark-pinup.png" alt="">
+      </div>
+      <div class="historia-copy reveal reveal-delay-2">
+        <span class="ov-tag">Nuestra historia</span>
+        <h2>Todo empezó con una masa y una piedra caliente</h2>
+        <p class="historia-body">Agostina Pizzas nació en 2013 como pizzería a la piedra: masa hecha a mano, horno caliente, ingredientes elegidos con cuidado. Con los años esa base artesanal encontró su actitud — la de las slice shops neoyorquinas, donde la pizza se dobla, se come de pie y no pide disculpas por nada. Hoy, desde Los Leones en Providencia, seguimos horneando con la misma piedra y la misma obsesión: que cada pizza que sale de Agostina te deje pensando en la próxima.</p>
+        <div class="timeline">
+          <div class="timeline-row">
+            <span class="yr">2013</span>
+            <span class="tx"><b>Nace Agostina.</b> Pizzería a la piedra, masa hecha a mano, horneada al momento.</span>
+          </div>
+          <div class="timeline-row">
+            <span class="yr">Hoy</span>
+            <span class="tx"><b>Pizzería a la piedra premium, New York Style.</b> Mismo oficio, actitud distinta — Santiago con hambre, sin utilería turística.</span>
+          </div>
+        </div>
+        <div class="founder-line">
+          <span class="who">Pablo</span>
+          <span class="rule"></span>
+          <span class="role">Fundador — la cara de Agostina desde el día uno</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTOS / B2B ============ -->
+<section class="eventos section" id="eventos">
+  <div class="container">
+    <div class="eventos-top">
+      <div class="reveal">
+        <span class="ov-tag">Agostina para tu evento</span>
+        <h2>Llevamos la pizzería a tu evento, con horno y todo</h2>
+        <p class="eventos-lead">Barra de Pizzas Agostina: pizza a la piedra horneada en vivo, frente a tus invitados. Para eventos de empresa, matrimonios, cumpleaños y cualquier ocasión que merece algo mejor que catering de bandeja.</p>
+      </div>
+      <div class="eventos-media reveal reveal-delay-2">
+        <img src="assets/eventos-pizza.jpg" alt="Pizza recién horneada para eventos Agostina">
+        <img class="badge-float" src="assets/badge-olive.png" alt="Agostina Pizzas, New York Style">
+      </div>
+    </div>
+
+    <div class="usecases reveal">
+      <div class="usecase">
+        <svg viewBox="0 0 24 24" class="icon"><rect x="3" y="7" width="18" height="14" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+        <h3>Empresas</h3>
+        <p>Lunch de equipo, lanzamientos, cierres de proyecto o el after office que sí se recuerda.</p>
+      </div>
+      <div class="usecase">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.6 2.4 5 6 5c2 0 3.5 1.2 4 2.4C10.5 6.2 12 5 14 5c3.6 0 5.3 3.6 3.5 7.5C19.9 16.65 12 21 12 21z" transform="scale(0.9) translate(1.3,1.1)"/></svg>
+        <h3>Matrimonios</h3>
+        <p>Barra en vivo para la celebración o el after party, con el espectáculo del horno de fondo.</p>
+      </div>
+      <div class="usecase">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M12 2v4M8 6h8l1 4H7z"/><path d="M5 10h14l-1 11H6z"/><path d="M9 14v3M12 14v3M15 14v3"/></svg>
+        <h3>Cumpleaños &amp; celebraciones</h3>
+        <p>Reuniones privadas o sociales donde la pizza recién salida del horno es la protagonista.</p>
+      </div>
+    </div>
+
+    <div class="event-package reveal">
+      <div>
+        <span class="ep-label">Un ejemplo de armado</span>
+        <div class="ep-stats">
+          <div class="ep-stat"><b>80</b><span>Personas</span></div>
+          <div class="ep-stat"><b>60</b><span>Pizzas de 28 cm</span></div>
+          <div class="ep-stat"><b>2,5 h</b><span>De servicio en vivo</span></div>
+          <div class="ep-stat"><b>2+2</b><span>Pizzeros y garzones</span></div>
+        </div>
+        <p class="ep-note">Referencial — armamos el formato, cantidad de hornos y equipo según tu evento.</p>
+      </div>
+      <div class="ep-cta">
+        <a class="btn btn-olive" href="#">
+          Cotiza tu evento
+          <svg viewBox="0 0 24 24" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <span class="ep-placeholder">Escríbenos a <b>[EMAIL / WHATSAPP EVENTOS]</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="ubicacion">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo-cream.png" alt="Agostina Pizzas — New York Style, Est. 2013">
+        <p>Pizzería a la piedra premium. New York attitude, Santiago hunger.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Visítanos</h4>
+        <p>Los Leones 229, Local 5</p>
+        <p>Providencia, Santiago</p>
+      </div>
+      <div class="footer-col">
+        <h4>Delivery</h4>
+        <p>Providencia · Las Condes</p>
+        <p>Vitacura · Ñuñoa</p>
+      </div>
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <a href="https://instagram.com/agostinapizzas">Instagram — @agostinapizzas</a>
+        <a href="https://www.tiktok.com/@agostinapizzas">TikTok — @agostinapizzas</a>
+        <a href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">agostinapizzas.cl</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Agostina Pizzas — Est. 2013. Pizzería a la piedra, New York Style.</p>
+      <div class="fine">
+        <a class="btn btn-primary" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" style="padding:12px 22px;font-size:12px;">Pedir ahora</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('site-nav');
+  function onScroll(){
+    if(window.scrollY > 60){ nav.classList.add('solid'); }
+    else{ nav.classList.remove('solid'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.14, rootMargin:'0px 0px -60px 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
