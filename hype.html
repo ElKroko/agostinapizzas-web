@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agostina Pizzas — Fast, Hot &amp; Loud</title>
+<meta name="description" content="Pizza a la piedra premium, New York Style. Masa hecha a mano, horneada al momento. Delivery en Providencia, Las Condes, Vitacura y Ñuñoa. Eventos con la Barra de Pizzas Agostina.">
+<link rel="icon" href="assets/badge-red.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@1,500;1,600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+:root{
+  --ink:#0E0D0C;
+  --cream:#F5EFE6;
+  --cream-2:#EDE4D6;
+  --red:#C73A2A;
+  --red-dark:#a72e21;
+  --olive:#5D6A42;
+  --olive-dark:#3f4830;
+  --white:#FFFFFF;
+  --display:'Bebas Neue','Arial Narrow',sans-serif;
+  --serif:'Fraunces',serif;
+  --body:'Montserrat','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--ink);}
+body{font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased;}
+img{max-width:none;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--body);cursor:pointer;border:none;background:none;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.icon{stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ---------- fixed grain overlay ---------- */
+.grain-fixed{position:fixed;inset:0;pointer-events:none;z-index:30;background-image:radial-gradient(rgba(245,239,230,.05) 1px, transparent 1px);background-size:4px 4px;mix-blend-mode:overlay;opacity:.6;}
+
+/* ---------- pills / stickers ---------- */
+.pill-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(245,239,230,.08);border:1.5px solid rgba(245,239,230,.35);color:var(--cream);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;border-radius:999px;white-space:nowrap;}
+.pill-tag.on-light{background:rgba(14,13,12,.06);border-color:rgba(14,13,12,.25);color:var(--ink);}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex:none;}
+
+.sticker{
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+  padding:14px 22px;border-radius:999px;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+}
+.sticker:hover{transform:rotate(0deg) !important;}
+.sticker-red{background:var(--red);color:var(--cream);box-shadow:5px 5px 0 var(--ink);}
+.sticker-cream{background:var(--cream);color:var(--ink);box-shadow:5px 5px 0 var(--red);}
+.sticker-dark{background:var(--ink);color:var(--cream);box-shadow:5px 5px 0 var(--red);border:1px solid rgba(245,239,230,.2);}
+.sticker-outline{background:transparent;border:2px dashed currentColor;color:inherit;box-shadow:none;}
+.sticker-round{border-radius:999px;width:52px;height:52px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;}
+
+.stamp{
+  position:absolute;z-index:3;background:var(--ink);color:var(--cream);border:2px dashed var(--cream);border-radius:999px;
+  padding:11px 18px;font-family:var(--body);font-weight:800;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  box-shadow:5px 5px 0 var(--red);transition:transform .2s ease;
+}
+.stamp:hover{transform:rotate(0deg) scale(1.04);}
+
+.stat-chip{background:rgba(245,239,230,.08);border:1.5px solid rgba(245,239,230,.25);border-radius:18px;padding:20px 24px;min-width:160px;}
+.stat-chip b{display:block;font-family:var(--display);font-size:34px;line-height:1;color:var(--cream);}
+.stat-chip span{display:block;font-size:11px;margin-top:8px;font-weight:600;letter-spacing:.02em;line-height:1.4;color:#d9d0c1;}
+
+.vertical-tag{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;letter-spacing:.28em;text-transform:uppercase;font-size:12px;opacity:.45;white-space:nowrap;}
+
+.spark{position:absolute;font-size:22px;opacity:.7;animation:bob 4.5s ease-in-out infinite;pointer-events:none;}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-12px) rotate(var(--r,0deg));}}
+
+/* ---------- typographic words ---------- */
+.word{font-family:var(--display);font-size:clamp(58px,12vw,180px);line-height:.88;white-space:nowrap;}
+.word.accent{font-family:var(--serif);font-style:italic;font-weight:500;text-transform:none;}
+.word.sm{font-size:clamp(34px,5.4vw,72px);}
+
+/* ---------- photo tiles ---------- */
+.tile{position:relative;flex:none;display:block;}
+.tile-frame{position:relative;overflow:hidden;border-radius:22px;border:6px solid var(--cream);box-shadow:14px 16px 0 var(--red);}
+.tile-frame img{width:100%;height:100%;object-fit:cover;transition:opacity .18s ease, transform .4s ease;}
+.tile:hover .tile-frame img{transform:scale(1.03);}
+.tile-frame.on-olive{box-shadow:14px 16px 0 var(--ink);}
+
+/* ---------- fixed HUD ---------- */
+.hud-top{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 4vw;pointer-events:none;}
+.hud-top>*{pointer-events:auto;}
+.hud-logo{display:flex;align-items:center;background:rgba(14,13,12,.6);backdrop-filter:blur(6px);border-radius:999px;padding:8px 14px;}
+.hud-logo img{height:34px;width:auto;filter:brightness(0) invert(1);}
+.hud-nav{display:none;align-items:center;gap:6px;background:rgba(14,13,12,.55);backdrop-filter:blur(6px);border-radius:999px;padding:6px;}
+.hud-nav button{color:var(--cream);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;border-radius:999px;transition:background .2s ease;}
+.hud-nav button:hover{background:rgba(245,239,230,.14);}
+@media(min-width:940px){.hud-nav{display:flex;}}
+.hud-cta{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:var(--cream);font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:12px 20px;border-radius:999px;box-shadow:4px 4px 0 var(--ink);}
+.hud-burger{display:flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:999px;background:rgba(14,13,12,.6);color:var(--cream);}
+@media(min-width:940px){.hud-burger{display:none;}}
+
+.hud-bottom{position:fixed;left:0;right:0;bottom:0;z-index:55;}
+.hud-progress{height:3px;background:rgba(245,239,230,.15);}
+.hud-progress-fill{height:100%;width:0%;background:var(--red);}
+.hud-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 4vw;flex-wrap:wrap;}
+.hud-chip{background:rgba(14,13,12,.6);backdrop-filter:blur(6px);color:var(--cream);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:8px 13px;border-radius:999px;white-space:nowrap;}
+a.hud-chip:hover{background:rgba(199,58,42,.85);}
+.hud-links{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ---------- mobile drawer ---------- */
+.mobile-menu{position:fixed;inset:0;z-index:200;background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:70px 6vw 30px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-14px);transition:opacity .3s ease, transform .3s ease, visibility 0s linear .3s;}
+.mobile-menu.open{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .3s ease, transform .3s ease;}
+.mobile-menu button, .mobile-menu a{font-family:var(--display);font-size:clamp(26px,8vw,42px);color:var(--cream);letter-spacing:.01em;}
+.mobile-menu .msub{font-family:var(--body);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream);opacity:.8;text-decoration:underline;}
+.mobile-menu-close{position:absolute;top:20px;right:6vw;width:44px;height:44px;border-radius:999px;border:2px solid var(--cream);color:var(--cream);display:flex;align-items:center;justify-content:center;}
+@media(min-width:940px){.mobile-menu{display:none;}}
+
+/* ================= DESKTOP: horizontal canvas ================= */
+@media(min-width:940px){
+  html,body{height:100%;overflow:hidden;}
+  #track{height:100vh;display:flex;align-items:stretch;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;}
+  #track::-webkit-scrollbar{display:none;}
+  .band{flex:none;height:100vh;display:flex;align-items:center;gap:64px;padding:0 90px;position:relative;}
+  .tag-stack{display:flex;flex-direction:column;align-items:flex-start;gap:14px;}
+  .cluster{display:flex;flex-direction:column;gap:18px;}
+  .cluster.stagger>*:nth-child(2){transform:translateY(28px);}
+  .cluster.stagger>*:nth-child(3){transform:translateY(-14px);}
+  .tile-hero .tile-frame{width:min(30vw,380px);height:min(30vw,380px);}
+  .tile-grid{display:flex;gap:26px;}
+  .tile-grid .tile-frame{width:220px;height:260px;}
+  .tile-historia .tile-frame{width:min(26vw,340px);height:420px;}
+  .tile-eventos .tile-frame{width:min(26vw,340px);height:380px;}
+}
+
+/* ================= MOBILE: vertical fallback ================= */
+@media(max-width:939px){
+  #track{display:block;}
+  .band{display:flex;flex-direction:column;align-items:flex-start;padding:110px 6vw 80px;gap:26px;height:auto;}
+  .word{white-space:normal;font-size:clamp(42px,15vw,84px);}
+  .tag-stack{flex-direction:row;flex-wrap:wrap;gap:10px;}
+  .cluster{width:100%;}
+  .cluster.stagger>*{transform:none !important;}
+  .tile-frame{width:100% !important;height:280px !important;}
+  .tile-grid{flex-direction:column;width:100%;}
+  .tile-grid .tile-frame{width:100% !important;height:220px !important;}
+  .vertical-tag{display:none;}
+  .spark{display:none;}
+  .hud-bottom{display:none;}
+  .pill-tag,.sticker{white-space:normal;}
+}
+
+/* ---------- band colors ---------- */
+.band-ink{background:var(--ink);color:var(--cream);}
+.band-cream{background:var(--cream);color:var(--ink);}
+.band-olive{background:var(--olive-dark);color:var(--cream);}
+.band-red{background:var(--red);color:var(--cream);}
+
+.word-strong{color:var(--red);}
+.band-red .word-strong{color:var(--ink);}
+.historia-body,.eventos-lead,.section-note{font-size:15px;line-height:1.7;font-weight:500;max-width:34ch;}
+.historia-body{color:#d9d0c1;}
+.eventos-lead{color:#eef2e8;}
+.section-note{color:#4a453e;}
+.founder-chip{font-size:12.5px;font-weight:600;letter-spacing:.02em;}
+</style>
+</head>
+<body>
+
+<h1 class="sr-only">Agostina Pizzas — Pizzería a la piedra, New York Style, Est. 2013 en Los Leones, Providencia</h1>
+<p class="sr-only">Este es un recorrido horizontal: usa el scroll del mouse, el trackpad o desliza para avanzar. También puedes usar los enlaces del menú superior para saltar directo a cada sección.</p>
+
+<div class="grain-fixed" aria-hidden="true"></div>
+
+<!-- ============ FIXED HUD ============ -->
+<div class="hud-top">
+  <a href="#b-hero" class="hud-logo" data-target="#b-hero" aria-label="Agostina Pizzas, inicio">
+    <img src="assets/logo-nav.png" alt="">
+  </a>
+  <nav class="hud-nav" aria-label="Secciones">
+    <button type="button" data-target="#b-menu">Menú</button>
+    <button type="button" data-target="#b-historia">Historia</button>
+    <button type="button" data-target="#b-eventos">Eventos</button>
+    <button type="button" data-target="#b-final">Pedir</button>
+  </nav>
+  <a class="hud-cta" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+    <span aria-hidden="true">🔥</span> Pedir ahora
+  </a>
+  <button class="hud-burger" id="burger-btn" aria-label="Abrir menú" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="18" height="18" class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+</div>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Cerrar menú">
+    <svg viewBox="0 0 24 24" width="22" height="22" class="icon"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button type="button" data-target="#b-hero">Inicio</button>
+  <button type="button" data-target="#b-menu">Menú</button>
+  <button type="button" data-target="#b-historia">Historia</button>
+  <button type="button" data-target="#b-eventos">Eventos</button>
+  <button type="button" data-target="#b-final">Pedir</button>
+  <a class="msub" href="index.html">Versión clásica</a>
+  <a class="msub" href="loco.html">Versión loca</a>
+  <a class="msub" href="https://instagram.com/agostinapizzas">Instagram</a>
+  <a class="msub" href="https://www.tiktok.com/@agostinapizzas">TikTok</a>
+</div>
+
+<div class="hud-bottom">
+  <div class="hud-progress"><div class="hud-progress-fill" id="progress-fill"></div></div>
+  <div class="hud-row">
+    <span class="hud-chip">Los Leones, Providencia</span>
+    <div class="hud-links">
+      <a class="hud-chip" href="index.html">Clásica</a>
+      <a class="hud-chip" href="loco.html">Loca</a>
+      <a class="hud-chip" href="https://instagram.com/agostinapizzas">Instagram</a>
+      <a class="hud-chip" href="https://www.tiktok.com/@agostinapizzas">TikTok</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HORIZONTAL TRACK ============ -->
+<div id="track">
+
+  <!-- ===== BAND 1 — HERO ===== -->
+  <section class="band band-ink" id="b-hero">
+    <div class="spark" style="top:14%;left:2%;--r:-8deg;" aria-hidden="true">✦</div>
+    <div class="tag-stack">
+      <span class="pill-tag"><span class="pill-dot"></span>Pizzería a la piedra</span>
+      <span class="pill-tag">Est. 2013</span>
+      <a class="sticker sticker-red" style="transform:rotate(-6deg);" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">Pedir <svg viewBox="0 0 24 24" width="14" height="14" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+
+    <div role="img" aria-label="Italiana, no." style="display:contents;">
+      <span class="word" aria-hidden="true">Italiana,</span>
+    </div>
+
+    <div class="tile tile-hero" aria-hidden="false">
+      <div class="tile-frame" style="transform:rotate(-4deg);">
+        <img class="cycle-tile" data-cycle="assets/product-pizza.jpg,assets/menu-giulianna.jpg" src="assets/product-pizza.jpg" alt="Pizza Giulianna, triple pepperoni, vista desde arriba">
+      </div>
+      <a class="stamp" style="left:-16px;bottom:-16px;transform:rotate(-9deg);" data-target="#b-menu" href="#b-menu">La favorita</a>
+    </div>
+
+    <span class="word accent" aria-hidden="true" style="color:var(--red);">no.</span>
+
+    <div class="vertical-tag" aria-hidden="true">Siempre · Siempre · Siempre ·</div>
+
+    <span class="word accent" aria-hidden="true">New York Style,</span>
+    <span class="word" aria-hidden="true">Siempre<span style="color:var(--red);">.</span></span>
+
+    <div class="spark" style="bottom:12%;right:4%;--r:10deg;" aria-hidden="true">✧</div>
+  </section>
+
+  <!-- ===== BAND 2 — MENU ===== -->
+  <section class="band band-cream" id="b-menu">
+    <div class="tag-stack">
+      <span class="pill-tag on-light"><span class="pill-dot"></span>La carta</span>
+      <span class="pill-tag on-light">+20 pizzas</span>
+    </div>
+
+    <span class="word" aria-hidden="true">Razones</span>
+
+    <div class="tile-grid">
+      <a class="tile" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" aria-label="Pizza Bianca y Cate">
+        <div class="tile-frame" style="transform:rotate(-2.5deg);">
+          <img class="cycle-tile" data-cycle="assets/menu-bianca.jpg,assets/menu-cate.jpg" src="assets/menu-bianca.jpg" alt="Pizza Bianca, cuatro quesos">
+        </div>
+      </a>
+      <a class="tile" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" aria-label="Pizza Delfina e Isabella" style="margin-top:36px;">
+        <div class="tile-frame" style="transform:rotate(2.5deg);">
+          <img class="cycle-tile" data-cycle="assets/menu-delfina.jpg,assets/menu-isabella.jpg" src="assets/menu-delfina.jpg" alt="Pizza Delfina, camarón salteado con ajo y ciboulette">
+        </div>
+      </a>
+      <a class="tile" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" aria-label="Pizza Margarita y Giulianna">
+        <div class="tile-frame" style="transform:rotate(-1.5deg);">
+          <img class="cycle-tile" data-cycle="assets/menu-margarita.jpg,assets/menu-giulianna.jpg" src="assets/menu-margarita.jpg" alt="Pizza Margarita, tomate y albahaca fresca">
+        </div>
+      </a>
+    </div>
+
+    <span class="word accent word-strong" aria-hidden="true">para no repetir</span>
+
+    <div role="img" aria-label="De las Basics de siempre a las Lovers con más carácter." >
+      <p class="section-note" aria-hidden="true">De las Basics de siempre a las Lovers con más carácter. Cada una con nombre propio — en Agostina se pide por quién es, no por número de combo.</p>
+    </div>
+
+    <a class="sticker sticker-red" style="transform:rotate(-8deg);font-size:22px;padding:20px 30px;" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">Ver la carta →</a>
+  </section>
+
+  <!-- ===== BAND 3 — HISTORIA ===== -->
+  <section class="band band-ink" id="b-historia">
+    <span class="pill-tag"><span class="pill-dot"></span>Nuestra historia</span>
+
+    <span class="word" aria-hidden="true">Todo empezó</span>
+
+    <div class="tile tile-historia">
+      <div class="tile-frame" style="transform:rotate(3deg);">
+        <img class="cycle-tile" data-cycle="assets/kitchen-atmo.jpg,assets/product-pizza.jpg" src="assets/kitchen-atmo.jpg" alt="Pizza Bianca, cuatro quesos recién horneada sobre piedra">
+      </div>
+    </div>
+
+    <span class="word accent" aria-hidden="true">con una masa</span>
+
+    <div class="cluster stagger">
+      <div class="stat-chip"><b>2013</b><span>Nace Agostina. Pizzería a la piedra, masa a mano.</span></div>
+      <div class="stat-chip"><b>Hoy</b><span>Premium, New York Style — Santiago con hambre.</span></div>
+      <span class="pill-tag founder-chip">Pablo — Fundador, desde el día uno</span>
+    </div>
+
+    <span class="word" aria-hidden="true">y una piedra caliente.</span>
+
+    <div role="img" aria-label="Agostina Pizzas nació en 2013 como pizzería a la piedra. Con los años esa base artesanal encontró su actitud, la de las slice shops neoyorquinas.">
+      <p class="historia-body" aria-hidden="true">Nació en 2013 como pizzería a la piedra: masa hecha a mano, horno caliente, ingredientes elegidos con cuidado. Con los años esa base artesanal encontró su actitud — la de las slice shops neoyorquinas, donde la pizza se dobla, se come de pie y no pide disculpas por nada.</p>
+    </div>
+  </section>
+
+  <!-- ===== BAND 4 — EVENTOS ===== -->
+  <section class="band band-olive" id="b-eventos">
+    <span class="pill-tag"><span class="pill-dot"></span>Agostina para tu evento</span>
+
+    <span class="word" aria-hidden="true">Llevamos</span>
+
+    <div class="tile tile-eventos">
+      <div class="tile-frame on-olive" style="transform:rotate(-3deg);">
+        <img class="cycle-tile" data-cycle="assets/eventos-pizza.jpg,assets/kitchen-atmo.jpg" src="assets/eventos-pizza.jpg" alt="Selección de pizzas y picoteos Agostina para eventos">
+      </div>
+    </div>
+
+    <span class="word accent" aria-hidden="true" style="color:#e9dda0;">la pizzería a tu evento</span>
+
+    <div class="cluster stagger">
+      <span class="pill-tag">Empresas</span>
+      <span class="pill-tag">Matrimonios</span>
+      <span class="pill-tag">Cumpleaños</span>
+    </div>
+
+    <div class="tile" style="display:flex;">
+      <div class="stat-chip" style="transform:rotate(2deg);background:rgba(245,239,230,.1);">
+        <b>80 · 60</b><span>Personas / pizzas de 28&nbsp;cm en un ejemplo de armado</span>
+      </div>
+    </div>
+
+    <span class="word sm" aria-hidden="true">con horno y todo.</span>
+
+    <a class="sticker sticker-cream" style="transform:rotate(4deg);" href="#">Cotiza tu evento →</a>
+  </section>
+
+  <!-- ===== BAND 5 — FINAL / FOOTER ===== -->
+  <section class="band band-red" id="b-final">
+    <span class="pill-tag" style="background:rgba(14,13,12,.15);border-color:rgba(14,13,12,.3);color:var(--ink);">¿Se te antojó?</span>
+
+    <span class="word" aria-hidden="true">Hora de</span>
+    <span class="word accent" aria-hidden="true" style="color:var(--ink);">pedir.</span>
+
+    <a class="sticker sticker-cream" style="font-size:20px;padding:22px 32px;transform:rotate(-3deg);" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
+      Pedir ahora <svg viewBox="0 0 24 24" width="18" height="18" class="icon"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <div class="cluster stagger">
+      <a class="sticker sticker-round sticker-dark" style="transform:rotate(-6deg);" href="https://instagram.com/agostinapizzas" aria-label="Instagram">IG</a>
+      <a class="sticker sticker-round sticker-dark" style="transform:rotate(8deg);" href="https://www.tiktok.com/@agostinapizzas" aria-label="TikTok">TT</a>
+    </div>
+
+    <div class="tag-stack">
+      <span class="pill-tag" style="background:rgba(14,13,12,.15);border-color:rgba(14,13,12,.3);color:var(--ink);">Los Leones 229, Providencia</span>
+      <span class="pill-tag" style="background:rgba(14,13,12,.15);border-color:rgba(14,13,12,.3);color:var(--ink);">Providencia · Las Condes · Vitacura · Ñuñoa</span>
+      <a class="sticker sticker-outline" style="color:var(--ink);border-color:rgba(14,13,12,.5);" href="index.html">Ver versión clásica →</a>
+      <a class="sticker sticker-outline" style="color:var(--ink);border-color:rgba(14,13,12,.5);" href="loco.html">Ver versión loca →</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var track = document.getElementById('track');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isDesktop = function(){ return window.innerWidth >= 940; };
+
+  /* ---- mobile drawer ---- */
+  var burger = document.getElementById('burger-btn');
+  var menu = document.getElementById('mobile-menu');
+  var menuClose = document.getElementById('mobile-menu-close');
+  function openMenu(){ menu.classList.add('open'); burger.setAttribute('aria-expanded','true'); }
+  function closeMenu(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); }
+  if(burger){
+    burger.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+  }
+
+  /* ---- data-target navigation (works in both horizontal and vertical modes) ---- */
+  document.querySelectorAll('[data-target]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var target = document.querySelector(el.getAttribute('data-target'));
+      if(!target) return;
+      if(isDesktop()){
+        track.scrollTo({ left: target.offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+      } else {
+        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
+      closeMenu();
+    });
+  });
+
+  /* ---- wheel -> horizontal scroll redirect (desktop only) ---- */
+  track.addEventListener('wheel', function(e){
+    if(!isDesktop()) return;
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // native trackpad horizontal gesture
+    e.preventDefault();
+    track.scrollLeft += (e.deltaY + e.deltaX);
+  }, { passive: false });
+
+  /* ---- progress bar ---- */
+  var fill = document.getElementById('progress-fill');
+  function updateProgress(){
+    if(isDesktop()){
+      var max = track.scrollWidth - track.clientWidth;
+      fill.style.width = (max > 0 ? (track.scrollLeft / max) * 100 : 0) + '%';
+    } else {
+      var doc = document.documentElement;
+      var maxY = doc.scrollHeight - doc.clientHeight;
+      fill.style.width = (maxY > 0 ? (window.scrollY / maxY) * 100 : 0) + '%';
+    }
+  }
+  track.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  /* ---- hover image cycle on tiles ---- */
+  if(!reduce){
+    document.querySelectorAll('.cycle-tile').forEach(function(img){
+      var list = (img.getAttribute('data-cycle') || '').split(',').filter(Boolean);
+      if(list.length < 2) return;
+      var i = 0, timer = null;
+      var wrap = img.closest('.tile');
+      wrap.addEventListener('mouseenter', function(){
+        timer = setInterval(function(){
+          i = (i + 1) % list.length;
+          img.style.opacity = 0;
+          setTimeout(function(){ img.src = list[i]; img.style.opacity = 1; }, 140);
+        }, 700);
+      });
+      wrap.addEventListener('mouseleave', function(){
+        clearInterval(timer);
+        i = 0;
+        img.style.opacity = 0;
+        setTimeout(function(){ img.src = list[0]; img.style.opacity = 1; }, 140);
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

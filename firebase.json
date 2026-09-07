@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "assets/fotos-reales/**",
+      "assets/*.docx",
+      "assets/Agostina_Pizzas_Brandbook_2026_5.html",
+      "scripts/**"
+    ]
+  }
+}

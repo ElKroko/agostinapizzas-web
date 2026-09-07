@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agostina Pizzas — Pizzería a la Piedra, New York Style</title>
 <meta name="description" content="Pizza a la piedra premium, New York Style. Masa hecha a mano, horneada al momento. Delivery en Providencia, Las Condes, Vitacura y Ñuñoa. Eventos con la Barra de Pizzas Agostina.">
-<link rel="icon" href="data:,">
+<link rel="icon" href="assets/badge-red.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap');
 
@@ -89,10 +89,8 @@ button{font-family:var(--body);cursor:pointer;border:none;}
   backdrop-filter:blur(6px);
 }
 .nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-logo img{height:38px;width:auto;transition:filter .35s ease;filter:brightness(0) invert(1);}
+.nav-logo img{height:50px;width:auto;transition:filter .35s ease;filter:brightness(0) invert(1);}
 .nav.solid .nav-logo img{filter:none;}
-.nav-word{font-family:var(--display);font-size:22px;letter-spacing:0.03em;color:var(--cream);transition:color .35s ease;}
-.nav.solid .nav-word{color:var(--black);}
 .nav-links{display:none;align-items:center;gap:34px;}
 .nav-links a{
   font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:0.08em;
@@ -110,7 +108,7 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 .hero{
   position:relative;min-height:100vh;
   display:flex;flex-direction:column;justify-content:flex-end;
-  background:#0c0b0a url("assets/hero-pepperoni.jpg") center 38% / cover no-repeat;
+  background:#0c0b0a url("assets/hero-pepperoni.jpg") center 60% / cover no-repeat;
   overflow:hidden;
 }
 .hero::before{
@@ -207,10 +205,10 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 }
 .spotlight-media img{width:100%;height:560px;object-fit:cover;}
 .spotlight-media .badge-float{
-  position:absolute;left:-26px;bottom:-26px;width:118px;height:118px;
+  position:absolute;left:-24px;bottom:-20px;width:150px;height:auto;
   filter:drop-shadow(0 12px 24px rgba(17,17,17,.25));
 }
-@media(max-width:520px){.spotlight-media img{height:360px;}.spotlight-media .badge-float{width:84px;height:84px;left:-14px;bottom:-14px;}}
+@media(max-width:520px){.spotlight-media img{height:360px;}.spotlight-media .badge-float{width:104px;left:-12px;bottom:-12px;}}
 .spotlight-tag{
   display:inline-flex;align-items:center;gap:8px;
   background:var(--black);color:var(--cream);
@@ -234,16 +232,21 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 @media(min-width:700px){.menu-grid{grid-template-columns:repeat(2,1fr);}}
 @media(min-width:1080px){.menu-grid{grid-template-columns:repeat(3,1fr);}}
 .menu-card{
-  background:var(--cream-2);padding:38px 32px;
-  display:flex;flex-direction:column;gap:16px;min-height:220px;
+  background:var(--cream-2);
+  display:flex;flex-direction:column;
   transition:background .3s ease;
 }
 .menu-card:hover{background:var(--cream);}
+.menu-card-media{position:relative;overflow:hidden;}
+.menu-card-media img{width:100%;height:200px;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02);transition:transform .5s ease;}
+.menu-card:hover .menu-card-media img{transform:scale(1.045);}
+.menu-card-body{padding:26px 32px 34px;display:flex;flex-direction:column;gap:14px;flex:1;}
 .menu-card .num{font-family:var(--display);font-size:13px;color:var(--red);letter-spacing:0.1em;}
 .menu-card h3{font-size:34px;color:var(--black);}
 .menu-card p{font-size:14px;line-height:1.6;color:#5a5449;font-weight:500;flex:1;}
 .menu-card .hero-pick{
-  display:inline-flex;align-self:flex-start;background:var(--red);color:var(--white);
+  position:absolute;top:14px;left:14px;z-index:1;
+  display:inline-flex;background:var(--red);color:var(--white);
   font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:5px 10px;border-radius:2px;
 }
 .menu-cta{display:flex;justify-content:center;margin-top:56px;}
@@ -254,13 +257,13 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 @media(min-width:920px){.historia-grid{grid-template-columns:0.95fr 1.05fr;gap:80px;}}
 .historia-media{position:relative;}
 .historia-media .frame{border-radius:3px;overflow:hidden;position:relative;}
-.historia-media img{width:100%;height:520px;object-fit:cover;filter:saturate(1.05) contrast(1.03);}
+.historia-media .frame img{width:100%;height:520px;object-fit:cover;filter:saturate(1.05) contrast(1.03);}
 .historia-media .frame::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg, rgba(17,17,17,0) 55%, rgba(17,17,17,.55) 100%);
 }
-.historia-mark{position:absolute;width:150px;height:auto;top:-46px;right:-30px;opacity:.9;}
-@media(max-width:600px){.historia-media img{height:360px;}.historia-mark{width:100px;top:-30px;right:-14px;}}
+.historia-mark{position:absolute;width:120px;height:auto;top:-18px;right:-18px;opacity:.95;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));}
+@media(max-width:600px){.historia-media img{height:360px;}.historia-mark{width:90px;top:-12px;right:-10px;}}
 .historia h2{color:var(--cream);font-size:clamp(36px,5.6vw,58px);line-height:1.02;}
 .historia-body{margin-top:24px;font-size:16px;line-height:1.75;color:#cfc7b9;max-width:52ch;font-weight:500;}
 .timeline{display:flex;flex-direction:column;gap:0;margin-top:40px;border-top:1px solid rgba(245,239,230,.16);}
@@ -290,11 +293,12 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 .eventos .ov-tag::before{content:"";width:28px;height:2px;background:var(--cream);opacity:.7;}
 .eventos h2{color:var(--cream);font-size:clamp(36px,6vw,68px);line-height:0.98;}
 .eventos-lead{font-size:16.5px;line-height:1.7;color:#eef2e8;font-weight:500;max-width:44ch;margin-top:22px;}
-.eventos-media{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);}
-.eventos-media img{width:100%;height:420px;object-fit:cover;filter:saturate(1.05);}
-.eventos-media::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg, rgba(63,72,48,.55) 0%, rgba(63,72,48,.05) 45%, rgba(17,17,17,.3) 100%);}
-.eventos-media .badge-float{position:absolute;right:-22px;top:-22px;width:96px;height:96px;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35));}
-@media(max-width:600px){.eventos-media img{height:300px;}}
+.eventos-media{position:relative;}
+.eventos-media .frame{position:relative;border-radius:3px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);}
+.eventos-media .frame img{width:100%;height:420px;object-fit:cover;filter:saturate(1.05);}
+.eventos-media .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg, rgba(63,72,48,.55) 0%, rgba(63,72,48,.05) 45%, rgba(17,17,17,.3) 100%);}
+.eventos-media .badge-float{position:absolute;right:-20px;top:-18px;width:130px;height:auto;filter:drop-shadow(0 10px 20px rgba(0,0,0,.35));}
+@media(max-width:600px){.eventos-media .frame img{height:300px;}}
 
 .usecases{display:grid;grid-template-columns:1fr;gap:1px;margin-top:64px;background:rgba(245,239,230,.16);border:1px solid rgba(245,239,230,.16);position:relative;z-index:1;}
 @media(min-width:760px){.usecases{grid-template-columns:repeat(3,1fr);}}
@@ -343,8 +347,7 @@ button{font-family:var(--body);cursor:pointer;border:none;}
 <!-- ============ NAV ============ -->
 <nav class="nav" id="site-nav">
   <div class="nav-logo">
-    <img src="assets/mark-pinup.png" alt="Agostina Pizzas">
-    <span class="nav-word">AGOSTINA</span>
+    <img src="assets/logo-nav.png" alt="Agostina Pizzas — New York Style, Est. 2013">
   </div>
   <div class="nav-links">
     <a href="#historia">Historia</a>
@@ -371,7 +374,7 @@ button{font-family:var(--body);cursor:pointer;border:none;}
       <span class="hero-dot"></span>
       <span class="ov-tag">Est. 2013</span>
     </div>
-    <h1 class="hero-title reveal reveal-delay-1">Se dobla. <em>Gotea.</em> Se pide otra vez.</h1>
+    <h1 class="hero-title reveal reveal-delay-1">Italiana, no.<br><em>New York Style,</em><br>siempre.</h1>
     <p class="hero-sub reveal reveal-delay-2">Masa hecha a mano, horneada al momento sobre piedra, con la actitud de las slice shops de Nueva York — armada en Providencia, para todo Santiago.</p>
     <div class="hero-actions reveal reveal-delay-3">
       <a class="btn btn-primary" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas">
@@ -478,35 +481,65 @@ button{font-family:var(--body);cursor:pointer;border:none;}
     </div>
     <div class="menu-grid reveal">
       <div class="menu-card">
-        <span class="hero-pick">La más pedida</span>
-        <span class="num">01</span>
-        <h3>Giulianna</h3>
-        <p>Pomodoro, mozzarella y triple pepperoni. Sin vueltas.</p>
+        <div class="menu-card-media">
+          <span class="hero-pick">La más pedida</span>
+          <img src="assets/menu-giulianna.jpg" alt="Pizza Giulianna, triple pepperoni">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">01</span>
+          <h3>Giulianna</h3>
+          <p>Pomodoro, mozzarella y triple pepperoni. Sin vueltas.</p>
+        </div>
       </div>
       <div class="menu-card">
-        <span class="num">02</span>
-        <h3>Bianca</h3>
-        <p>Pomodoro, mozzarella, parmesano, queso ahumado y roquefort. Para los que aman el queso sin pedir permiso.</p>
+        <div class="menu-card-media">
+          <img src="assets/menu-bianca.jpg" alt="Pizza Bianca, cuatro quesos">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">02</span>
+          <h3>Bianca</h3>
+          <p>Pomodoro, mozzarella, parmesano, queso ahumado y roquefort. Para los que aman el queso sin pedir permiso.</p>
+        </div>
       </div>
       <div class="menu-card">
-        <span class="num">03</span>
-        <h3>Cate</h3>
-        <p>Pomodoro, mozzarella, carne mechada, pimentón rojo y cebolla caramelizada.</p>
+        <div class="menu-card-media">
+          <img src="assets/menu-cate.jpg" alt="Pizza Cate, carne mechada y pimentón">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">03</span>
+          <h3>Cate</h3>
+          <p>Pomodoro, mozzarella, carne mechada, pimentón rojo y cebolla caramelizada.</p>
+        </div>
       </div>
       <div class="menu-card">
-        <span class="num">04</span>
-        <h3>Delfina</h3>
-        <p>Pomodoro, mozzarella y camarón salteado con ajo y ciboulette. Alcaparras aparte, por si acaso.</p>
+        <div class="menu-card-media">
+          <img src="assets/menu-delfina.jpg" alt="Pizza Delfina, camarón salteado con ajo y ciboulette">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">04</span>
+          <h3>Delfina</h3>
+          <p>Pomodoro, mozzarella y camarón salteado con ajo y ciboulette. Alcaparras aparte, por si acaso.</p>
+        </div>
       </div>
       <div class="menu-card">
-        <span class="num">05</span>
-        <h3>Isabella</h3>
-        <p>Camarón, pollo, queso crema, ciboulette y pesto de albahaca. La más cargada de la carta.</p>
+        <div class="menu-card-media">
+          <img src="assets/menu-isabella.jpg" alt="Pizza Isabella, camarón, pollo y pesto de albahaca">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">05</span>
+          <h3>Isabella</h3>
+          <p>Camarón, pollo, queso crema, ciboulette y pesto de albahaca. La más cargada de la carta.</p>
+        </div>
       </div>
       <div class="menu-card">
-        <span class="num">06</span>
-        <h3>Margarita</h3>
-        <p>Pomodoro, mozzarella, tomate y albahaca. La simple que nunca falla.</p>
+        <div class="menu-card-media">
+          <img src="assets/menu-margarita.jpg" alt="Pizza Margarita, tomate y albahaca fresca">
+        </div>
+        <div class="menu-card-body">
+          <span class="num">06</span>
+          <h3>Margarita</h3>
+          <p>Pomodoro, mozzarella, tomate y albahaca. La simple que nunca falla.</p>
+        </div>
       </div>
     </div>
     <div class="menu-cta reveal">
@@ -524,9 +557,9 @@ button{font-family:var(--body);cursor:pointer;border:none;}
     <div class="historia-grid">
       <div class="historia-media reveal">
         <div class="frame">
-          <img src="assets/kitchen-atmo.jpg" alt="Pizza a la piedra recién horneada, cocina Agostina">
+          <img src="assets/kitchen-atmo.jpg" alt="Pizza Bianca, cuatro quesos recién horneada sobre piedra">
         </div>
-        <img class="historia-mark" src="assets/mark-pinup.png" alt="">
+        <img class="historia-mark" src="assets/logo-cream.png" alt="">
       </div>
       <div class="historia-copy reveal reveal-delay-2">
         <span class="ov-tag">Nuestra historia</span>
@@ -562,7 +595,9 @@ button{font-family:var(--body);cursor:pointer;border:none;}
         <p class="eventos-lead">Barra de Pizzas Agostina: pizza a la piedra horneada en vivo, frente a tus invitados. Para eventos de empresa, matrimonios, cumpleaños y cualquier ocasión que merece algo mejor que catering de bandeja.</p>
       </div>
       <div class="eventos-media reveal reveal-delay-2">
-        <img src="assets/eventos-pizza.jpg" alt="Pizza recién horneada para eventos Agostina">
+        <div class="frame">
+          <img src="assets/eventos-pizza.jpg" alt="Selección de pizzas y picoteos Agostina para eventos">
+        </div>
         <img class="badge-float" src="assets/badge-olive.png" alt="Agostina Pizzas, New York Style">
       </div>
     </div>
@@ -633,7 +668,7 @@ button{font-family:var(--body);cursor:pointer;border:none;}
       </div>
     </div>
     <div class="footer-bottom">
-      <p>Agostina Pizzas — Est. 2013. Pizzería a la piedra, New York Style.</p>
+      <p>Agostina Pizzas — Est. 2013. Pizzería a la piedra, New York Style. <a href="loco.html" style="text-decoration:underline;color:inherit;">Ver versión loca →</a> · <a href="hype.html" style="text-decoration:underline;color:inherit;">Ver versión hype →</a></p>
       <div class="fine">
         <a class="btn btn-primary" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" style="padding:12px 22px;font-size:12px;">Pedir ahora</a>
       </div>

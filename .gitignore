@@ -1,0 +1,8 @@
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+.DS_Store
+
+# Raw source photo/logo library (uploaded reference material, ~140MB).
+# The curated, web-optimized copies actually used by the site live in assets/*.jpg|png.
+assets/fotos-reales/
