@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agostina Pizzas — Pizzería a la piedra, New York Style</title>
+<meta name="description" content="Pizzería a la piedra premium, New York Style, desde 2013. Masa hecha a mano, horneada al momento, en Los Leones 229, Providencia. Delivery en Providencia, Las Condes, Vitacura y La Reina.">
+<link rel="preload" href="fonts/bebas-neue-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ag">
+
+  <!-- HEADER -->
+  <header class="hd">
+    <button data-go="sec-menu" aria-label="Agostina Pizzas — inicio" style="min-height:44px">
+      <img class="hd-logo" src="assets/logo-compacto-negro.webp" alt="Agostina Pizzas">
+    </button>
+    <div class="hd-right">
+      <p class="hd-tag disp" style="margin:0">Caliente. Crujiente.<br>Recién hecha.</p>
+      <a class="pill" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener">
+        ¡Pide ya!
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 4c6-2 12-2 18 0L12 22 3 4z"/><circle cx="10" cy="8" r="1.4" fill="currentColor"/><circle cx="14.5" cy="11" r="1.4" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- TRACK: horizontal en desktop, vertical en mobile (<=760px) -->
+  <main class="ag-track" id="track">
+
+    <!-- P1 · HERO + MENÚ -->
+    <section class="pan p1" id="sec-menu" aria-label="Inicio y menú">
+      <div class="abs p1-pz" id="heroPz"><img id="heroImg" src="assets/cut-agostina.webp" alt="Pizza Agostina"></div>
+      <p class="abs p1-cap" style="margin:0">
+        <strong style="text-transform:uppercase; letter-spacing:.06em">Pizza <span id="heroName">Agostina</span> ↗</strong><br>
+        <span style="color:#4a453e" id="heroDesc">Base pomodoro, mozzarella, queso de cabra, chorizo español y aceitunas verdes.</span>
+      </p>
+      <h1 class="abs disp p1-h1">Agostina</h1>
+
+      <h2 class="abs disp p1-mt">Menú</h2>
+      <p class="abs p1-hint" style="margin:0; color:#4a453e; text-transform:uppercase; letter-spacing:.1em; font-weight:600">Pasa el cursor por la carta Lovers</p>
+      <div class="abs p1-list" id="menuList"></div>
+      <div class="abs p1-cards">
+        <button class="card" data-pick="giulianna">
+          <img src="assets/ph-giulianna.webp" alt="Pizza Giulianna, triple pepperoni" loading="lazy">
+          <span class="card-l">Giulianna ↗</span>
+        </button>
+        <button class="card" data-pick="margarita">
+          <img src="assets/ph-margarita.webp" alt="Pizza Margarita" loading="lazy">
+          <span class="card-l">Margarita ↗</span>
+        </button>
+        <button class="card" data-pick="delfina">
+          <img src="assets/ph-delfina.webp" alt="Pizza Delfina con camarón" loading="lazy">
+          <span class="card-l">Delfina ↗</span>
+        </button>
+      </div>
+      <a class="abs p1-more" href="#" style="color:#111; font-weight:700; text-transform:uppercase; letter-spacing:.1em; border-bottom:2px solid #C73A2A; padding-bottom:2px">Ver carta completa — Basics, Lovers y picoteos ↗</a>
+      <div class="abs p1-scroll disp" aria-hidden="true">
+        <span>Desliza</span>
+        <svg width="46" height="20" viewBox="0 0 46 20" fill="none" stroke="#C73A2A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h40M34 2l8 8-8 8"/></svg>
+      </div>
+
+      <svg class="spark" style="left:52vh; top:44vh; width:3.4vh; height:3.4vh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#111"/></svg>
+
+      <div class="stk st-a" data-st>
+        <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.6vh 2.6vh 1.2vh; font-size:4.2vh; border-radius:12px; text-align:center">New York<br>Style</div>
+      </div>
+      <div class="stk st-b" data-st>
+        <div class="bob" style="width:15vh; min-width:90px; background:#fff; border-radius:999px; padding:6px; box-shadow:0 10px 22px rgba(17,17,17,.22)">
+          <img src="assets/insignia-rojo.webp" alt="Insignia Agostina Pizzas" style="width:100%">
+        </div>
+      </div>
+    </section>
+
+    <!-- P2 · SOBRE NOSOTROS -->
+    <section class="pan p2" id="sec-nosotros" aria-label="Sobre nosotros">
+      <div class="abs p2-photo"><img src="assets/ph-kitchen-atmo.webp" alt="Mesa con pizzas, bastones de ajo y rolls Agostina" loading="lazy"></div>
+      <div class="abs p2-copy">
+        <p style="margin:0 0 1.6vh; font-weight:800; text-transform:uppercase; letter-spacing:.12em; font-size:1.2vh; color:#C73A2A">01 — Desde 2013</p>
+        <p style="margin:0">Pizzería a la piedra, New York Style. Masa hecha a mano, ingredientes seleccionados y cada pizza horneada al momento.</p>
+        <p style="margin:1.4vh 0 0; color:#4a453e">Buena pizza, buena gente. Para compartir con amigos, para un momento especial.</p>
+      </div>
+      <h2 class="abs disp p2-h">Sobre<br><span style="display:inline-flex; align-items:flex-end; gap:1.4vh"><svg class="p2-arrow" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M4 20L20 4M8 4h12v12"/></svg>Nosotros</span></h2>
+      <button class="abs p2-stack" id="stack" aria-label="Barajar fotos"></button>
+      <p class="abs p2-shuf" style="margin:0; font-weight:700; text-transform:uppercase; letter-spacing:.1em">Toca para barajar ↻</p>
+      <p class="abs disp p2-meta" style="margin:0; color:#5D6A42; line-height:1.1">Pizza a la piedra / New York Style / Los Leones 229</p>
+
+      <div class="stk st-c" data-st>
+        <div class="bob vinyl disp" style="background:#5D6A42; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:6px">Masa hecha a mano</div>
+      </div>
+      <svg class="spark" style="left:88vh; top:80vh; width:4vh; height:4vh; animation-delay:-1.2s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"/></svg>
+    </section>
+
+    <!-- P3 · MARCA + FAQ -->
+    <section class="pan p3" id="sec-faq" aria-label="Preguntas frecuentes">
+      <button class="abs disp p3-faqbtn" id="faqBtn" aria-expanded="false" aria-controls="faqPanel">
+        Preguntas frecuentes
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+      </button>
+      <div class="abs p3-logo"><img src="assets/logo-rojo.webp" alt="Agostina Pizzas — New York Style, Est. 2013"></div>
+
+      <div class="abs p3-faq" id="faqPanel" role="dialog" aria-label="Preguntas frecuentes" hidden>
+        <button class="faq-x" id="faqClose" aria-label="Cerrar preguntas">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+        </button>
+        <h2 class="disp faq-t">Preguntas<br>frecuentes</h2>
+        <div id="faqList"></div>
+      </div>
+
+      <div class="stk st-d" data-st>
+        <div class="bob vinyl disp" style="width:15vh; height:15vh; min-width:84px; min-height:84px; border-radius:999px; background:#111; color:#F5EFE6; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:3vh; line-height:.9; text-align:center">Est.<br><span style="font-size:5vh; color:#C73A2A">2013</span></div>
+      </div>
+    </section>
+
+    <!-- P4 · LOS LEONES 229 -->
+    <section class="pan p4" id="sec-local" aria-label="Local Los Leones 229">
+      <div class="abs ph p4-ph1">Foto pendiente · Fachada Los Leones 229</div>
+      <div class="abs p4-ph2 p4-photo"><img src="assets/local-interior.webp" alt="Interior del local Agostina en Los Leones" loading="lazy"><span class="p4-tag">Referencia IA · reemplazar por foto real</span></div>
+      <p class="abs p4-small" style="margin:0">te esperamos en</p>
+      <h2 class="abs disp p4-h">Los Leones<br>229</h2>
+      <p class="abs p4-sub" style="margin:0; text-transform:uppercase; font-weight:500">Local 5 · Providencia + Santiago</p>
+      <div class="abs p4-ph3 p4-photo"><img src="assets/life-mordisco.webp" alt="Mordisco a una porción de pizza Agostina" loading="lazy"></div>
+      <div class="abs p4-info">
+        <div>
+          <p class="p4-lab" style="margin:0 0 .6vh">Delivery</p>
+          <p style="margin:0">Providencia · Las Condes · Vitacura · La Reina</p>
+        </div>
+        <div>
+          <p class="p4-lab" style="margin:0 0 .6vh">Horario</p>
+          <p style="margin:0; color:#a72e21; font-weight:700">[HORARIO POR CONFIRMAR]</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1.2vh; align-items:flex-start">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Agostina%20Pizzas%2C%20Los%20Leones%20229%2C%20Local%205%2C%20Providencia%2C%20Santiago" target="_blank" rel="noopener" style="background:#111; color:#F5EFE6">Cómo llegar ↗</a>
+          <a class="btn" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener" style="border:2px solid #111; color:#111">Pedir delivery ↗</a>
+        </div>
+      </div>
+      <div class="stk st-e" data-st>
+        <div class="bob vinyl disp" style="background:#F5EFE6; color:#C73A2A; border-color:#C73A2A; padding:1.4vh 2.6vh 1vh; font-size:3.8vh; border-radius:999px">Te esperamos</div>
+      </div>
+    </section>
+
+    <!-- P5 · SLICE CORTANDO LA WEB -->
+    <section class="pan p5" aria-label="Caliente, crujiente, recién hecha" style="background:#C73A2A">
+      <div class="abs tape" style="background:#111" aria-hidden="true">
+        <div class="tape-in disp" style="color:#F5EFE6" id="tape"></div>
+      </div>
+      <div class="abs p5-slice">
+        <img src="assets/cut-delfina.webp" alt="">
+        <svg class="cheese" viewBox="0 0 40 100" aria-hidden="true"><path d="M8 0C10 30 6 55 9 78C10 86 16 86 16 78C17 55 14 28 18 0ZM22 0C24 20 21 40 24 58C25 64 30 64 30 58C31 40 29 20 32 0Z" fill="#F4D27A"/></svg>
+      </div>
+      <p class="abs disp p5-txt" style="margin:0; color:#F5EFE6">Caliente.<br>Crujiente.<br>Recién hecha.</p>
+    </section>
+
+    <!-- P5b · MOMENTOS AGOSTINA (lifestyle IA) -->
+    <section class="pan p55" id="sec-momentos" aria-label="Momentos Agostina">
+      <div class="abs p55-head">
+        <p class="p55-kick">Tu antojo. Nuestra pizza.</p>
+        <h2 class="disp p55-h">Momentos<br>Agostina</h2>
+        <p class="p55-body">Ensayos, azoteas, sesiones en el estudio, noches de lavandería. La pizza llega donde está el plan.</p>
+        <a class="btn" href="https://instagram.com/agostinapizzas" target="_blank" rel="noopener" style="background:#111; color:#F5EFE6">Etiquétanos @agostinapizzas ↗</a>
+      </div>
+      <figure class="abs mo mo-1" data-par="0.05"><div class="mo-img"><img src="assets/life-ensayo-banda.webp" alt="Banda ensayando con una caja de pizza Agostina abierta" loading="lazy"></div><figcaption><span>01</span> Ensayo con la banda</figcaption></figure>
+      <figure class="abs mo mo-2" data-par="-0.04"><div class="mo-img"><img src="assets/life-home-studio.webp" alt="Productor en su home studio comiendo pizza" loading="lazy"></div><figcaption><span>02</span> Sesión en el estudio</figcaption></figure>
+      <figure class="abs mo mo-3" data-par="0.03"><div class="mo-img"><img src="assets/life-dj.webp" alt="DJ en casa con una porción en la mano" loading="lazy"></div><figcaption><span>03</span> DJ set en casa</figcaption></figure>
+      <figure class="abs mo mo-4" data-par="-0.05"><div class="mo-img"><img src="assets/life-skatepark.webp" alt="Skater sentado con una caja de pizza" loading="lazy"></div><figcaption><span>04</span> Después del skate</figcaption></figure>
+      <figure class="abs mo mo-5" data-par="0.04"><div class="mo-img"><img src="assets/life-azotea.webp" alt="Amigos compartiendo pizza en una azotea de noche" loading="lazy"></div><figcaption><span>05</span> Azotea con amigos</figcaption></figure>
+      <figure class="abs mo mo-6" data-par="-0.03"><div class="mo-img"><img src="assets/life-lavanderia.webp" alt="Persona comiendo pizza en una lavandería de noche" loading="lazy"></div><figcaption><span>06</span> Noche de lavandería</figcaption></figure>
+      <figure class="abs mo mo-7" data-par="0.05"><div class="mo-img"><img src="assets/life-capo-auto.webp" alt="Caja de pizza sobre el capó de un auto" loading="lazy"></div><figcaption><span>07</span> Pizza sobre el capó</figcaption></figure>
+      <figure class="abs mo mo-8" data-par="-0.04"><div class="mo-img"><img src="assets/life-mural.webp" alt="Pizza frente a un mural de grafiti" loading="lazy"></div><figcaption><span>08</span> Frente al mural</figcaption></figure>
+      <p class="abs scr p55-note" style="margin:0; color:#C73A2A">la pizza va donde está el plan</p>
+      <div class="stk st-h" data-st>
+        <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:999px">#AgostinaLovers</div>
+      </div>
+      <div class="stk st-i" data-st>
+        <div class="bob vinyl disp" style="background:#F5EFE6; color:#111; padding:1.2vh 2.2vh .8vh; font-size:3vh; border-radius:6px; border-color:#111">Buena pizza,<br>buena gente</div>
+      </div>
+      <svg class="spark" style="left:182vh; top:84vh; width:3.6vh; height:3.6vh; animation-delay:-.9s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"/></svg>
+    </section>
+
+    <!-- P6 · AGOSTINA LOVERS -->
+    <section class="pan p6" id="sec-lovers" aria-label="Agostina Lovers">
+      <div class="abs p6-word"><img src="assets/word-negro.webp" alt="Agostina Pizzas"></div>
+      <p class="abs scr p6-lovers" style="margin:0; color:#C73A2A">Lovers</p>
+      <div class="abs p6-rolls" id="rolls"><img src="assets/cut-agostina-rolls.webp" alt="Agostina Rolls" loading="lazy"></div>
+      <div class="abs p6-rl">
+        <p class="disp" style="margin:0 0 1vh; font-size:4.4vh">Agostina Rolls ↗</p>
+        <p style="margin:0">Rolls de masa con mantequilla de ajo, mozzarella, parmesano y roquefort. 4 unidades.</p>
+      </div>
+      <div class="abs p6-mq"><div class="mq-in" id="lovers"></div></div>
+      <div class="stk st-f" data-st>
+        <div class="bob vinyl disp" style="background:#111; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:10px; display:flex; align-items:center; gap:1vh">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#C73A2A"/></svg>
+          Pizza lovers
+        </div>
+      </div>
+      <svg class="spark" style="left:80vh; top:36vh; width:3.6vh; height:3.6vh; animation-delay:-.6s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#5D6A42"/></svg>
+    </section>
+
+    <!-- P7 · ESTO ES AGOSTINA -->
+    <section class="pan p7" id="sec-blog" aria-label="Esto es Agostina">
+      <p class="abs disp p7-kick" style="margin:0">Tres. Conceptos. Nuestros.</p>
+      <img class="abs p7-ins" src="assets/badge-red.webp" alt="Insignia Agostina Pizzas">
+      <h2 class="abs disp p7-h">Esto es<br>Agostina.</h2>
+      <div class="abs p7-con">
+        <span class="chip"><span style="color:#C73A2A">01</span> Masa hecha a mano</span>
+        <span class="chip"><span style="color:#C73A2A">02</span> Horneada al momento</span>
+        <span class="chip"><span style="color:#C73A2A">03</span> New York Style</span>
+      </div>
+      <div class="abs p7-cta">
+        <a class="btn" href="#" style="border:2px solid #111; color:#111">Leer el blog ↗</a>
+        <a class="btn" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener" style="background:#C73A2A; color:#F5EFE6">Pide la tuya ahora ↗</a>
+      </div>
+      <div class="abs p7-pz" id="endPz"><img src="assets/cut-alessia.webp" alt="Pizza Alessia vista cenital" loading="lazy"></div>
+      <p class="abs p7-legal" style="margin:0">© 2026 Agostina Pizzas · Los Leones 229, Local 5, Providencia, Santiago</p>
+      <div class="stk st-g" data-st>
+        <div class="bob vinyl disp" style="background:#F4D27A; color:#111; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:8px">Buena pizza,<br>buena gente</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ft">
+    <nav class="ft-nav" aria-label="Secciones">
+      <button data-go="sec-menu">Menú</button>
+      <button data-go="sec-nosotros">Nosotros</button>
+      <button data-go="sec-faq" data-open-faq>Preguntas</button>
+      <button data-go="sec-local">Los Leones 229</button>
+      <button data-go="sec-momentos">Momentos</button>
+      <button data-go="sec-lovers">Lovers</button>
+      <button data-go="sec-blog">Blog</button>
+    </nav>
+    <div class="ft-soc">
+      <a href="https://instagram.com/agostinapizzas" target="_blank" rel="noopener" style="color:#111">Instagram ↗</a>
+      <a href="https://www.tiktok.com/@agostinapizzas" target="_blank" rel="noopener" style="color:#111">TikTok ↗</a>
+    </div>
+  </footer>
+  <div class="prog" id="prog" style="width:0%"></div>
+</div>
+<script src="main.js" defer></script>
+</body>
+</html>
