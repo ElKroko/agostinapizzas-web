@@ -332,28 +332,30 @@
   .p7-con{display:flex;flex-wrap:wrap;gap:8px}
 }
 
-/* ---------- P8 · Máximo Panini (marca hermana) ---------- */
-.p8{width:112vh;background:#111;color:#F5EFE6}
-.p8 .kick{color:#F4D27A}
+/* ---------- P8 · Máximo Panini (marca hermana): oliva, texto blanco y negro ---------- */
+.p8{width:100vw;min-width:112vh;background:#5D6A42;color:#fff;overflow:hidden}
+.p8 .kick{color:#fff}
 .p8-kick{left:6vh;top:13vh}
-.p8-logo{left:6vh;top:17vh;width:66vh;margin:0}
-.p8-logo img{width:100%;height:auto}
-.p8-h{left:6vh;top:42vh;font-size:9.2vh;line-height:.88}
-.p8-h span{color:#F4D27A}
-.p8-body{left:6vh;top:62vh;width:50vh;font-size:1.7vh;line-height:1.6;margin:0;color:rgba(245,239,230,.88)}
+.p8-logo{left:6vh;top:17vh;width:min(66vh,42vw);margin:0}
+.p8-logo img{width:100%;height:auto;filter:brightness(0) invert(1)}
+.p8-h{left:6vh;top:42vh;font-size:9.2vh;line-height:.88;color:#fff}
+.p8-h span{color:#111}
+.p8-body{left:6vh;top:62vh;width:50vh;font-size:1.7vh;line-height:1.6;margin:0;color:#fff}
 .p8-chips{left:6vh;top:72vh;display:flex;gap:1.2vh;flex-wrap:wrap;width:80vh}
-.p8 .chip{border-color:rgba(245,239,230,.55);color:#F5EFE6}
-.p8 .chip span{color:#F4D27A}
-.p8-cta{left:6vh;top:80vh;background:#F5EFE6;color:#111}
-.p8-cta:hover{background:#fff}
-.p8-note{left:70vh;top:56vh;width:38vh;font-size:5.2vh;line-height:1.05;color:#F4D27A;transform:rotate(-5deg);margin:0}
-.st-k{left:76vh;top:20vh}.st-l{left:68vh;top:38vh}
+.p8 .chip{border-color:#fff;color:#fff}
+.p8 .chip span{color:#111}
+.p8-cta{left:6vh;top:80vh;background:#111;color:#fff}
+.p8-cta:hover{background:#000}
+.p8-note{left:max(70vh,57vw);top:56vh;width:max(38vh,32vw);font-size:max(5.2vh,3.2vw);line-height:1.05;color:#111;transform:rotate(-5deg);margin:0;z-index:3}
+.p8-ghost{right:7vw;bottom:5vh;font-size:max(40vh,19vw);line-height:1;color:rgba(17,17,17,.13);transform:rotate(-7deg);margin:0;pointer-events:none;user-select:none;z-index:0}
+.st-k{left:max(76vh,62vw);top:18vh}.st-l{left:max(68vh,54vw);top:38vh}
 .st-k .bob{--r:-8deg}.st-l .bob{--r:7deg;animation-delay:-1.4s}
-.p8 :focus-visible{outline-color:#F4D27A}
+.p8 :focus-visible{outline-color:#fff}
 @media (max-width:760px){
-  .p8{width:100% !important;background:#111}
+  .p8{width:100% !important;background:#5D6A42}
+  .p8-ghost{display:none}
   .p8-kick,.p8-logo,.p8-h,.p8-body,.p8-chips,.p8-cta,.p8-note{left:auto;top:auto}
-  .p8-logo{width:100%}
+  .p8-logo{width:100% !important}
   .p8-h{font-size:17vw}
   .p8-body{width:auto;font-size:15px}
   .p8-chips{display:flex;width:auto}
