@@ -1,14 +1,14 @@
 {
   "hosting": {
-    "public": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**",
-      "assets/fotos-reales/**",
-      "assets/*.docx",
-      "assets/Agostina_Pizzas_Brandbook_2026_5.html",
-      "scripts/**"
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*"],
+    "cleanUrls": true,
+    "trailingSlash": true,
+    "headers": [
+      {
+        "source": "/assets/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, immutable" }]
+      }
     ]
   }
 }

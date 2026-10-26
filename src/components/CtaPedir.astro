@@ -1,0 +1,44 @@
+---
+import { URL_PEDIDOS } from "../data/negocio";
+
+interface Props {
+  origen: string;
+  texto?: string;
+  variante?: "primary" | "ghost-light" | "ghost-dark" | "olive";
+  tamano?: "normal" | "sm";
+  class?: string;
+  /** Nombre de transición (View Transitions) — solo pasar en UNA instancia por página. */
+  transitionName?: string;
+}
+
+const {
+  origen,
+  texto = "Pedir ahora",
+  variante = "primary",
+  tamano = "normal",
+  class: className = "",
+  transitionName,
+} = Astro.props;
+
+const claseVariante =
+  {
+    primary: "btn-primary",
+    "ghost-light": "btn-ghost-light",
+    "ghost-dark": "btn-ghost-dark",
+    olive: "btn-olive",
+  }[variante] ?? "btn-primary";
+---
+
+<a
+  class:list={["btn", claseVariante, tamano === "sm" && "btn-sm", className]}
+  href={URL_PEDIDOS}
+  target="_blank"
+  rel="noopener"
+  data-track="agostina:pedir_click"
+  data-origen={origen}
+  transition:name={transitionName}
+>
+  {texto}
+  <span class="sr-only">(se abre en el sistema de pedidos, en una pestaña nueva)</span>
+  <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+</a>

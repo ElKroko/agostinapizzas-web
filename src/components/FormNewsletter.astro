@@ -1,0 +1,146 @@
+---
+import { NEWSLETTER_ENDPOINT } from "../data/negocio";
+---
+
+<form class="form-newsletter" id="form-newsletter" novalidate data-endpoint={NEWSLETTER_ENDPOINT ?? ""}>
+  <div class="fn-row">
+    <label for="fn-email" class="sr-only">Correo electrónico</label>
+    <input id="fn-email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.cl" />
+    <button type="submit" class="btn btn-primary">
+      Quiero enterarme
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+  </div>
+
+  <!-- Honeypot: campo invisible para humanos, señuelo para bots. -->
+  <div class="fn-honeypot" aria-hidden="true">
+    <label for="fn-empresa">No completar este campo</label>
+    <input id="fn-empresa" name="empresa" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <label class="fn-consent">
+    <input type="checkbox" name="consentimiento" required />
+    <span>Acepto recibir novedades de Agostina Pizzas por correo y su <a href="/privacidad/">política de privacidad</a>.</span>
+  </label>
+
+  <p class="fn-status" id="fn-status" role="status" aria-live="polite"></p>
+</form>
+
+<style>
+  .form-newsletter {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 480px;
+  }
+  .fn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .fn-row input[type="email"] {
+    flex: 1 1 220px;
+    min-width: 0;
+    padding: 16px 18px;
+    border: 1.5px solid rgba(245, 239, 230, 0.4);
+    background: rgba(245, 239, 230, 0.06);
+    color: inherit;
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 14px;
+  }
+  .fn-row input[type="email"]::placeholder {
+    color: rgba(245, 239, 230, 0.5);
+  }
+  .fn-row input[type="email"]:focus-visible {
+    outline: 3px solid var(--color-rojo);
+    outline-offset: 1px;
+  }
+  .fn-honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .fn-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(245, 239, 230, 0.75);
+  }
+  .fn-consent input {
+    margin-top: 3px;
+    flex: none;
+  }
+  .fn-consent a {
+    text-decoration: underline;
+    color: inherit;
+  }
+  .fn-status {
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 1.4em;
+  }
+  .fn-status[data-estado="error"] {
+    color: #f0a99a;
+  }
+  .fn-status[data-estado="ok"] {
+    color: #c4e2a5;
+  }
+</style>
+
+<script>
+  import { track } from "../scripts/analitica";
+
+  const form = document.getElementById("form-newsletter") as HTMLFormElement | null;
+  const status = document.getElementById("fn-status");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!status) return;
+
+    const data = new FormData(form);
+    if (data.get("empresa")) return; // honeypot: bot detectado, se ignora en silencio
+
+    const email = String(data.get("email") ?? "");
+    const consiente = form.querySelector<HTMLInputElement>('input[name="consentimiento"]')?.checked;
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if (!emailValido || !consiente) {
+      status.textContent = "Revisa tu correo y acepta la política de privacidad para continuar.";
+      status.dataset.estado = "error";
+      track("agostina:newsletter_submit", { estado: "error", mensaje: "validacion" });
+      return;
+    }
+
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {
+      // [PROVEEDOR DE EMAIL POR CONFIRMAR]: el formulario está listo mecánicamente,
+      // pero no hay servicio configurado todavía — no se inventa un envío exitoso.
+      status.textContent = "Este formulario se activará muy pronto. Vuelve en unos días para sumarte.";
+      status.dataset.estado = "error";
+      track("agostina:newsletter_submit", { estado: "error", mensaje: "endpoint_no_configurado" });
+      return;
+    }
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("respuesta no ok");
+      status.textContent = "¡Listo! Te avisaremos de nuevos sabores, lanzamientos y próximos pop-ups.";
+      status.dataset.estado = "ok";
+      track("agostina:newsletter_submit", { estado: "ok" });
+      form.reset();
+    } catch {
+      status.textContent = "No pudimos registrar tu correo. Intenta de nuevo en un momento.";
+      status.dataset.estado = "error";
+      track("agostina:newsletter_submit", { estado: "error", mensaje: "fetch_error" });
+    }
+  });
+</script>

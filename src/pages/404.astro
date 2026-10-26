@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaPedir from "../components/CtaPedir.astro";
+---
+
+<Layout title="Página no encontrada" description="Esta página no existe. Vuelve al inicio de Agostina Pizzas o pide directamente." noIndex={true}>
+  <section class="seccion seccion-negra pagina-404">
+    <div class="container">
+      <span class="eyebrow">Error 404</span>
+      <h1 class="titulo-404">Esta página se horneó de más.</h1>
+      <p class="copy-seccion">No encontramos lo que buscabas. Prueba desde el inicio o ve directo a la carta.</p>
+      <div class="acciones-404">
+        <a class="btn btn-ghost-light" href="/">Volver al inicio</a>
+        <a class="btn btn-ghost-light" href="/pizzas/">Ver la carta</a>
+        <CtaPedir origen="404" texto="Pedir ahora" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .pagina-404 {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding-top: 140px;
+  }
+  .titulo-404 {
+    font-size: clamp(38px, 6vw, 68px);
+    margin: var(--space-2) 0 var(--space-3);
+    max-width: 16ch;
+  }
+  .acciones-404 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+</style>

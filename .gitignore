@@ -3,6 +3,16 @@ firebase-debug.log
 firebase-debug.*.log
 .DS_Store
 
+# Astro build output and dependencies.
+node_modules/
+dist/
+.astro/
+
 # Raw source photo/logo library (uploaded reference material, ~140MB).
-# The curated, web-optimized copies actually used by the site live in assets/*.jpg|png.
+# The curated, web-optimized copies actually used by the site live in
+# public/assets/ (generated via scripts/build-catalog-images.ps1) and
+# the legacy assets/*.jpg|png used by the archived hype.html/index.html/loco.html.
 assets/fotos-reales/
+
+# Capturas de revisión exportadas desde Claude Design (pesadas, no son parte del sitio).
+agostina web v2/export/

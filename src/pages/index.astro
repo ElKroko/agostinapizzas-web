@@ -1,0 +1,332 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { LOCAL, REDES, SLICE, HOME, MAXIMO, URL_PEDIDOS } from "../data/negocio";
+import "../styles/home.css";
+
+const clp = (n: number) => "$" + n.toLocaleString("es-CL");
+
+const faq = [
+  { q: "¿Hacen delivery?", a: "Sí. Despachamos en Providencia, Las Condes, Vitacura y La Reina. Pide directo en agostinapizzas.cl." },
+  { q: "¿Tienen slice?", a: `Sí, en el local de Los Leones: ${clp(SLICE.precioSola)} la slice sola y ${clp(SLICE.precioConBebida)} con bebida.` },
+  { q: "¿Qué tamaños tienen?", a: "Todas las pizzas vienen en Mediana y Familiar, con la misma receta. El tamaño lo eliges al pedir." },
+  { q: "¿Tienen opciones veggie?", a: "Sí: Margarita, Julieta, Fabiola y Giannina, entre otras. Revisa la carta completa." },
+  ...(SLICE.horario ? [{ q: "¿Cuál es el horario?", a: SLICE.horario }] : []),
+];
+
+const momentos = [
+  { n: 1, img: "life-ensayo-banda", alt: "Banda ensayando con una caja de pizza abierta", t: "Ensayo con la banda", par: "0.05" },
+  { n: 2, img: "life-home-studio", alt: "Productor en su home studio comiendo pizza", t: "Sesión en el estudio", par: "-0.04" },
+  { n: 3, img: "life-dj", alt: "DJ en casa con una porción en la mano", t: "DJ set en casa", par: "0.03" },
+  { n: 4, img: "life-skatepark", alt: "Skater sentado con una caja de pizza", t: "Después del skate", par: "-0.05" },
+  { n: 5, img: "life-azotea", alt: "Amigos compartiendo pizza en una azotea de noche", t: "Azotea con amigos", par: "0.04" },
+  { n: 6, img: "life-lavanderia", alt: "Persona comiendo pizza en una lavandería de noche", t: "Noche de lavandería", par: "-0.03" },
+  { n: 7, img: "life-capo-auto", alt: "Caja de pizza sobre el capó de un auto", t: "Pizza sobre el capó", par: "0.05" },
+  { n: 8, img: "life-mural", alt: "Pizza frente a un mural de grafiti", t: "Frente al mural", par: "-0.04" },
+];
+---
+
+<Layout title="Pizzería a la piedra, New York Style" bareChrome={true}>
+  <div class="ag">
+    <!-- HEADER -->
+    <header class="hd">
+      <button type="button" data-go="sec-menu" aria-label="Agostina Pizzas — volver al inicio" style="min-height:44px">
+        <img class="hd-logo" src="/home/assets/logo-compacto-negro.webp" alt="" />
+      </button>
+      <div class="hd-right">
+        <p class="hd-tag disp" style="margin:0">Caliente. Crujiente.<br />Recién hecha.</p>
+        <a class="pill" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-header">
+          ¡Pide ya!
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 4c6-2 12-2 18 0L12 22 3 4z"></path><circle cx="10" cy="8" r="1.4" fill="currentColor"></circle><circle cx="14.5" cy="11" r="1.4" fill="currentColor"></circle></svg>
+          <span class="sr-only">(se abre en el sistema de pedidos)</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- TRACK: horizontal en desktop, vertical en mobile (<=760px) -->
+    <main class="ag-track" id="track">
+      <p class="sr-only">
+        Recorrido horizontal en pantallas grandes: usa la rueda del mouse, el trackpad, las flechas del teclado o el menú inferior.
+        En móvil es un recorrido vertical normal.
+      </p>
+
+      <!-- P1 · HERO + MENÚ -->
+      <section class="pan p1" id="sec-menu" aria-label="Inicio y menú">
+        <div class="abs p1-pz" id="heroPz"><img id="heroImg" src="/home/assets/cut-agostina.webp" alt="Pizza Agostina" fetchpriority="high" /></div>
+        <p class="abs p1-cap" style="margin:0">
+          <a class="p1-cap-t" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-hero-pizza">Pizza <span id="heroName">Agostina</span> ↗</a><br />
+          <span style="color:#4a453e" id="heroDesc">Base pomodoro, mozzarella, queso de cabra, chorizo español y aceitunas verdes.</span>
+        </p>
+        <h1 class="abs disp p1-h1">Agostina</h1>
+
+        <h2 class="abs disp p1-mt">Menú</h2>
+        <p class="abs p1-hint" style="margin:0">
+          <span class="h-mouse">Pasa el cursor por la carta Lovers</span>
+          <span class="h-touch">Toca una pizza para verla</span>
+        </p>
+        <div class="abs p1-list" id="menuList"></div>
+        <div class="abs p1-cards">
+          <button type="button" class="card" data-pick="giulianna">
+            <img src="/home/assets/ph-giulianna.webp" alt="Pizza Giulianna, triple pepperoni" loading="lazy" />
+            <span class="card-l">Giulianna ↗</span>
+          </button>
+          <button type="button" class="card" data-pick="margarita">
+            <img src="/home/assets/ph-margarita.webp" alt="Pizza Margarita" loading="lazy" />
+            <span class="card-l">Margarita ↗</span>
+          </button>
+          <button type="button" class="card" data-pick="delfina">
+            <img src="/home/assets/ph-delfina.webp" alt="Pizza Delfina con camarón" loading="lazy" />
+            <span class="card-l">Delfina ↗</span>
+          </button>
+        </div>
+        <a class="abs p1-more" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-carta">Ver carta completa — Basics, Lovers y picoteos ↗</a>
+        <div class="abs p1-scroll disp" aria-hidden="true">
+          <span>Desliza</span>
+          <svg width="46" height="20" viewBox="0 0 46 20" fill="none" stroke="#C73A2A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h40M34 2l8 8-8 8"></path></svg>
+        </div>
+
+        <svg class="spark" style="left:52vh; top:44vh; width:3.4vh; height:3.4vh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#111"></path></svg>
+
+        <div class="stk st-a" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.6vh 2.6vh 1.2vh; font-size:4.2vh; border-radius:12px; text-align:center">New York<br />Style</div>
+        </div>
+        <div class="stk st-b" data-st aria-hidden="true">
+          <div class="bob" style="width:15vh; min-width:90px; background:#fff; border-radius:999px; padding:6px; box-shadow:0 10px 22px rgba(17,17,17,.22)">
+            <img src="/home/assets/insignia-rojo.webp" alt="" style="width:100%" />
+          </div>
+        </div>
+      </section>
+
+      <!-- P2 · SOBRE NOSOTROS -->
+      <section class="pan p2" id="sec-nosotros" aria-label="Sobre nosotros">
+        <div class="abs p2-photo"><img src="/home/assets/ph-kitchen-atmo.webp" alt="Pizza a la piedra sobre tabla de madera" loading="lazy" /></div>
+        <div class="abs p2-copy">
+          <p class="kick" style="margin:0 0 1.6vh">01 — Desde 2013</p>
+          <p style="margin:0">Pizzería a la piedra, New York Style. Masa hecha a mano, ingredientes seleccionados y cada pizza horneada al momento.</p>
+          <p style="margin:1.4vh 0 0; color:#4a453e">Buena pizza, buena gente. Para compartir con amigos, para un momento especial.</p>
+        </div>
+        <h2 class="abs disp p2-h">Sobre<br /><span style="display:inline-flex; align-items:flex-end; gap:1.4vh"><svg class="p2-arrow" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M4 20L20 4M8 4h12v12"></path></svg>Nosotros</span></h2>
+        <button type="button" class="abs p2-stack" id="stack" aria-label="Barajar fotos"></button>
+        <p class="abs p2-shuf" style="margin:0" aria-hidden="true">Toca para barajar ↻</p>
+        <p class="abs disp p2-meta" style="margin:0; color:#5D6A42; line-height:1.1">Pizza a la piedra / New York Style / Los Leones 229</p>
+
+        <div class="stk st-c" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="background:#5D6A42; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:6px">Masa hecha a mano</div>
+        </div>
+        <svg class="spark" style="left:88vh; top:80vh; width:4vh; height:4vh; animation-delay:-1.2s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"></path></svg>
+      </section>
+
+      <!-- P3 · MARCA + FAQ -->
+      <section class="pan p3" id="sec-faq" aria-label="Preguntas frecuentes">
+        <button type="button" class="abs disp p3-faqbtn" id="faqBtn" aria-expanded="false" aria-controls="faqPanel">
+          Preguntas frecuentes
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 4v16M4 12h16"></path></svg>
+        </button>
+        <div class="abs p3-logo"><img src="/home/assets/logo-rojo.webp" alt="Agostina Pizzas — New York Style, Est. 2013" /></div>
+
+        <div class="abs p3-faq" id="faqPanel" role="dialog" aria-label="Preguntas frecuentes" hidden>
+          <button type="button" class="faq-x" id="faqClose" aria-label="Cerrar preguntas">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+          </button>
+          <h2 class="disp faq-t">Preguntas<br />frecuentes</h2>
+          <div id="faqList">
+            {
+              faq.map((f, i) => (
+                <div class="faq-i">
+                  <button type="button" class="faq-q" aria-expanded={i === 0} aria-controls={`faq-a-${i}`}>
+                    <span>{f.q}</span>
+                    <span class="faq-pm" aria-hidden="true">{i === 0 ? "−" : "+"}</span>
+                  </button>
+                  <p class="faq-a" id={`faq-a-${i}`} hidden={i !== 0}>{f.a}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="stk st-d" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="width:15vh; height:15vh; min-width:84px; min-height:84px; border-radius:999px; background:#111; color:#F5EFE6; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:3vh; line-height:.9; text-align:center">Est.<br /><span style="font-size:5vh; color:#C73A2A">2013</span></div>
+        </div>
+      </section>
+
+      <!-- P4 · LOS LEONES 229 -->
+      <section class="pan p4" id="sec-local" aria-label="Local Los Leones 229">
+        <div class="abs p4-ph1 p4-photo"><img src="/home/assets/ph-eventos-pizza.webp" alt="Pizzas, bastones de ajo y rolls de Agostina sobre la mesa" loading="lazy" /></div>
+        <div class="abs p4-ph2 p4-photo"><img src="/home/assets/ph-hero-pepperoni.webp" alt="Pizza Agostina sobre tabla de madera" loading="lazy" /></div>
+        <p class="abs p4-small" style="margin:0">te esperamos en</p>
+        <h2 class="abs disp p4-h">Los Leones<br />229</h2>
+        <p class="abs p4-sub" style="margin:0">Local 5 · Providencia, Santiago</p>
+        <div class="abs p4-ph3 p4-photo"><img src="/home/assets/life-mordisco.webp" alt="Mordisco a una porción de pizza Agostina" loading="lazy" /></div>
+        <div class="abs p4-info">
+          <div>
+            <p class="p4-lab" style="margin:0 0 .6vh">Delivery</p>
+            <p style="margin:0">Providencia · Las Condes · Vitacura · La Reina</p>
+          </div>
+          {
+            SLICE.horario && (
+              <div>
+                <p class="p4-lab" style="margin:0 0 .6vh">Horario</p>
+                <p style="margin:0">{SLICE.horario}</p>
+              </div>
+            )
+          }
+          <div style="display:flex; flex-direction:column; gap:1.2vh; align-items:flex-start">
+            <a class="btn" href={LOCAL.mapaUrl} target="_blank" rel="noopener" data-track="agostina:mapa_click" data-origen="home-local" style="background:#111; color:#F5EFE6">Cómo llegar ↗</a>
+            <a class="btn" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-local" style="border:2px solid #111; color:#111">Pedir delivery ↗</a>
+          </div>
+        </div>
+        <div class="stk st-e" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="background:#F5EFE6; color:#C73A2A; border-color:#C73A2A; padding:1.4vh 2.6vh 1vh; font-size:3.8vh; border-radius:999px">Te esperamos</div>
+        </div>
+      </section>
+
+      <!-- P5 · SLICE CORTANDO LA WEB -->
+      <section class="pan p5" id="sec-slice" aria-label="Slice: caliente, crujiente, recién hecha" style="background:#C73A2A">
+        <div class="abs tape" style="background:#111" aria-hidden="true">
+          <div class="tape-in disp" style="color:#F5EFE6" id="tape"></div>
+        </div>
+        <div class="abs p5-slice">
+          <img src="/home/assets/cut-delfina.webp" alt="" />
+          <svg class="cheese" viewBox="0 0 40 100" aria-hidden="true"><path d="M8 0C10 30 6 55 9 78C10 86 16 86 16 78C17 55 14 28 18 0ZM22 0C24 20 21 40 24 58C25 64 30 64 30 58C31 40 29 20 32 0Z" fill="#F4D27A"></path></svg>
+        </div>
+        <p class="abs disp p5-txt" style="margin:0; color:#F5EFE6">Caliente.<br />Crujiente.<br />Recién hecha.</p>
+
+        <div class="abs p5-offer">
+          <p class="disp p5-offer-k">La slice</p>
+          <p class="disp p5-offer-p">{clp(SLICE.precioSola)}</p>
+          <p class="p5-offer-s">o {clp(SLICE.precioConBebida)} con bebida · Los Leones 229</p>
+          <a class="btn p5-offer-b" href="/slice/" data-track="agostina:slice_click" data-origen="home-slice">Ver la slice ↗</a>
+        </div>
+      </section>
+
+      {
+        HOME.mostrarMomentos && (
+          <section class="pan p55" id="sec-momentos" aria-label="Momentos Agostina">
+            <div class="abs p55-head">
+              <p class="kick">Tu antojo. Nuestra pizza.</p>
+              <h2 class="disp p55-h">Momentos<br />Agostina</h2>
+              <p class="p55-body">Ensayos, azoteas, sesiones en el estudio, noches de lavandería. La pizza llega donde está el plan.</p>
+              <a class="btn" href={REDES.instagram.url} target="_blank" rel="noopener" style="background:#111; color:#F5EFE6">Etiquétanos {REDES.instagram.handle} ↗</a>
+            </div>
+            {momentos.map((m) => (
+              <figure class={`abs mo mo-${m.n}`} data-par={m.par}>
+                <div class="mo-img"><img src={`/home/assets/${m.img}.webp`} alt={m.alt} loading="lazy" /></div>
+                <figcaption><span>{String(m.n).padStart(2, "0")}</span> {m.t}</figcaption>
+              </figure>
+            ))}
+            <p class="abs scr p55-note" style="margin:0; color:#C73A2A">la pizza va donde está el plan</p>
+            <div class="stk st-h" data-st aria-hidden="true">
+              <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:999px">#AgostinaLovers</div>
+            </div>
+            <div class="stk st-i" data-st aria-hidden="true">
+              <div class="bob vinyl disp" style="background:#F5EFE6; color:#111; padding:1.2vh 2.2vh .8vh; font-size:3vh; border-radius:6px; border-color:#111">Buena pizza,<br />buena gente</div>
+            </div>
+            <svg class="spark" style="left:182vh; top:84vh; width:3.6vh; height:3.6vh; animation-delay:-.9s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"></path></svg>
+          </section>
+        )
+      }
+
+      <!-- P6 · AGOSTINA LOVERS -->
+      <section class="pan p6" id="sec-lovers" aria-label="Agostina Lovers">
+        <div class="abs p6-word"><img src="/home/assets/word-negro.webp" alt="Agostina Pizzas" /></div>
+        <p class="abs scr p6-lovers" style="margin:0; color:#C73A2A">Lovers</p>
+        <div class="abs p6-rolls" id="rolls"><img src="/home/assets/cut-agostina-rolls.webp" alt="Agostina Rolls" loading="lazy" /></div>
+        <div class="abs p6-rl">
+          <p class="disp" style="margin:0 0 1vh; font-size:4.4vh">Agostina Rolls ↗</p>
+          <p style="margin:0">Rolls de masa con mantequilla de ajo, mozzarella, parmesano y roquefort. 4 unidades.</p>
+        </div>
+        <div class="abs p6-mq"><div class="mq-in" id="lovers"></div></div>
+        <div class="stk st-f" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="background:#111; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:10px; display:flex; align-items:center; gap:1vh">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#C73A2A"></path></svg>
+            Pizza lovers
+          </div>
+        </div>
+        <svg class="spark" style="left:80vh; top:36vh; width:3.6vh; height:3.6vh; animation-delay:-.6s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#5D6A42"></path></svg>
+      </section>
+
+      {
+        HOME.mostrarMaximo && (
+          <section class="pan p8" id="sec-maximo" aria-label={`${MAXIMO.nombre}, la marca hermana`}>
+            <p class="abs kick p8-kick">La marca hermana</p>
+            <h2 class="abs p8-logo"><img src="/home/assets/maximo-panini-crema.svg" alt={MAXIMO.nombre} /></h2>
+            <p class="abs disp p8-h">Paninis de focaccia,<br /><span>buenos y grandes.</span></p>
+            <p class="abs p8-body">
+              Sale de la misma cocina de Agostina y viene a resolverte el almuerzo. Pocos productos, muy bien resueltos, con ingredientes que se notan.
+            </p>
+            <ul class="abs p8-chips">
+              <li class="chip"><span>01</span> Misma cocina</li>
+              <li class="chip"><span>02</span> Focaccia</li>
+              <li class="chip"><span>03</span> Contundente</li>
+            </ul>
+            <a
+              class="abs btn p8-cta"
+              href={MAXIMO.instagram ?? REDES.instagram.url}
+              target="_blank"
+              rel="noopener"
+              data-track="agostina:maximo_click"
+              data-origen="home-maximo"
+            >Entérate primero ↗</a>
+            <p class="abs scr p8-note">un martes al almuerzo, o un jueves en la noche</p>
+            <div class="stk st-k" data-st aria-hidden="true">
+              <div class="bob vinyl disp" style="background:#F4D27A; color:#111; padding:1.6vh 3vh 1.2vh; font-size:5vh; border-radius:12px; text-align:center">{MAXIMO.lanzamiento ?? "Próximamente"}</div>
+            </div>
+            <div class="stk st-l" data-st aria-hidden="true">
+              <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.2vh 2.4vh .9vh; font-size:3.2vh; border-radius:999px; text-align:center">El hermano<br />de Agostina</div>
+            </div>
+            <svg class="spark" style="left:62vh; top:12vh; width:3.6vh; height:3.6vh; animation-delay:-.4s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#F4D27A"></path></svg>
+          </section>
+        )
+      }
+
+      <!-- P7 · ESTO ES AGOSTINA -->
+      <section class="pan p7" id="sec-cierre" aria-label="Esto es Agostina">
+        <p class="abs disp p7-kick" style="margin:0">Tres. Conceptos. Nuestros.</p>
+        <img class="abs p7-ins" src="/home/assets/badge-red.webp" alt="" />
+        <h2 class="abs disp p7-h">Esto es<br />Agostina.</h2>
+        <ul class="abs p7-con">
+          <li class="chip"><span style="color:#C73A2A">01</span> Masa hecha a mano</li>
+          <li class="chip"><span style="color:#C73A2A">02</span> Horneada al momento</li>
+          <li class="chip"><span style="color:#C73A2A">03</span> New York Style</li>
+        </ul>
+        <div class="abs p7-cta">
+          <a class="btn" href="/novedades/" style="border:2px solid #111; color:#111">Novedades ↗</a>
+          <a class="btn" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-cierre" style="background:#C73A2A; color:#F5EFE6">Pide la tuya ahora ↗</a>
+        </div>
+        <div class="abs p7-pz" id="endPz"><img src="/home/assets/cut-alessia.webp" alt="Pizza Alessia vista cenital" loading="lazy" /></div>
+        <p class="abs p7-legal" style="margin:0">© 2026 Agostina Pizzas · {LOCAL.direccion.calle}, {LOCAL.direccion.comuna}, {LOCAL.direccion.ciudad} · <a href="/privacidad/" style="text-decoration:underline">Privacidad</a></p>
+        <div class="abs p7-soc">
+          <a href={REDES.instagram.url} target="_blank" rel="noopener">Instagram ↗</a>
+          <a href={REDES.tiktok.url} target="_blank" rel="noopener">TikTok ↗</a>
+        </div>
+        <div class="stk st-g" data-st aria-hidden="true">
+          <div class="bob vinyl disp" style="background:#F4D27A; color:#111; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:8px">Buena pizza,<br />buena gente</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="ft">
+      <nav class="ft-nav" aria-label="Secciones">
+        <button type="button" data-go="sec-menu">Menú</button>
+        <button type="button" data-go="sec-nosotros">Nosotros</button>
+        <button type="button" data-go="sec-faq" data-open-faq>Preguntas</button>
+        <button type="button" data-go="sec-local">Los Leones 229</button>
+        <button type="button" data-go="sec-slice">Slice</button>
+        {HOME.mostrarMomentos && <button type="button" data-go="sec-momentos">Momentos</button>}
+        <button type="button" data-go="sec-lovers">Lovers</button>
+        {HOME.mostrarMaximo && <button type="button" data-go="sec-maximo">Máximo Panini</button>}
+        <a href="/novedades/" class="ft-link">Novedades</a>
+      </nav>
+      <div class="ft-soc">
+        <a href={REDES.instagram.url} target="_blank" rel="noopener">Instagram ↗</a>
+        <a href={REDES.tiktok.url} target="_blank" rel="noopener">TikTok ↗</a>
+      </div>
+    </footer>
+    <div class="prog" id="prog" style="width:0%"></div>
+  </div>
+
+  <script>
+    import "../scripts/home.js";
+    import "../scripts/utm.js";
+  </script>
+</Layout>

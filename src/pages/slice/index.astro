@@ -1,0 +1,550 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LOCAL, SLICE, URL_PEDIDOS } from "../../data/negocio";
+import "../../styles/fonts.css";
+
+const clp = (n: number) => "$" + n.toLocaleString("es-CL");
+const wa = SLICE.whatsapp
+  ? `https://wa.me/${SLICE.whatsapp}?text=${encodeURIComponent("Hola, quiero una slice")}`
+  : null;
+const cinta = [`Slice ${clp(SLICE.precioSola)}`, `Con bebida ${clp(SLICE.precioConBebida)}`, "Los Leones 229", "New York Style desde 2013"];
+---
+
+<Layout
+  title="Slice de pizza New York en Los Leones"
+  description={`Slice de pizza New York Style en Los Leones 229, Providencia: ${clp(SLICE.precioSola)} sola y ${clp(SLICE.precioConBebida)} con bebida. Llegas, pides y comes.`}
+  ogImage="/assets/slice-hero.jpg"
+  bareChrome={true}
+>
+  <header class="sl-hd">
+    <a href="/" class="sl-logo" aria-label="Agostina Pizzas, ir al inicio">
+      <img src="/home/assets/logo-compacto-negro.webp" alt="" width="108" height="56" />
+    </a>
+    <a class="sl-pill" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="slice-header">
+      ¡Pide ya!
+      <span class="sr-only">(se abre en el sistema de pedidos)</span>
+    </a>
+  </header>
+
+  <main class="sl">
+    <section class="sl-hero">
+      <div class="sl-copy">
+        <p class="sl-kick">Los Leones · Providencia</p>
+        <h1 class="sl-h1">Una porción.<br /><span>Un precio.</span></h1>
+        <p class="sl-sub">Llegas, pides y comes. Sin esperar un pedido entero.</p>
+
+        <ul class="sl-precios">
+          <li class="sl-precio sl-precio-a">
+            <span class="sl-monto">{clp(SLICE.precioSola)}</span>
+            <span class="sl-etq">Slice sola</span>
+          </li>
+          <li class="sl-precio sl-precio-b">
+            <span class="sl-monto">{clp(SLICE.precioConBebida)}</span>
+            <span class="sl-etq">Con bebida</span>
+          </li>
+        </ul>
+
+        <div class="sl-acciones">
+          <a
+            class="sl-btn sl-btn-negro"
+            href={LOCAL.mapaUrl}
+            target="_blank"
+            rel="noopener"
+            data-track="agostina:mapa_click"
+            data-origen="slice-hero"
+          >
+            Cómo llegar
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          <a class="sl-btn sl-btn-linea" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="slice-hero">
+            Pedir por la web
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          {
+            wa && (
+              <a class="sl-btn sl-btn-linea" href={wa} target="_blank" rel="noopener" data-track="agostina:whatsapp_click" data-origen="slice-hero">
+                WhatsApp
+              </a>
+            )
+          }
+        </div>
+
+        <p class="sl-dir">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.4"></circle></svg>
+          {LOCAL.direccion.calle}, {LOCAL.direccion.comuna}
+          {SLICE.horario && <span class="sl-hora">· {SLICE.horario}</span>}
+        </p>
+      </div>
+
+      <figure class="sl-foto">
+        <img
+          src="/assets/slice-hero.jpg"
+          alt="Slice de pizza pepperoni recién horneada, con el queso estirándose"
+          width="1080"
+          height="700"
+          fetchpriority="high"
+        />
+        <span class="sl-sticker" aria-hidden="true">Sin esperar<br />un pedido entero</span>
+      </figure>
+    </section>
+
+    <div class="sl-cinta" aria-hidden="true">
+      <div class="sl-cinta-in">
+        {[...cinta, ...cinta, ...cinta, ...cinta].map((t) => <span>{t}<i>/</i></span>)}
+      </div>
+    </div>
+
+    <section class="sl-pasos">
+      <h2 class="sl-h2">Así de simple</h2>
+      <ol>
+        <li><span>01</span><b>Llegas</b><p>Pasa por Los Leones 229, Local 5.</p></li>
+        <li><span>02</span><b>Pides</b><p>Elige tu slice, sola o con bebida.</p></li>
+        <li><span>03</span><b>Comes</b><p>Horneada al momento, para comer en la mano.</p></li>
+      </ol>
+    </section>
+
+    <section class="sl-cierre">
+      <h2 class="sl-h2">¿Prefieres que te la llevemos?</h2>
+      <p>Pide la pizza entera con delivery en Providencia, Las Condes, Vitacura y La Reina.</p>
+      <a class="sl-btn sl-btn-crema" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="slice-cierre">
+        Pedir ahora
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </section>
+
+    <footer class="sl-pie">
+      <p>© 2026 Agostina Pizzas · {LOCAL.direccion.calle}, {LOCAL.direccion.comuna}</p>
+      <p><a href="/">Inicio</a> · <a href="/privacidad/">Privacidad</a></p>
+    </footer>
+  </main>
+
+  <script>
+    import "../../scripts/utm.js";
+  </script>
+</Layout>
+
+<style>
+  :global(body) {
+    background: #f5efe6;
+  }
+  .sl {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    overflow-x: clip;
+  }
+  .sl h1,
+  .sl h2 {
+    font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: 0.005em;
+  }
+  .sl p {
+    margin: 0;
+  }
+
+  /* ---------- header ---------- */
+  .sl-hd {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: linear-gradient(#f5efe6 75%, rgba(245, 239, 230, 0));
+  }
+  .sl-logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .sl-logo img {
+    height: 44px;
+    width: auto;
+  }
+  .sl-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 2px solid #c73a2a;
+    border-radius: 999px;
+    color: #c73a2a;
+    background: #f5efe6;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    transition: background 0.25s, color 0.25s, transform 0.25s;
+  }
+  .sl-pill:hover {
+    background: #c73a2a;
+    color: #f5efe6;
+    transform: rotate(-3deg);
+  }
+
+  /* ---------- hero ---------- */
+  .sl-hero {
+    display: grid;
+    gap: 28px;
+    padding: 84px 16px 40px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .sl-kick {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c73a2a;
+  }
+  .sl-h1 {
+    font-size: clamp(60px, 17vw, 112px);
+    margin: 10px 0 12px;
+  }
+  .sl-h1 span {
+    color: #c73a2a;
+  }
+  .sl-sub {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #4a453e;
+    max-width: 36ch;
+  }
+  .sl-precios {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 20px;
+  }
+  .sl-precio {
+    flex: 1 1 0;
+    max-width: 230px;
+    padding: 12px 14px 10px;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 22px rgba(17, 17, 17, 0.2), 0 2px 4px rgba(17, 17, 17, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sl-precio-a {
+    background: #c73a2a;
+    color: #f5efe6;
+    transform: rotate(-2.5deg);
+    border-radius: 10px;
+  }
+  .sl-precio-b {
+    background: #111;
+    color: #f5efe6;
+    transform: rotate(2deg);
+    border-radius: 10px;
+  }
+  .sl-monto {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(44px, 12vw, 72px);
+    line-height: 0.9;
+  }
+  .sl-precio-b .sl-monto {
+    color: #f4d27a;
+  }
+  .sl-etq {
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .sl-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 420px;
+  }
+  .sl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 26px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  .sl-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s;
+  }
+  .sl-btn:hover {
+    transform: translateY(-2px) rotate(-1deg);
+  }
+  .sl-btn:hover svg {
+    transform: translateX(4px);
+  }
+  .sl-btn-negro {
+    background: #111;
+    color: #f5efe6;
+  }
+  .sl-btn-linea {
+    border: 2px solid #111;
+    color: #111;
+  }
+  .sl-btn-crema {
+    background: #f5efe6;
+    color: #111;
+  }
+  .sl-dir {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .sl-dir svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #c73a2a;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    flex: none;
+  }
+  .sl-hora {
+    color: #4a453e;
+    font-weight: 500;
+  }
+  .sl-foto {
+    position: relative;
+    margin: 6px 0 0;
+    transform: rotate(-1.5deg);
+    border: 6px solid #fff;
+    box-shadow: 0 14px 28px rgba(17, 17, 17, 0.22), 0 2px 4px rgba(17, 17, 17, 0.15);
+    background: #fff;
+  }
+  .sl-foto img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    object-position: 60% 30%;
+  }
+  .sl-sticker {
+    position: absolute;
+    right: -6px;
+    bottom: -18px;
+    transform: rotate(5deg);
+    background: #f4d27a;
+    color: #111;
+    border: 4px solid #fff;
+    border-radius: 10px;
+    padding: 8px 14px 6px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 22px;
+    line-height: 0.95;
+    text-align: center;
+    box-shadow: 0 10px 22px rgba(17, 17, 17, 0.22);
+  }
+
+  /* ---------- cinta ---------- */
+  .sl-cinta {
+    background: #111;
+    color: #f5efe6;
+    overflow: hidden;
+    transform: rotate(-1.2deg);
+    margin: 18px -10px 8px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+  }
+  .sl-cinta-in {
+    display: flex;
+    gap: 22px;
+    width: max-content;
+    padding: 12px 0 8px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 30px;
+    white-space: nowrap;
+    animation: sl-marq 30s linear infinite;
+  }
+  .sl-cinta-in i {
+    font-style: normal;
+    margin-left: 22px;
+    color: #c73a2a;
+  }
+  @keyframes sl-marq {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ---------- pasos ---------- */
+  .sl-pasos {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 16px 24px;
+  }
+  .sl-h2 {
+    font-size: clamp(40px, 9vw, 72px);
+  }
+  .sl-pasos ol {
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 0;
+    display: grid;
+    gap: 0;
+  }
+  .sl-pasos li {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    column-gap: 14px;
+    align-items: baseline;
+    border-top: 2px solid #111;
+    padding: 16px 0;
+  }
+  .sl-pasos li span {
+    grid-row: span 2;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 40px;
+    color: #c73a2a;
+    line-height: 0.9;
+  }
+  .sl-pasos li b {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .sl-pasos li p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #4a453e;
+  }
+
+  /* ---------- cierre ---------- */
+  .sl-cierre {
+    background: #c73a2a;
+    color: #f5efe6;
+    padding: 44px 16px 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .sl-cierre p {
+    max-width: 44ch;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .sl-cierre .sl-btn {
+    margin-top: 6px;
+  }
+  .sl-pie {
+    padding: 22px 16px 28px;
+    font-size: 12px;
+    color: #4a453e;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    justify-content: space-between;
+  }
+  .sl-pie a {
+    text-decoration: underline;
+  }
+
+  /* ---------- foco y movimiento ---------- */
+  .sl :focus-visible,
+  .sl-hd :focus-visible {
+    outline: 3px solid #c73a2a;
+    outline-offset: 3px;
+  }
+  .sl-cierre :focus-visible {
+    outline-color: #f4d27a;
+  }
+  .sl-h1,
+  .sl-precio,
+  .sl-foto {
+    animation: sl-in 0.9s cubic-bezier(0.16, 0.8, 0.24, 1) backwards;
+  }
+  .sl-precio-b {
+    animation-delay: 0.1s;
+  }
+  .sl-foto {
+    animation-delay: 0.2s;
+  }
+  @keyframes sl-in {
+    from {
+      opacity: 0;
+      translate: 0 28px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sl-cinta-in,
+    .sl-h1,
+    .sl-precio,
+    .sl-foto {
+      animation: none;
+    }
+  }
+
+  /* ---------- escritorio ---------- */
+  @media (min-width: 900px) {
+    .sl-hd {
+      padding: 18px 40px;
+    }
+    .sl-hero {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 56px;
+      padding: 120px 40px 56px;
+    }
+    .sl-foto {
+      margin: 0;
+    }
+    .sl-sticker {
+      font-size: 30px;
+      right: -18px;
+      bottom: -22px;
+    }
+    .sl-acciones {
+      flex-direction: row;
+      flex-wrap: wrap;
+      max-width: none;
+    }
+    .sl-pasos {
+      padding: 56px 40px 32px;
+    }
+    .sl-pasos ol {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .sl-pasos li {
+      grid-template-columns: 1fr;
+      row-gap: 6px;
+      padding-top: 18px;
+    }
+    .sl-pasos li span {
+      grid-row: auto;
+      font-size: 56px;
+    }
+    .sl-cierre {
+      padding: 72px 40px 80px;
+    }
+    .sl-cierre > * {
+      width: min(1100px, 100%);
+      margin-inline: auto;
+    }
+    .sl-pie {
+      padding: 24px 40px 32px;
+    }
+  }
+</style>

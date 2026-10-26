@@ -1,0 +1,1026 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaPedir from "../components/CtaPedir.astro";
+import FormNewsletter from "../components/FormNewsletter.astro";
+import { MARCA, LOCAL, COMUNAS_DELIVERY, REDES } from "../data/negocio";
+import { buscarPizza, PIZZA_HEROE_SLUG, PIZZAS_LOVERS } from "../data/catalogo";
+
+const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
+const bianca = PIZZAS_LOVERS.find((p) => p.slug === "bianca")!;
+const cate = PIZZAS_LOVERS.find((p) => p.slug === "cate")!;
+const margarita = PIZZAS_LOVERS.find((p) => p.slug === "margarita")!;
+
+const escenas = [
+  { id: "e1", nombre: "01 — Antojo" },
+  { id: "e2", nombre: "02 — Las favoritas" },
+  { id: "e3", nombre: "03 — Carácter Agostina" },
+  { id: "e4", nombre: "04 — Cerca de ti" },
+  { id: "e5", nombre: "05 — Lo que viene" },
+];
+---
+
+<Layout title="Pizzería a la piedra, New York Style" bareChrome={true}>
+  <a href="/" class="marca-fija" aria-label="Agostina Pizzas, inicio" transition:name="agostina-logo">
+    <img src="/assets/logos/logo-compacto-negro.svg" alt="" width="20" height="20" />
+    <span>Agostina <em>·</em> Pizzas</span>
+  </a>
+  <div class="contexto-fijo" id="contexto-fijo" aria-hidden="true">01 — Antojo</div>
+
+  <CtaPedir origen="home-tab" texto="Pedir ahora" class="cta-tab" transitionName="agostina-cta" />
+
+  <nav class="indice-fijo" aria-label="Ir a escena">
+    {
+      escenas.map((e, i) => (
+        <>
+          <button type="button" data-ir={e.id} data-idx={i} aria-current={i === 0 ? "true" : undefined}>
+            {String(i + 1).padStart(2, "0")}
+          </button>
+          {i < escenas.length - 1 && <div class="regla" aria-hidden="true" />}
+        </>
+      ))
+    }
+  </nav>
+
+  <p class="sr-only">
+    Recorrido de cinco escenas. En pantallas grandes se despliega en horizontal — usa el scroll del mouse, el trackpad, las
+    flechas del teclado o el índice inferior para avanzar. En móvil es un recorrido vertical normal.
+  </p>
+
+  <div id="recorrido">
+    <!-- ===== ESCENA 1 — ANTOJO ===== -->
+    <section class="escena" id="e1" data-nombre="01 — Antojo" aria-labelledby="e1-h">
+      <h1 id="e1-h" class="headline">Pizza a<br />la <em>piedra</em></h1>
+      <div class="foto-cutout" id="giulianna-cutout">
+        <img src={giulianna.imagen} alt={`Pizza ${giulianna.nombre}, ${giulianna.descripcion.toLowerCase()}`} width="900" height="900" />
+        <span class="foto-tag">Giulianna · recorte real pendiente, ver IMAGE_SHOT_LIST.md</span>
+      </div>
+      <div class="nyc">New York Style</div>
+      <p class="micro micro-loc">
+        Est. {MARCA.fundacionAnio} · {LOCAL.direccion.calle}, {LOCAL.direccion.comuna}
+      </p>
+    </section>
+
+    <!-- ===== ESCENA 2 — LAS FAVORITAS ===== -->
+    <section class="escena" id="e2" data-nombre="02 — Las favoritas" aria-labelledby="e2-h">
+      <h2 id="e2-h" class="headline">Las<br />favoritas</h2>
+      <a
+        class="foto-editorial p-giulianna"
+        href="#"
+        id="foto-swap"
+        data-track="agostina:producto_click"
+        data-slug={giulianna.slug}
+        data-nombre={giulianna.nombre}
+        aria-label={`Pedir pizza ${giulianna.nombre}`}
+      >
+        <img src={giulianna.imagen} alt={`Pizza ${giulianna.nombre}, ${giulianna.descripcion.toLowerCase()}`} data-cycle={`${giulianna.imagen},/assets/hero-pepperoni.jpg`} />
+      </a>
+      <a class="foto-editorial p-bianca" href="#" data-track="agostina:producto_click" data-slug={bianca.slug} data-nombre={bianca.nombre} aria-label={`Pedir pizza ${bianca.nombre}`}>
+        <img src={bianca.imagen} alt={`Pizza ${bianca.nombre}, ${bianca.descripcion.toLowerCase()}`} />
+      </a>
+      <a class="foto-editorial p-cate" href="#" data-track="agostina:producto_click" data-slug={cate.slug} data-nombre={cate.nombre} aria-label={`Pedir pizza ${cate.nombre}`}>
+        <img src={cate.imagen} alt={`Pizza ${cate.nombre}, ${cate.descripcion.toLowerCase()}`} />
+      </a>
+      <div class="stamp-margarita">
+        <span>{margarita.nombre}<br />tomate · albahaca</span>
+      </div>
+      <p class="label label-giulianna">
+        {giulianna.nombre} — {giulianna.descripcion}
+      </p>
+      <a class="link-editorial link-carta" href="/pizzas/">
+        Ver la carta
+        <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </section>
+
+    <!-- ===== ESCENA 3 — CARÁCTER AGOSTINA ===== -->
+    <section class="escena" id="e3" data-nombre="03 — Carácter Agostina" aria-labelledby="e3-h">
+      <h2 id="e3-h" class="headline">Actitud<br /><em>New York</em></h2>
+      <div class="foto-editorial foto-horno" id="foto-parallax">
+        <img src="/assets/kitchen-atmo.jpg" alt="Pizza Bianca, cuatro quesos, recién horneada sobre piedra" />
+      </div>
+      <div class="objeto-sello">
+        <img src="/assets/logos/insignia-negativo.svg" alt="" />
+      </div>
+      <p class="copy3">
+        Pizzería a la piedra premium. Artesanal, urbana y cercana — masa hecha a mano, horneada al momento, ingredientes
+        seleccionados.
+      </p>
+    </section>
+
+    <!-- ===== ESCENA 4 — CERCA DE TI ===== -->
+    <section class="escena" id="e4" data-nombre="04 — Cerca de ti" aria-labelledby="e4-h">
+      <h2 id="e4-h" class="headline">{LOCAL.direccion.calle}</h2>
+      <div class="foto-editorial foto-fachada foto-pending">
+        <span>Fachada {LOCAL.direccion.calle}<br />— foto pendiente</span>
+      </div>
+      <ul class="comuna-lista" id="comuna-lista">
+        <li>
+          <button type="button" data-comuna="local" data-activa="true" data-track="agostina:comuna_click" data-comuna-nombre="Providencia (local)">
+            <span class="dot"></span>Providencia (local)
+          </button>
+        </li>
+        {
+          COMUNAS_DELIVERY.filter((c) => c !== "Providencia").map((c) => (
+            <li>
+              <button
+                type="button"
+                data-comuna={c.toLowerCase().replace(/\s+/g, "-")}
+                data-track="agostina:comuna_click"
+                data-comuna-nombre={c}
+              >
+                <span class="dot" />
+                {c}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mapa" aria-hidden="true">
+        <svg viewBox="0 0 200 200" width="100%" height="100%">
+          <line x1="46" y1="46" x2="150" y2="30" stroke="var(--linea)" stroke-width="1.2"></line>
+          <line x1="46" y1="46" x2="30" y2="150" stroke="var(--linea)" stroke-width="1.2"></line>
+          <line x1="46" y1="46" x2="160" y2="150" stroke="var(--linea)" stroke-width="1.2"></line>
+          <circle id="pin-local" cx="46" cy="46" r="7" fill="var(--color-rojo)"></circle>
+          <circle id="pin-vitacura" cx="150" cy="30" r="5" fill="var(--ink-suave)"></circle>
+          <circle id="pin-la-reina" cx="30" cy="150" r="5" fill="var(--ink-suave)"></circle>
+          <circle id="pin-las-condes" cx="160" cy="150" r="5" fill="var(--ink-suave)"></circle>
+        </svg>
+      </div>
+      <div class="links4">
+        <a class="link-editorial" href={LOCAL.mapaUrl} target="_blank" rel="noopener" data-track="agostina:mapa_click" data-origen="home">
+          Cómo llegar<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <a class="link-editorial" href="/delivery/">
+          Pedir con delivery<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== ESCENA 5 — LO QUE VIENE ===== -->
+    <section class="escena" id="e5" data-nombre="05 — Lo que viene" aria-labelledby="e5-h">
+      <div class="contenido5">
+        <h2 id="e5-h" class="headline">Lo que<br />viene</h2>
+        <p class="micro" style="font-size:13px;color:var(--ink-suave);max-width:44ch;">
+          Nuevos sabores, lanzamientos y futuros pop-ups. Todavía no ofrecemos eventos como servicio formal — esta lista es
+          para avisarte apenas exista algo concreto.
+        </p>
+
+        <FormNewsletter />
+
+        <CtaPedir origen="home-cierre" texto="Pedir ahora" class="pedir-final" />
+
+        <p class="foot5">
+          <a href={REDES.instagram.url} target="_blank" rel="noopener">{REDES.instagram.label}</a> ·
+          <a href={REDES.tiktok.url} target="_blank" rel="noopener">{REDES.tiktok.label}</a> ·
+          {LOCAL.direccion.calle}, {LOCAL.direccion.comuna} · {COMUNAS_DELIVERY.join(" · ")}
+        </p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+  :root {
+    --canvas: #f6f3ec;
+    --canvas-calm: #fbf9f5;
+    --ink-suave: #4a453d;
+    --linea: rgba(21, 19, 15, 0.16);
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  main {
+    /* La home reemplaza el <main> estándar por su propio lienzo. */
+    display: block;
+  }
+
+  /* ---------- marcas fijas: impresas, sin cápsulas ---------- */
+  .marca-fija {
+    position: fixed;
+    z-index: 80;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .marca-fija img {
+    height: 20px;
+    width: auto;
+  }
+  .marca-fija span {
+    font-weight: 800;
+    font-size: 12.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-negro);
+    font-family: var(--font-body);
+  }
+  .marca-fija span em {
+    font-style: normal;
+    color: var(--color-rojo);
+  }
+
+  .contexto-fijo {
+    position: fixed;
+    z-index: 80;
+    top: 28px;
+    right: 96px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--ink-suave);
+    text-transform: uppercase;
+  }
+  @media (max-width: 640px) {
+    .contexto-fijo {
+      display: none;
+    }
+  }
+
+  :global(.cta-tab) {
+    position: fixed !important;
+    top: 50%;
+    right: 0;
+    translate: 0 -50%;
+    z-index: 90;
+    padding: 20px 9px !important;
+    writing-mode: vertical-rl;
+    box-shadow: -6px 0 18px -10px rgba(21, 19, 15, 0.35);
+    border-radius: 0 !important;
+  }
+  :global(.cta-tab svg) {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    :global(.cta-tab) {
+      top: auto !important;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      translate: none;
+      writing-mode: horizontal-tb;
+      width: 100%;
+      justify-content: center;
+      box-shadow: 0 -6px 18px -10px rgba(21, 19, 15, 0.35);
+    }
+  }
+
+  .indice-fijo {
+    position: fixed;
+    z-index: 80;
+    left: 24px;
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .indice-fijo .regla {
+    width: 26px;
+    height: 1px;
+    background: var(--linea);
+  }
+  .indice-fijo button {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-suave);
+    letter-spacing: 0.04em;
+    padding: 4px;
+  }
+  .indice-fijo button[aria-current="true"] {
+    color: var(--color-rojo);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .indice-fijo {
+      display: none;
+    }
+  }
+
+  /* ---------- tipografía y fotografía compartida ---------- */
+  .headline {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.86;
+    color: var(--color-negro);
+    letter-spacing: 0.004em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .headline em {
+    font-style: normal;
+    color: var(--color-rojo);
+  }
+  .micro {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-suave);
+  }
+  .foto-cutout {
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 24px 50px -20px rgba(21, 19, 15, 0.4);
+    position: relative;
+  }
+  .foto-cutout img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .foto-tag {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 2;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: #fff;
+    background: rgba(21, 19, 15, 0.72);
+    padding: 5px 9px;
+    line-height: 1.4;
+    max-width: 78%;
+  }
+  .foto-editorial {
+    overflow: hidden;
+    position: relative;
+    display: block;
+  }
+  .foto-editorial img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.04) contrast(1.02);
+    transition: transform 0.6s var(--ease), opacity 0.18s ease;
+  }
+  .foto-pending {
+    background: repeating-linear-gradient(135deg, var(--canvas), var(--canvas) 10px, #e9e2d2 10px, #e9e2d2 20px);
+    border: 1.5px dashed var(--ink-suave);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px;
+  }
+  .foto-pending span {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-suave);
+    line-height: 1.5;
+  }
+  .objeto-sello {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 14px 30px -14px rgba(21, 19, 15, 0.45);
+    background: var(--color-rojo);
+  }
+  .objeto-sello img {
+    width: 62%;
+    height: 62%;
+    object-fit: contain;
+  }
+  .link-editorial {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-rojo);
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 2px;
+    font-family: var(--font-body);
+  }
+  .link-editorial svg {
+    width: 13px;
+    height: 13px;
+    transition: transform 0.25s var(--ease);
+  }
+  .link-editorial:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ================= RECORRIDO ================= */
+  #recorrido {
+    position: relative;
+  }
+  .escena {
+    position: relative;
+    background: var(--canvas);
+    overflow: hidden;
+  }
+  @media (min-width: 1000px) {
+    #recorrido {
+      display: flex;
+      height: 100vh;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+    #recorrido::-webkit-scrollbar {
+      display: none;
+    }
+    .escena {
+      flex: 0 0 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+    }
+  }
+  @media (max-width: 999px) {
+    .escena {
+      min-height: 100vh;
+      padding: 120px 0 90px;
+    }
+  }
+
+  /* ===== ESCENA 1 ===== */
+  #e1 .headline {
+    position: absolute;
+    top: 6%;
+    right: 4%;
+    font-size: clamp(60px, 13.5vw, 190px);
+    text-align: right;
+    max-width: 82%;
+    z-index: 3;
+  }
+  #e1 .foto-cutout {
+    position: absolute;
+    left: -4%;
+    bottom: -6%;
+    width: min(50vw, 560px);
+    aspect-ratio: 1/1;
+    z-index: 2;
+  }
+  #e1 .nyc {
+    position: absolute;
+    left: 8%;
+    top: 46%;
+    z-index: 4;
+    font-family: var(--font-display);
+    font-size: clamp(26px, 6.4vw, 70px);
+    color: var(--color-rojo);
+    transform: rotate(-6deg);
+    text-transform: uppercase;
+  }
+  #e1 .micro-loc {
+    position: absolute;
+    left: 8%;
+    bottom: 9%;
+    z-index: 4;
+  }
+  @media (max-width: 999px) {
+    #e1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 22px;
+      min-height: 100vh;
+    }
+    #e1 .headline {
+      position: static;
+      text-align: left;
+      max-width: 90%;
+      font-size: clamp(52px, 15vw, 90px);
+      order: 1;
+      padding: 0 6vw;
+    }
+    #e1 .nyc {
+      position: static;
+      order: 2;
+      padding: 0 6vw;
+      font-size: clamp(30px, 10vw, 54px);
+    }
+    #e1 .foto-cutout {
+      position: static;
+      order: 3;
+      width: 64vw;
+      max-width: 340px;
+      margin: 0 6vw;
+    }
+    #e1 .micro-loc {
+      position: static;
+      order: 4;
+      padding: 0 6vw 40px;
+    }
+  }
+
+  /* ===== ESCENA 2 ===== */
+  #e2 .headline {
+    position: absolute;
+    top: 4%;
+    left: -1%;
+    font-size: clamp(46px, 10.5vw, 150px);
+    max-width: 70%;
+    z-index: 3;
+  }
+  #e2 .p-giulianna {
+    position: absolute;
+    right: 9%;
+    top: 16%;
+    width: min(30vw, 340px);
+    aspect-ratio: 3/4;
+    z-index: 2;
+  }
+  #e2 .p-bianca {
+    position: absolute;
+    right: 4%;
+    bottom: 9%;
+    width: min(19vw, 220px);
+    aspect-ratio: 4/5;
+    z-index: 2;
+  }
+  #e2 .p-cate {
+    position: absolute;
+    left: 9%;
+    bottom: 11%;
+    width: min(15vw, 170px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 20px 40px -18px rgba(21, 19, 15, 0.4);
+  }
+  #e2 .stamp-margarita {
+    position: absolute;
+    left: 31%;
+    bottom: 32%;
+    width: min(11vw, 120px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-rojo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    z-index: 3;
+    background: var(--canvas);
+  }
+  #e2 .stamp-margarita span {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--color-rojo);
+    line-height: 1.35;
+  }
+  #e2 .label {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-suave);
+    z-index: 4;
+    right: 9%;
+    top: calc(16% + min(30vw, 340px) * 4 / 3 + 10px);
+  }
+  #e2 .link-carta {
+    position: absolute;
+    right: 9%;
+    bottom: 5%;
+    z-index: 4;
+  }
+  @media (max-width: 999px) {
+    #e2 {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #e2 .headline {
+      position: static;
+      padding: 0 6vw;
+      max-width: 90%;
+      font-size: clamp(46px, 14vw, 84px);
+    }
+    #e2 .p-giulianna,
+    #e2 .p-bianca,
+    #e2 .p-cate,
+    #e2 .stamp-margarita {
+      position: static;
+      width: calc(50vw - 24px) !important;
+      margin: 0;
+    }
+    #e2 .label,
+    #e2 .link-carta {
+      position: static;
+      padding: 0 6vw;
+      top: auto;
+    }
+  }
+
+  /* ===== ESCENA 3 ===== */
+  #e3 .headline {
+    position: absolute;
+    top: 10%;
+    left: -2%;
+    font-size: clamp(50px, 11vw, 160px);
+    max-width: 56%;
+    z-index: 3;
+  }
+  #e3 .foto-horno {
+    position: absolute;
+    right: -2%;
+    top: 12%;
+    width: min(46vw, 560px);
+    aspect-ratio: 5/4;
+    z-index: 2;
+  }
+  #e3 .objeto-sello {
+    position: absolute;
+    left: 7%;
+    bottom: 28%;
+    width: min(13vw, 150px);
+    aspect-ratio: 1/1;
+    z-index: 4;
+  }
+  #e3 .copy3 {
+    position: absolute;
+    left: 7%;
+    bottom: 8%;
+    max-width: 38ch;
+    z-index: 3;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--ink-suave);
+    font-weight: 600;
+  }
+  @media (max-width: 999px) {
+    #e3 {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #e3 .headline {
+      position: static;
+      padding: 0 6vw;
+      max-width: 90%;
+      font-size: clamp(46px, 13vw, 80px);
+    }
+    #e3 .foto-horno {
+      position: static;
+      width: calc(100vw - 12vw);
+      margin: 0 6vw;
+      aspect-ratio: 4/3;
+    }
+    #e3 .objeto-sello {
+      position: static;
+      width: 96px;
+      margin: -40px 0 0 6vw;
+    }
+    #e3 .copy3 {
+      position: static;
+      padding: 0 6vw;
+      max-width: none;
+    }
+  }
+
+  /* ===== ESCENA 4 ===== */
+  #e4 .headline {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    font-size: clamp(38px, 8.5vw, 116px);
+    max-width: 92%;
+    z-index: 3;
+  }
+  #e4 .foto-fachada {
+    position: absolute;
+    left: 7%;
+    bottom: 9%;
+    width: min(24vw, 280px);
+    aspect-ratio: 3/4;
+    z-index: 2;
+  }
+  #e4 .mapa {
+    position: absolute;
+    right: 8%;
+    bottom: 9%;
+    width: min(30vw, 360px);
+    aspect-ratio: 1/1;
+    z-index: 2;
+  }
+  #e4 .links4 {
+    position: absolute;
+    right: 8%;
+    top: 42%;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+  .comuna-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 7%;
+    top: 38%;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comuna-lista button {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink-suave);
+  }
+  .comuna-lista button .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ink-suave);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .comuna-lista button[data-activa="true"] {
+    color: var(--color-negro);
+  }
+  .comuna-lista button[data-activa="true"] .dot {
+    background: var(--color-rojo);
+    transform: scale(1.4);
+  }
+  @media (max-width: 999px) {
+    #e4 {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    #e4 .headline {
+      position: static;
+      padding: 0 6vw;
+      max-width: 92%;
+      font-size: clamp(40px, 12vw, 70px);
+    }
+    #e4 .foto-fachada {
+      position: static;
+      width: 56vw;
+      max-width: 260px;
+      margin: 0 6vw;
+    }
+    #e4 .mapa {
+      position: static;
+      width: 76vw;
+      max-width: 320px;
+      margin: 0 6vw;
+    }
+    #e4 .links4 {
+      position: static;
+      padding: 0 6vw;
+      align-items: flex-start;
+    }
+    .comuna-lista {
+      position: static;
+      padding: 0 6vw;
+    }
+  }
+
+  /* ===== ESCENA 5 ===== */
+  #e5 {
+    background: var(--canvas-calm);
+  }
+  #e5 .contenido5 {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    align-items: flex-start;
+  }
+  @media (min-width: 1000px) {
+    #e5 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  #e5 .headline {
+    font-size: clamp(42px, 7vw, 80px);
+  }
+  /* FormNewsletter se diseñó para fondo oscuro; aquí el lienzo es claro. */
+  :global(#e5 .form-newsletter input[type="email"]) {
+    border-color: rgba(21, 19, 15, 0.3) !important;
+    background: transparent !important;
+    color: var(--color-negro) !important;
+  }
+  :global(#e5 .form-newsletter input[type="email"]::placeholder) {
+    color: var(--ink-suave) !important;
+  }
+  :global(#e5 .form-newsletter .fn-consent) {
+    color: var(--ink-suave) !important;
+  }
+  :global(#e5 .form-newsletter .fn-status[data-estado="error"]) {
+    color: var(--color-rojo) !important;
+  }
+  :global(#e5 .form-newsletter .fn-status[data-estado="ok"]) {
+    color: #4a5f2f !important;
+  }
+  :global(#e5 .pedir-final) {
+    font-family: var(--font-display) !important;
+    font-size: clamp(30px, 5vw, 46px) !important;
+    background: transparent !important;
+    color: var(--color-rojo) !important;
+    padding: 0 !important;
+    letter-spacing: 0.01em !important;
+  }
+  :global(#e5 .pedir-final svg) {
+    width: 24px !important;
+    height: 24px !important;
+  }
+  :global(#e5 .pedir-final:hover) {
+    background: transparent !important;
+    color: var(--color-rojo-oscuro) !important;
+  }
+  #e5 .foot5 {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-suave);
+    line-height: 1.7;
+  }
+  #e5 .foot5 a {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  const recorrido = document.getElementById("recorrido") as HTMLDivElement | null;
+  const escenas = Array.from(document.querySelectorAll<HTMLElement>(".escena"));
+  const ticks = Array.from(document.querySelectorAll<HTMLButtonElement>(".indice-fijo button"));
+  const ctx = document.getElementById("contexto-fijo");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let indice = 0;
+  let bloqueado = false;
+
+  function esHorizontal() {
+    return window.matchMedia("(min-width: 1000px)").matches;
+  }
+
+  function marcarActivo(idx: number) {
+    ticks.forEach((b, i) => b.setAttribute("aria-current", String(i === idx)));
+    if (ctx && escenas[idx]) ctx.textContent = escenas[idx].dataset.nombre ?? "";
+  }
+
+  function irA(id: string) {
+    const destino = document.getElementById(id);
+    if (!destino) return;
+    destino.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start", inline: "start" });
+  }
+
+  // Navegación por "diapositiva": cada gesto o tecla avanza exactamente una
+  // escena — más robusto que traducir deltaY a scrollLeft de forma continua,
+  // que en varios navegadores/dispositivos terminaba sin mover nada visible.
+  function avanzar(delta: number) {
+    if (bloqueado) return;
+    const siguiente = indice + delta;
+    if (siguiente < 0 || siguiente >= escenas.length) return;
+    bloqueado = true;
+    indice = siguiente;
+    marcarActivo(indice);
+    irA(escenas[indice].id);
+    window.setTimeout(() => {
+      bloqueado = false;
+    }, 650);
+  }
+
+  ticks.forEach((btn, i) => {
+    btn.addEventListener("click", () => {
+      indice = i;
+      marcarActivo(indice);
+      irA(btn.dataset.ir!);
+    });
+  });
+
+  recorrido?.addEventListener(
+    "wheel",
+    (e) => {
+      if (!esHorizontal()) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // gesto horizontal nativo del trackpad: no interceptar
+      if (Math.abs(e.deltaY) < 8) return; // ruido de rueda de alta resolución
+      e.preventDefault();
+      avanzar(e.deltaY > 0 ? 1 : -1);
+    },
+    { passive: false }
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (!esHorizontal()) return;
+    const activo = document.activeElement as HTMLElement | null;
+    if (activo && (activo.tagName === "INPUT" || activo.tagName === "TEXTAREA" || activo.isContentEditable)) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === "PageDown") {
+      e.preventDefault();
+      avanzar(1);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp" || e.key === "PageUp") {
+      e.preventDefault();
+      avanzar(-1);
+    }
+  });
+
+  // Mantiene `indice` fiel a lo que realmente se ve, sin importar el método
+  // de navegación (swipe táctil, gesto nativo de trackpad, tecla, tick).
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const idx = escenas.indexOf(entry.target as HTMLElement);
+          if (idx === -1) return;
+          indice = idx;
+          marcarActivo(idx);
+        });
+      },
+      { threshold: 0.55 }
+    );
+    escenas.forEach((s) => io.observe(s));
+  }
+
+  // Escena 1 — paralaje sutil del recorte de Giulianna según el cursor.
+  if (!reduce) {
+    const cutout = document.getElementById("giulianna-cutout");
+    const e1 = document.getElementById("e1");
+    if (cutout && e1) {
+      e1.addEventListener("mousemove", (ev) => {
+        const r = e1.getBoundingClientRect();
+        const px = (ev.clientX - r.left) / r.width - 0.5;
+        const py = (ev.clientY - r.top) / r.height - 0.5;
+        (cutout as HTMLElement).style.transform = `translate(${px * 14}px, ${py * 10}px)`;
+      });
+      e1.addEventListener("mouseleave", () => {
+        (cutout as HTMLElement).style.transform = "translate(0,0)";
+      });
+    }
+  }
+
+  // Escena 2 — una sola foto cambia de encuadre en hover/foco.
+  if (!reduce) {
+    const swap = document.getElementById("foto-swap");
+    if (swap) {
+      const img = swap.querySelector("img") as HTMLImageElement;
+      const list = (img.getAttribute("data-cycle") || "").split(",").filter(Boolean);
+      const original = list[0];
+      function mostrar(src: string) {
+        img.style.opacity = "0";
+        setTimeout(() => {
+          img.src = src;
+          img.style.opacity = "1";
+        }, 130);
+      }
+      swap.addEventListener("mouseenter", () => list[1] && mostrar(list[1]));
+      swap.addEventListener("focus", () => list[1] && mostrar(list[1]));
+      swap.addEventListener("mouseleave", () => mostrar(original));
+      swap.addEventListener("blur", () => mostrar(original));
+    }
+  }
+
+  // Escena 3 — paralaje diferencial de la foto respecto al titular, según scroll.
+  if (!reduce) {
+    const foto3 = document.getElementById("foto-parallax");
+    const e3 = document.getElementById("e3");
+    if (foto3 && e3 && recorrido) {
+      recorrido.addEventListener(
+        "scroll",
+        () => {
+          if (!esHorizontal()) return;
+          const r = e3.getBoundingClientRect();
+          const progreso = 1 - Math.min(1, Math.max(0, r.left / window.innerWidth));
+          (foto3 as HTMLElement).style.transform = `translateX(${(progreso - 0.5) * -26}px)`;
+        },
+        { passive: true }
+      );
+    }
+  }
+
+  // Escena 4 — foco/hover en una comuna resalta su punto en el mapa.
+  const lista = document.getElementById("comuna-lista");
+  if (lista) {
+    const botones = Array.from(lista.querySelectorAll<HTMLButtonElement>("button"));
+    botones.forEach((btn) => {
+      function activar() {
+        botones.forEach((b) => b.setAttribute("data-activa", String(b === btn)));
+        document.querySelectorAll('[id^="pin-"]').forEach((p) => {
+          p.setAttribute("fill", "var(--ink-suave)");
+          p.setAttribute("r", "5");
+        });
+        const pin = document.getElementById("pin-" + btn.dataset.comuna);
+        if (pin) {
+          pin.setAttribute("fill", "var(--color-rojo)");
+          pin.setAttribute("r", "7");
+        }
+      }
+      btn.addEventListener("mouseenter", activar);
+      btn.addEventListener("focus", activar);
+    });
+  }
+
+  marcarActivo(0);
+</script>

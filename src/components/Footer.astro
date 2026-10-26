@@ -1,0 +1,106 @@
+---
+import { LOCAL, REDES, COMUNAS_DELIVERY, MARCA } from "../data/negocio";
+import CtaPedir from "./CtaPedir.astro";
+---
+
+<footer class="footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <img src="/assets/logos/logo-compacto-crema.svg" alt={`${MARCA.nombre} — ${MARCA.descriptor}, Est. ${MARCA.fundacionAnio}`} width="160" height="46" />
+      <p>Pizzería a la piedra premium. New York attitude, Santiago hunger.</p>
+    </div>
+    <div class="footer-col">
+      <h2>Visítanos</h2>
+      <p>{LOCAL.direccion.calle}</p>
+      <p>{LOCAL.direccion.comuna}, {LOCAL.direccion.ciudad}</p>
+      <a href="/como-llegar/">Cómo llegar →</a>
+    </div>
+    <div class="footer-col">
+      <h2>Delivery</h2>
+      <p>{COMUNAS_DELIVERY.join(" · ")}</p>
+      <a href="/delivery/">Ver cobertura →</a>
+    </div>
+    <div class="footer-col">
+      <h2>Síguenos</h2>
+      <a href={REDES.instagram.url} target="_blank" rel="noopener">Instagram — {REDES.instagram.handle}</a>
+      <a href={REDES.tiktok.url} target="_blank" rel="noopener">TikTok — {REDES.tiktok.handle}</a>
+      <a href="/novedades/">Novedades y pop-ups →</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>{MARCA.nombre} — Est. {MARCA.fundacionAnio}. {MARCA.descriptor}. <a href="/privacidad/">Privacidad</a></p>
+    <CtaPedir origen="footer" tamano="sm" />
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-negro);
+    color: var(--color-crema);
+    padding: var(--space-6) 0 0;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid rgba(245, 239, 230, 0.14);
+  }
+  @media (min-width: 900px) {
+    .footer-top {
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    }
+  }
+  .footer-brand img {
+    margin-bottom: var(--space-2);
+  }
+  .footer-brand p {
+    font-size: 13.5px;
+    color: #a89f8f;
+    line-height: 1.6;
+    max-width: 32ch;
+    font-weight: 500;
+  }
+  .footer-col h2 {
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #a89f8f;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+  .footer-col a,
+  .footer-col p {
+    display: block;
+    font-size: 14.5px;
+    color: var(--color-crema);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .footer-col a:hover {
+    color: var(--color-rojo);
+  }
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3) 0 var(--space-4);
+  }
+  @media (min-width: 700px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .footer-bottom p {
+    font-size: 12px;
+    color: #7c766c;
+    font-weight: 500;
+  }
+  .footer-bottom a {
+    text-decoration: underline;
+    color: inherit;
+  }
+</style>

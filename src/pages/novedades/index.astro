@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Migas from "../../components/Migas.astro";
+import FormNewsletter from "../../components/FormNewsletter.astro";
+---
+
+<Layout
+  title="Novedades — nuevos sabores y futuros pop-ups"
+  description="Suscríbete a las novedades de Agostina Pizzas: nuevos sabores, lanzamientos y futuros pop-ups directo a tu correo."
+>
+  <div class="container cabecera-pagina">
+    <Migas items={[{ label: "Novedades" }]} />
+    <span class="eyebrow">Novedades</span>
+    <h1 class="titulo-pagina">Entérate antes que nadie</h1>
+    <p class="copy-seccion">
+      Nuevos sabores, lanzamientos y próximos pop-ups. Agostina todavía no ofrece un servicio formal de eventos: esta lista es para
+      avisarte apenas exista algo concreto, no una reserva ni una promesa de fecha.
+    </p>
+  </div>
+
+  <section class="seccion seccion-negra">
+    <div class="container">
+      <FormNewsletter />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cabecera-pagina {
+    padding: 140px 0 var(--space-5);
+  }
+  .titulo-pagina {
+    font-size: clamp(36px, 5.6vw, 64px);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+</style>

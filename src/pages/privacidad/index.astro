@@ -1,0 +1,64 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Migas from "../../components/Migas.astro";
+---
+
+<Layout title="Privacidad" description="Política de tratamiento de datos del formulario de novedades de Agostina Pizzas." noIndex={false}>
+  <div class="container pagina-texto">
+    <Migas items={[{ label: "Privacidad" }]} />
+    <span class="eyebrow">Privacidad</span>
+    <h1 class="titulo-pagina">Tratamiento de datos</h1>
+
+    <div class="prosa">
+      <p>
+        Esta página describe cómo Agostina Pizzas trata los datos que entregas voluntariamente en el formulario de novedades del
+        sitio. No cubre el sistema de pedidos externo, que tiene su propia política de privacidad en la plataforma correspondiente.
+      </p>
+
+      <h2>Qué datos pedimos</h2>
+      <p>Solo tu correo electrónico y tu consentimiento explícito para recibir comunicaciones. No pedimos nombre, teléfono ni fecha de nacimiento porque no tienen un uso concreto en esta lista.</p>
+
+      <h2>Para qué se usa</h2>
+      <p>Exclusivamente para avisarte de nuevos sabores, lanzamientos y futuros pop-ups de Agostina Pizzas. No vendemos ni compartimos tu correo con terceros ajenos al envío de estas comunicaciones.</p>
+
+      <h2>Proveedor de envío</h2>
+      <p>
+        El proveedor de email marketing que procesará estos envíos está <strong>[POR CONFIRMAR]</strong>. Mientras no esté
+        configurado y aprobado, el formulario no transmite tu correo a ningún servicio externo.
+      </p>
+
+      <h2>Cómo darte de baja</h2>
+      <p>Cada comunicación que envíe Agostina Pizzas incluirá una forma de darte de baja. Mientras el proveedor no esté confirmado, puedes solicitar la baja escribiendo a los canales de contacto vigentes de la marca.</p>
+
+      <h2>Contacto</h2>
+      <p>Para consultas sobre tus datos, escríbenos a través de nuestras redes sociales o al canal de contacto que se publique en este sitio una vez confirmado.</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .pagina-texto {
+    padding: 140px 0 var(--space-7);
+    max-width: 760px;
+  }
+  .titulo-pagina {
+    font-size: clamp(32px, 5vw, 52px);
+    margin: var(--space-2) 0 var(--space-4);
+  }
+  .prosa {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .prosa h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-top: var(--space-3);
+  }
+  .prosa p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--fg-muted);
+  }
+</style>

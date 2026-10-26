@@ -1,0 +1,46 @@
+---
+/**
+ * JSON-LD tipo Restaurant. Solo se incluyen campos con dato real y
+ * verificado; los pendientes (teléfono, horario, coordenadas) se omiten
+ * del schema en vez de inventarse, para que no exista discrepancia entre
+ * el marcado estructurado y el contenido visible.
+ */
+import { MARCA, LOCAL, REDES, SEO_DEFAULT } from "../data/negocio";
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
+
+const schema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: MARCA.nombre,
+  url: siteUrl,
+  logo: `${siteUrl}/assets/logos/logo-rojo.svg`,
+  image: `${siteUrl}${SEO_DEFAULT.ogImage}`,
+  servesCuisine: "Pizza a la piedra, New York Style",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: LOCAL.direccion.calle,
+    addressLocality: LOCAL.direccion.comuna,
+    addressRegion: LOCAL.direccion.region,
+    addressCountry: "CL",
+  },
+  sameAs: [REDES.instagram.url, REDES.tiktok.url],
+  hasMenu: `${siteUrl}/pizzas/`,
+};
+
+if (LOCAL.telefono && LOCAL.telefono !== "[POR CONFIRMAR]") {
+  schema.telephone = LOCAL.telefono;
+}
+if (LOCAL.coordenadas.lat && LOCAL.coordenadas.lng) {
+  schema.geo = {
+    "@type": "GeoCoordinates",
+    latitude: LOCAL.coordenadas.lat,
+    longitude: LOCAL.coordenadas.lng,
+  };
+}
+if (LOCAL.horario && LOCAL.horario !== "[POR CONFIRMAR]") {
+  schema.openingHours = LOCAL.horario;
+}
+---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />

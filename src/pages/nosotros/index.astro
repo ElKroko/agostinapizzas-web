@@ -1,0 +1,182 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Migas from "../../components/Migas.astro";
+import CtaPedir from "../../components/CtaPedir.astro";
+import { MARCA, LOCAL } from "../../data/negocio";
+---
+
+<Layout
+  title="Nosotros — historia y filosofía"
+  description="Agostina Pizzas: pizzería a la piedra premium, New York Style, desde 2013 en Los Leones, Providencia. Masa hecha a mano, horneada al momento, producto siempre protagonista."
+>
+  <div class="container cabecera-pagina">
+    <Migas items={[{ label: "Nosotros" }]} />
+    <span class="eyebrow">Nuestra historia</span>
+    <h1 class="titulo-pagina">Todo empezó con una masa y una piedra caliente</h1>
+  </div>
+
+  <section class="seccion seccion-crema">
+    <div class="container historia-grid">
+      <div class="historia-media">
+        <img src="/assets/kitchen-atmo.jpg" alt="Pizza Bianca, cuatro quesos, recién horneada sobre piedra" width="1300" height="1000" />
+      </div>
+      <div class="historia-copy">
+        <p class="copy-seccion">
+          {MARCA.nombre} nació en {MARCA.fundacionAnio} como pizzería a la piedra: masa hecha a mano, horno caliente, ingredientes
+          elegidos con cuidado. Es una constante que no ha cambiado — la pizza a la piedra sigue siendo el oficio central de la marca.
+        </p>
+        <p class="copy-seccion">
+          Con los años esa base artesanal encontró su actitud: la de las slice shops neoyorquinas, donde la pizza se dobla, se come de
+          pie y no pide disculpas por nada. Por eso hoy Agostina se define como <strong>pizzería a la piedra premium, New York
+          Style</strong> — no como pizzería italiana. Sigue siendo premium, pero accesible: pizza para compartir, para el delivery de
+          un martes cualquiera, para una reunión de domingo.
+        </p>
+        <p class="copy-seccion">{MARCA.fundador.nombre} — {MARCA.fundador.rol}, desde {MARCA.fundacionAnio}.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-negra">
+    <div class="container">
+      <div class="bloque-cabecera">
+        <span class="eyebrow">Lo que no cambia</span>
+        <h2 class="titulo-seccion">El producto siempre es protagonista</h2>
+      </div>
+      <ul class="pilares">
+        <li><h3>Pizza a la piedra</h3><p>El horno y la piedra caliente son el método, no un detalle decorativo.</p></li>
+        <li><h3>Masa hecha a mano</h3><p>Todos los días, sin atajos industriales.</p></li>
+        <li><h3>Horneada al momento</h3><p>Cada pizza sale del horno cuando se pide, no antes.</p></li>
+        <li><h3>Ingredientes seleccionados</h3><p>El sabor se construye desde lo que entra a la pizza, no desde el descuento.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="seccion seccion-crema-2">
+    <div class="container">
+      <div class="bloque-cabecera">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="titulo-seccion">Sobre Agostina</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Qué tipo de pizza hace Agostina?</summary>
+          <p>Pizza a la piedra premium, de estilo New York — no pizza italiana. Masa hecha a mano y horneada al momento, con ingredientes seleccionados.</p>
+        </details>
+        <details>
+          <summary>¿Dónde está Agostina Pizzas?</summary>
+          <p>En {LOCAL.direccion.calle}, {LOCAL.direccion.comuna}, {LOCAL.direccion.ciudad}. Todos los detalles para llegar están en <a href="/como-llegar/">Cómo llegar</a>.</p>
+        </details>
+        <details>
+          <summary>¿Cuál es la pizza con triple pepperoni?</summary>
+          <p>La Giulianna: base pomodoro, mozzarella y triple pepperoni. Es el producto héroe de la carta.</p>
+        </details>
+        <details>
+          <summary>¿Qué diferencia hay entre Basics y Lovers?</summary>
+          <p>Agostina Basics es la línea de entrada: pomodoro, mozzarella y una receta directa. Agostina Lovers suma más ingredientes y más carácter, con nombre propio en cada receta. Ver la <a href="/pizzas/">carta completa</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion-roja cta-cierre">
+    <div class="container">
+      <h2 class="titulo-seccion">¿Listo para pedir?</h2>
+      <CtaPedir origen="nosotros-cierre" texto="Pedir ahora" variante="ghost-light" />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cabecera-pagina {
+    padding: 140px 0 var(--space-5);
+  }
+  .titulo-pagina {
+    font-size: clamp(36px, 5.6vw, 64px);
+    margin-top: var(--space-2);
+    max-width: 20ch;
+  }
+  .historia-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+  @media (min-width: 920px) {
+    .historia-grid {
+      grid-template-columns: 0.95fr 1.05fr;
+    }
+  }
+  .historia-media img {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+  .historia-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .bloque-cabecera {
+    max-width: 700px;
+    margin-bottom: var(--space-5);
+  }
+  .pilares {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  @media (min-width: 760px) {
+    .pilares {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .pilares h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: var(--color-rojo);
+  }
+  .pilares p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(245, 239, 230, 0.8);
+    font-weight: 500;
+  }
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 820px;
+  }
+  .faq details {
+    background: var(--color-crema-2);
+    padding: 20px 24px;
+  }
+  .faq summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15.5px;
+    letter-spacing: 0.01em;
+  }
+  .faq p {
+    margin-top: 12px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--fg-muted);
+    max-width: 62ch;
+  }
+  .faq a {
+    text-decoration: underline;
+  }
+  .cta-cierre .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+</style>

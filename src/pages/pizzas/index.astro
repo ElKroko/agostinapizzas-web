@@ -1,0 +1,187 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Migas from "../../components/Migas.astro";
+import TarjetaPizza from "../../components/TarjetaPizza.astro";
+import CtaPedir from "../../components/CtaPedir.astro";
+import { PIZZAS_BASICS, PIZZAS_LOVERS, PICOTEOS, EMPANADAS, POSTRES, buscarPizza, PIZZA_HEROE_SLUG } from "../../data/catalogo";
+import { URL_PEDIDOS } from "../../data/negocio";
+
+const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
+---
+
+<Layout
+  title="La carta — Pizzas a la piedra, Basics y Lovers"
+  description="La carta completa de Agostina Pizzas: Agostina Basics, Agostina Lovers, la Giulianna con triple pepperoni, picoteos, empanadas y postres. Pizza a la piedra, New York Style."
+>
+  <div class="container cabecera-pagina">
+    <Migas items={[{ label: "Pizzas" }]} />
+    <span class="eyebrow">La carta</span>
+    <h1 class="titulo-pagina">Se pide por nombre, no por número</h1>
+    <p class="copy-seccion">
+      Cada pizza de Agostina tiene nombre propio. Las <strong>Basics</strong> son la base de siempre: pomodoro, mozzarella y una receta
+      directa. Las <strong>Lovers</strong> suman más carácter, más ingredientes, más decisión. Todas se preparan a la piedra, con masa
+      hecha a mano y horneada al momento.
+    </p>
+    <p class="nota-tamanos">Disponibles en tamaño Mediana y Familiar — el tamaño se elige en el sistema de pedidos.</p>
+  </div>
+
+  <!-- ===== Producto héroe ===== -->
+  <section class="seccion seccion-negra">
+    <div class="container heroe-grid">
+      <a class="heroe-media" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:producto_click" data-slug={giulianna.slug} data-nombre={giulianna.nombre}>
+        <img src={giulianna.imagen} alt={`Pizza ${giulianna.nombre}, ${giulianna.descripcion.toLowerCase()}`} width="900" height="720" />
+      </a>
+      <div class="heroe-copy">
+        <span class="eyebrow">Producto héroe</span>
+        <h2 class="titulo-seccion">Giulianna</h2>
+        <p class="copy-seccion">{giulianna.descripcion} La pizza con más triple pepperoni de la carta — sin vueltas.</p>
+        <CtaPedir origen="pizzas-heroe" texto="Pedir la Giulianna" variante="ghost-light" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Agostina Lovers ===== -->
+  <section class="seccion seccion-crema" id="lovers">
+    <div class="container">
+      <div class="bloque-cabecera">
+        <span class="eyebrow">Agostina Lovers</span>
+        <h2 class="titulo-seccion">Más carácter, más decisión</h2>
+      </div>
+      <div class="grid-carta">
+        {PIZZAS_LOVERS.filter((p) => !p.heroe).map((p) => <TarjetaPizza slug={p.slug} nombre={p.nombre} descripcion={p.descripcion} imagen={p.imagen} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Agostina Basics ===== -->
+  <section class="seccion seccion-crema-2" id="basics">
+    <div class="container">
+      <div class="bloque-cabecera">
+        <span class="eyebrow">Agostina Basics</span>
+        <h2 class="titulo-seccion">La base de siempre</h2>
+        <p class="copy-seccion">La línea de entrada de la carta: pomodoro, mozzarella y una receta clara, sin complicarla.</p>
+      </div>
+      <div class="grid-carta">
+        {PIZZAS_BASICS.map((p) => <TarjetaPizza slug={p.slug} nombre={p.nombre} descripcion={p.descripcion} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Picoteos, empanadas y postres ===== -->
+  <section class="seccion seccion-crema" id="picoteos">
+    <div class="container">
+      <div class="bloque-cabecera">
+        <span class="eyebrow">Para picotear</span>
+        <h2 class="titulo-seccion">Picoteos, empanadas y postres</h2>
+      </div>
+      <div class="grid-carta">
+        {PICOTEOS.map((p) => <TarjetaPizza slug={p.slug} nombre={p.nombre} descripcion={p.descripcion} imagen={p.imagen} />)}
+      </div>
+      <div class="lista-simple">
+        <h3>Empanadas</h3>
+        <ul>
+          {EMPANADAS.map((e) => <li><strong>{e.nombre}</strong> — {e.descripcion}</li>)}
+        </ul>
+        <h3>Postres</h3>
+        <ul>
+          {POSTRES.map((p) => <li><strong>{p.nombre}</strong> — {p.descripcion}</li>)}
+        </ul>
+      </div>
+      <div class="cta-final">
+        <CtaPedir origen="pizzas-cierre" texto="Ver todo en el sistema de pedidos" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cabecera-pagina {
+    padding: 140px 0 var(--space-5);
+  }
+  .titulo-pagina {
+    font-size: clamp(38px, 6vw, 72px);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .nota-tamanos {
+    margin-top: var(--space-2);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-muted);
+  }
+  .bloque-cabecera {
+    max-width: 700px;
+    margin-bottom: var(--space-5);
+  }
+  .heroe-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .heroe-grid {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+  .heroe-media {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .heroe-media img {
+    width: 100%;
+    height: 100%;
+    max-height: 480px;
+    object-fit: cover;
+  }
+  .heroe-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  .grid-carta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  @media (min-width: 700px) {
+    .grid-carta {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1080px) {
+    .grid-carta {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .lista-simple {
+    margin-top: var(--space-6);
+    max-width: 760px;
+  }
+  .lista-simple h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+  }
+  .lista-simple ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: var(--space-4);
+  }
+  .lista-simple li {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--fg-muted);
+  }
+  .lista-simple li strong {
+    color: var(--fg);
+  }
+  .cta-final {
+    margin-top: var(--space-4);
+  }
+</style>

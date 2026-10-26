@@ -1,0 +1,140 @@
+---
+import { URL_PEDIDOS } from "../data/negocio";
+
+interface Props {
+  slug: string;
+  nombre: string;
+  descripcion: string;
+  imagen?: string;
+  destacada?: boolean;
+  numero?: string;
+}
+
+const { slug, nombre, descripcion, imagen, destacada = false, numero } = Astro.props;
+---
+
+<article class="tarjeta-pizza">
+  <a class="tarjeta-media" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:producto_click" data-slug={slug} data-nombre={nombre} aria-label={`Pedir pizza ${nombre}`}>
+    {destacada && <span class="tarjeta-badge">La favorita</span>}
+    {
+      imagen ? (
+        <img src={imagen} alt={`Pizza ${nombre} — ${descripcion}`} loading="lazy" width="900" height="720" />
+      ) : (
+        <span class="tarjeta-placeholder" role="img" aria-label={`Foto pendiente de la pizza ${nombre}`}>
+          Foto pendiente
+        </span>
+      )
+    }
+  </a>
+  <div class="tarjeta-body">
+    {numero && <span class="tarjeta-num">{numero}</span>}
+    <h3>{nombre}</h3>
+    <p>{descripcion}</p>
+    <a class="tarjeta-link" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:producto_click" data-slug={slug} data-nombre={nombre}>
+      Pedir {nombre}
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+  </div>
+</article>
+
+<style>
+  .tarjeta-pizza {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-crema-2);
+    transition: background var(--dur) var(--ease);
+  }
+  .tarjeta-pizza:hover {
+    background: var(--color-crema);
+  }
+  .tarjeta-media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 5 / 4;
+    background: var(--color-crema-3);
+  }
+  .tarjeta-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05) contrast(1.02);
+    transition: transform 0.5s var(--ease);
+  }
+  .tarjeta-pizza:hover .tarjeta-media img {
+    transform: scale(1.045);
+  }
+  .tarjeta-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #948b7c;
+    text-align: center;
+    padding: var(--space-2);
+  }
+  .tarjeta-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 1;
+    background: var(--color-rojo);
+    color: var(--color-blanco);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: var(--radius);
+  }
+  .tarjeta-body {
+    padding: var(--space-3) var(--space-3) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .tarjeta-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--color-rojo);
+    letter-spacing: 0.1em;
+  }
+  .tarjeta-body h3 {
+    font-size: 30px;
+    color: var(--color-negro);
+  }
+  .tarjeta-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5a5449;
+    font-weight: 500;
+    flex: 1;
+  }
+  .tarjeta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-negro);
+  }
+  .tarjeta-link .icon {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--dur) var(--ease);
+  }
+  .tarjeta-link:hover .icon {
+    transform: translateX(4px);
+  }
+  .tarjeta-link:hover {
+    color: var(--color-rojo);
+  }
+</style>

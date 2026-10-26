@@ -1,0 +1,118 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Migas from "../../components/Migas.astro";
+import CtaPedir from "../../components/CtaPedir.astro";
+import { LOCAL } from "../../data/negocio";
+---
+
+<Layout
+  title="Cómo llegar — Los Leones 229, Providencia"
+  description="Agostina Pizzas está en Los Leones 229, Local 5, Providencia, Santiago. Mapa, indicaciones y datos del local."
+>
+  <div class="container cabecera-pagina">
+    <Migas items={[{ label: "Cómo llegar" }]} />
+    <span class="eyebrow">Nuestro local</span>
+    <h1 class="titulo-pagina">{LOCAL.direccion.calle}</h1>
+    <p class="copy-seccion">{LOCAL.direccion.comuna}, {LOCAL.direccion.ciudad}, {LOCAL.direccion.pais}.</p>
+  </div>
+
+  <section class="seccion seccion-crema">
+    <div class="container datos-grid">
+      <div class="datos-lista">
+        <dl>
+          <div><dt>Dirección</dt><dd>{LOCAL.direccion.calle}, {LOCAL.direccion.comuna}</dd></div>
+          <div><dt>Horario</dt><dd>{LOCAL.horario}</dd></div>
+          <div><dt>Teléfono</dt><dd>{LOCAL.telefono}</dd></div>
+          <div><dt>Estacionamiento</dt><dd>{LOCAL.estacionamiento}</dd></div>
+          <div><dt>Cómo llegar en transporte</dt><dd>{LOCAL.comoLlegarTransporte}</dd></div>
+        </dl>
+        <p class="nota-datos">
+          Los datos marcados como <strong>[POR CONFIRMAR]</strong> están pendientes de validación operativa y se completarán apenas
+          estén confirmados — no se publica un dato inventado en su lugar.
+        </p>
+        <div class="acciones">
+          <a class="btn btn-ghost-dark" href={LOCAL.mapaUrl} target="_blank" rel="noopener" data-track="agostina:mapa_click" data-origen="como-llegar">
+            Abrir en Google Maps
+            <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </a>
+          <CtaPedir origen="como-llegar" texto="Pedir ahora" />
+        </div>
+      </div>
+      <div class="mapa-embed">
+        <iframe
+          title="Mapa de ubicación de Agostina Pizzas, Los Leones 229, Providencia"
+          src={`https://www.google.com/maps?q=${encodeURIComponent("Los Leones 229, Local 5, Providencia, Santiago")}&output=embed`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cabecera-pagina {
+    padding: 140px 0 var(--space-5);
+  }
+  .titulo-pagina {
+    font-size: clamp(32px, 5vw, 56px);
+    margin: var(--space-2) 0 var(--space-2);
+  }
+  .datos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  @media (min-width: 920px) {
+    .datos-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+  .datos-lista dl {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .datos-lista dl > div {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-2);
+  }
+  .datos-lista dt {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-bottom: 4px;
+  }
+  .datos-lista dd {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .nota-datos {
+    margin-top: var(--space-3);
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--fg-muted);
+    max-width: 52ch;
+  }
+  .acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+  .mapa-embed {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .mapa-embed iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    border: 0;
+  }
+</style>

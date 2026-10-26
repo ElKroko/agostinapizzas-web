@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agostina Pizzas — Pizza a la piedra, New York Style</title>
+<meta name="description" content="Pizzería a la piedra premium, New York Style, desde 2013. Masa hecha a mano, horneada al momento, en Los Leones 229, Providencia. Delivery en Providencia, Las Condes, Vitacura y La Reina.">
+<link rel="icon" href="public/assets/badge-red.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --canvas:#F6F3EC;
+  --canvas-calm:#FBF9F5;
+  --ink:#15130F;
+  --ink-soft:#4a453d;
+  --rojo:#C73A2A;
+  --rojo-osc:#a72e21;
+  --oliva:#5D6A42;
+  --crema:#F5EFE6;
+  --line:rgba(21,19,15,.16);
+  --line-soft:rgba(21,19,15,.09);
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --display:'Bebas Neue',Impact,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,.8,.24,1);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--canvas);}
+body{font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased;}
+img{max-width:none;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--body);cursor:pointer;border:none;background:none;color:inherit;}
+.icon{stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+:focus-visible{outline:2.5px solid var(--rojo);outline-offset:2px;}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}}
+
+/* ---------- skip link ---------- */
+.skip-link{position:fixed;top:-100px;left:16px;z-index:1000;background:var(--ink);color:var(--crema);padding:14px 22px;border-radius:2px;font-weight:700;transition:top .3s var(--ease);}
+.skip-link:focus{top:16px;}
+
+/* ================= NAV FIJO — marcas impresas, sin cápsulas ================= */
+.nav-mark{position:fixed;z-index:80;font-family:var(--body);}
+.logo-mark{top:24px;left:24px;display:flex;align-items:center;gap:9px;}
+.logo-mark img{height:20px;width:auto;}
+.logo-mark span{font-weight:800;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);}
+.logo-mark span em{font-style:normal;color:var(--rojo);}
+.ctx-mark{top:28px;right:96px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;}
+@media(max-width:640px){.ctx-mark{display:none;}}
+
+.cta-tab{
+  position:fixed;top:50%;right:0;translate:0 -50%;z-index:90;
+  background:var(--rojo);color:var(--crema);font-weight:800;font-size:12px;letter-spacing:.12em;
+  padding:20px 9px;writing-mode:vertical-rl;text-transform:uppercase;
+  box-shadow:-6px 0 18px -10px rgba(21,19,15,.35);
+  transition:background .25s ease,padding .25s ease;
+}
+.cta-tab:hover{background:var(--rojo-osc);padding-right:13px;}
+.cta-tab::after{content:"↗";writing-mode:horizontal-tb;display:block;margin-top:6px;font-size:13px;}
+
+.ticks{position:fixed;left:24px;bottom:22px;z-index:80;display:flex;align-items:center;gap:9px;}
+.ticks .rule{width:34px;height:1px;background:var(--line);}
+.ticks button{font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.04em;padding:4px;}
+.ticks button[aria-current="true"]{color:var(--rojo);font-weight:700;}
+@media(max-width:640px){.ticks{display:none;}}
+
+/* mobile: cta tab shrinks to bottom-fixed compact bar to avoid covering content on narrow screens */
+@media(max-width:640px){
+  .cta-tab{top:auto;bottom:0;right:0;left:0;translate:none;writing-mode:horizontal-tb;
+    display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;box-shadow:0 -6px 18px -10px rgba(21,19,15,.35);}
+  .cta-tab::after{margin:0;}
+}
+
+/* ---------- utilidades tipográficas ---------- */
+.headline{font-family:var(--display);text-transform:uppercase;line-height:.86;color:var(--ink);letter-spacing:.004em;text-wrap:balance;}
+.headline em{font-style:normal;color:var(--rojo);}
+.micro{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-soft);}
+
+/* ---------- fotografía: tres tratamientos ---------- */
+.foto-cutout{border-radius:50%;overflow:hidden;box-shadow:0 24px 50px -20px rgba(21,19,15,.4);position:relative;}
+.foto-cutout img{width:100%;height:100%;object-fit:cover;}
+.foto-tag{position:absolute;left:10px;bottom:10px;z-index:2;font-family:var(--mono);font-size:9.5px;color:#fff;background:rgba(21,19,15,.72);padding:5px 9px;line-height:1.4;max-width:78%;}
+.foto-editorial{overflow:hidden;position:relative;}
+.foto-editorial img{width:100%;height:100%;object-fit:cover;filter:saturate(1.04) contrast(1.02);transition:transform .6s var(--ease),opacity .18s ease;}
+.foto-pending{background:repeating-linear-gradient(135deg,var(--canvas),var(--canvas) 10px,#e9e2d2 10px,#e9e2d2 20px);border:1.5px dashed var(--ink-soft);display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;}
+.foto-pending span{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);line-height:1.5;}
+.objeto-sello{border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -14px rgba(21,19,15,.45);}
+.objeto-sello img{width:62%;height:62%;object-fit:contain;}
+
+/* ---------- link editorial ---------- */
+.link-editorial{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--rojo);border-bottom:1.5px solid currentColor;padding-bottom:2px;}
+.link-editorial svg{width:13px;height:13px;transition:transform .25s var(--ease);}
+.link-editorial:hover svg{transform:translateX(4px);}
+
+/* ================= RECORRIDO ================= */
+#recorrido{position:relative;}
+.escena{position:relative;background:var(--canvas);overflow:hidden;}
+
+@media(min-width:1000px){
+  #recorrido{display:flex;height:100vh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  #recorrido::-webkit-scrollbar{display:none;}
+  .escena{flex:0 0 100vw;height:100vh;scroll-snap-align:start;}
+}
+@media(max-width:999px){
+  .escena{min-height:100vh;padding:120px 0 90px;}
+}
+
+/* ===== ESCENA 1 — ANTOJO ===== */
+#e1 .headline{position:absolute;top:6%;right:4%;font-size:clamp(60px,13.5vw,190px);text-align:right;max-width:82%;z-index:3;}
+#e1 .foto-cutout{position:absolute;left:-4%;bottom:-6%;width:min(50vw,560px);aspect-ratio:1/1;z-index:2;}
+#e1 .nyc{position:absolute;left:8%;top:46%;z-index:4;font-family:var(--display);font-size:clamp(26px,6.4vw,70px);color:var(--rojo);transform:rotate(-6deg);text-transform:uppercase;}
+#e1 .micro-loc{position:absolute;left:8%;bottom:9%;z-index:4;}
+@media(max-width:999px){
+  #e1{display:flex;flex-direction:column;justify-content:flex-end;gap:22px;min-height:100vh;}
+  #e1 .headline{position:static;text-align:left;max-width:90%;font-size:clamp(52px,15vw,90px);order:1;padding:0 6vw;}
+  #e1 .nyc{position:static;order:2;padding:0 6vw;font-size:clamp(30px,10vw,54px);}
+  #e1 .foto-cutout{position:static;order:3;width:64vw;max-width:340px;margin:0 6vw;}
+  #e1 .micro-loc{position:static;order:4;padding:0 6vw 40px;}
+}
+
+/* ===== ESCENA 2 — LAS FAVORITAS ===== */
+#e2 .headline{position:absolute;top:4%;left:-1%;font-size:clamp(46px,10.5vw,150px);max-width:70%;z-index:3;}
+#e2 .p-giulianna{position:absolute;right:9%;top:16%;width:min(30vw,340px);aspect-ratio:3/4;z-index:2;}
+#e2 .p-bianca{position:absolute;right:4%;bottom:9%;width:min(19vw,220px);aspect-ratio:4/5;z-index:2;}
+#e2 .p-cate{position:absolute;left:9%;bottom:11%;width:min(15vw,170px);aspect-ratio:1/1;border-radius:50%;overflow:hidden;z-index:2;box-shadow:0 20px 40px -18px rgba(21,19,15,.4);}
+#e2 .p-cate img{width:100%;height:100%;object-fit:cover;}
+#e2 .stamp-margarita{position:absolute;left:31%;bottom:32%;width:min(11vw,120px);aspect-ratio:1/1;border-radius:50%;border:1.5px solid var(--rojo);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;z-index:3;background:var(--canvas);}
+#e2 .stamp-margarita span{font-family:var(--mono);font-size:9.5px;color:var(--rojo);line-height:1.35;}
+#e2 .label{position:absolute;font-family:var(--mono);font-size:10px;color:var(--ink-soft);z-index:4;}
+#e2 .label-giulianna{right:9%;top:calc(16% + min(30vw,340px)*4/3 + 10px);}
+#e2 .link-carta{position:absolute;right:9%;bottom:5%;z-index:4;}
+@media(max-width:999px){
+  #e2{display:flex;flex-direction:column;gap:26px;}
+  #e2 .headline{position:static;padding:0 6vw;max-width:90%;font-size:clamp(46px,14vw,84px);}
+  #e2 .p-giulianna,#e2 .p-bianca,#e2 .p-cate,#e2 .stamp-margarita{position:static;width:calc(50vw - 24px) !important;margin:0;}
+  #e2 .grid-mob{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 6vw;}
+  #e2 .label{position:static;padding:0 6vw;}
+  #e2 .link-carta{position:static;margin:0 6vw;}
+}
+
+/* ===== ESCENA 3 — CARÁCTER AGOSTINA ===== */
+#e3 .headline{position:absolute;top:10%;left:-2%;font-size:clamp(50px,11vw,160px);max-width:56%;z-index:3;}
+#e3 .foto-horno{position:absolute;right:-2%;top:12%;width:min(46vw,560px);aspect-ratio:5/4;z-index:2;}
+#e3 .objeto-sello{position:absolute;left:7%;bottom:28%;width:min(13vw,150px);aspect-ratio:1/1;background:var(--rojo);z-index:4;}
+#e3 .copy3{position:absolute;left:7%;bottom:8%;max-width:38ch;z-index:3;font-size:14.5px;line-height:1.65;color:var(--ink-soft);font-weight:600;}
+@media(max-width:999px){
+  #e3{display:flex;flex-direction:column;gap:24px;}
+  #e3 .headline{position:static;padding:0 6vw;max-width:90%;font-size:clamp(46px,13vw,80px);}
+  #e3 .foto-horno{position:static;width:calc(100vw - 12vw);margin:0 6vw;aspect-ratio:4/3;}
+  #e3 .objeto-sello{position:static;width:96px;margin:-40px 0 0 6vw;}
+  #e3 .copy3{position:static;padding:0 6vw;max-width:none;}
+}
+
+/* ===== ESCENA 4 — CERCA DE TI ===== */
+#e4 .headline{position:absolute;top:5%;left:5%;font-size:clamp(42px,9.5vw,130px);max-width:92%;z-index:3;}
+#e4 .foto-fachada{position:absolute;left:7%;bottom:9%;width:min(24vw,280px);aspect-ratio:3/4;z-index:2;}
+#e4 .mapa{position:absolute;right:8%;bottom:9%;width:min(30vw,360px);aspect-ratio:1/1;z-index:2;}
+#e4 .links4{position:absolute;right:8%;top:42%;z-index:4;display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+@media(max-width:999px){
+  #e4{display:flex;flex-direction:column;gap:26px;}
+  #e4 .headline{position:static;padding:0 6vw;max-width:92%;font-size:clamp(40px,12vw,70px);}
+  #e4 .foto-fachada{position:static;width:56vw;max-width:260px;margin:0 6vw;}
+  #e4 .mapa{position:static;width:76vw;max-width:320px;margin:0 6vw;}
+  #e4 .links4{position:static;padding:0 6vw;align-items:flex-start;}
+}
+.comuna-lista{list-style:none;margin:0;padding:0;position:absolute;left:7%;top:38%;z-index:4;display:flex;flex-direction:column;gap:8px;}
+.comuna-lista button{font-family:var(--body);font-weight:700;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;color:var(--ink-soft);}
+.comuna-lista button .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);transition:background .2s ease,transform .2s ease;}
+.comuna-lista button[data-activa="true"]{color:var(--ink);}
+.comuna-lista button[data-activa="true"] .dot{background:var(--rojo);transform:scale(1.4);}
+@media(max-width:999px){.comuna-lista{position:static;padding:0 6vw;}}
+
+/* ===== ESCENA 5 — LO QUE VIENE ===== */
+#e5{background:var(--canvas-calm);}
+#e5 .contenido5{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:0 6vw;display:flex;flex-direction:column;gap:26px;align-items:flex-start;}
+@media(min-width:1000px){#e5{display:flex;align-items:center;justify-content:center;}}
+@media(max-width:999px){#e5 .contenido5{padding-top:20px;}}
+#e5 .headline{font-size:clamp(42px,7vw,80px);}
+#e5 .pedir-final{font-size:clamp(52px,10vw,120px);color:var(--rojo);line-height:.84;}
+#e5 form{display:flex;flex-wrap:wrap;gap:10px;width:100%;max-width:440px;}
+#e5 input[type="email"]{flex:1 1 200px;min-width:0;padding:14px 4px;border:none;border-bottom:1.5px solid var(--ink);background:transparent;font-family:var(--mono);font-size:13px;color:var(--ink);}
+#e5 input[type="email"]::placeholder{color:var(--ink-soft);}
+#e5 .btn-newsletter{font-family:var(--body);font-weight:800;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border-bottom:1.5px solid var(--ink);padding:14px 0;white-space:nowrap;}
+#e5 .honeypot{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+#e5 .consent{display:flex;gap:8px;font-size:11.5px;color:var(--ink-soft);max-width:440px;line-height:1.5;}
+#e5 .consent input{margin-top:3px;}
+#e5 .estado-form{font-family:var(--mono);font-size:11.5px;min-height:1.4em;color:var(--ink-soft);}
+#e5 .estado-form[data-estado="ok"]{color:var(--oliva);}
+#e5 .estado-form[data-estado="error"]{color:var(--rojo);}
+#e5 .foot5{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);line-height:1.7;}
+#e5 .foot5 a{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<h1 class="sr-only">Agostina Pizzas — Pizzería a la piedra, New York Style, Est. 2013 en Los Leones, Providencia</h1>
+<a href="#recorrido" class="skip-link">Saltar al contenido principal</a>
+<p class="sr-only">Recorrido de cinco escenas. En pantallas grandes se despliega en horizontal — usa el scroll, el trackpad, las flechas o el índice inferior. En móvil es un recorrido vertical normal.</p>
+
+<div class="nav-mark logo-mark">
+  <img src="public/assets/logos/logo-compacto-negro.svg" alt="">
+  <span>Agostina <em>·</em> Pizzas</span>
+</div>
+<div class="nav-mark ctx-mark" id="ctx-mark">01 — Antojo</div>
+
+<a class="cta-tab" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener">Pedir ahora</a>
+
+<nav class="ticks" aria-label="Ir a escena">
+  <button type="button" data-ir="e1" aria-current="true">01</button>
+  <div class="rule"></div>
+  <button type="button" data-ir="e2">02</button>
+  <div class="rule"></div>
+  <button type="button" data-ir="e3">03</button>
+  <div class="rule"></div>
+  <button type="button" data-ir="e4">04</button>
+  <div class="rule"></div>
+  <button type="button" data-ir="e5">05</button>
+</nav>
+
+<div id="recorrido">
+
+  <!-- ===== ESCENA 1 — ANTOJO ===== -->
+  <section class="escena" id="e1" data-nombre="01 — Antojo" aria-labelledby="e1-h">
+    <h2 id="e1-h" class="headline">Pizza a<br>la <em>piedra</em></h2>
+    <div class="foto-cutout" id="giulianna-cutout">
+      <img src="public/assets/pizzas/giulianna.jpg" alt="Pizza Giulianna, triple pepperoni, vista desde arriba">
+      <span class="foto-tag">Giulianna · recorte real pendiente, ver IMAGE_SHOT_LIST.md</span>
+    </div>
+    <div class="nyc">New York Style</div>
+    <p class="micro micro-loc">Est. 2013 · Los Leones 229, Providencia</p>
+  </section>
+
+  <!-- ===== ESCENA 2 — LAS FAVORITAS ===== -->
+  <section class="escena" id="e2" data-nombre="02 — Las favoritas" aria-labelledby="e2-h">
+    <h2 id="e2-h" class="headline">Las<br>favoritas</h2>
+    <div class="grid-mob-wrap">
+      <a class="foto-editorial p-giulianna" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener" id="foto-swap" aria-label="Pedir pizza Giulianna">
+        <img src="public/assets/pizzas/giulianna.jpg" alt="Pizza Giulianna, base pomodoro, mozzarella y triple pepperoni" data-cycle="public/assets/pizzas/giulianna.jpg,public/assets/hero-pepperoni.jpg">
+      </a>
+      <a class="foto-editorial p-bianca" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener" aria-label="Pedir pizza Bianca">
+        <img src="public/assets/pizzas/bianca.jpg" alt="Pizza Bianca, cuatro quesos">
+      </a>
+      <a class="foto-editorial p-cate" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener" aria-label="Pedir pizza Cate">
+        <img src="public/assets/pizzas/cate.jpg" alt="Pizza Cate, carne mechada y pimentón">
+      </a>
+      <div class="stamp-margarita"><span>Margarita<br>tomate · albahaca</span></div>
+    </div>
+    <p class="label label-giulianna">Giulianna — pomodoro, mozzarella, triple pepperoni</p>
+    <a class="link-editorial link-carta" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener">
+      Ver la carta
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </section>
+
+  <!-- ===== ESCENA 3 — CARÁCTER AGOSTINA ===== -->
+  <section class="escena" id="e3" data-nombre="03 — Carácter Agostina" aria-labelledby="e3-h">
+    <h2 id="e3-h" class="headline">Actitud<br><em>New York</em></h2>
+    <div class="foto-editorial foto-horno" id="foto-parallax">
+      <img src="public/assets/kitchen-atmo.jpg" alt="Pizza Bianca, cuatro quesos, recién horneada sobre piedra">
+    </div>
+    <div class="objeto-sello">
+      <img src="public/assets/logos/insignia-negativo.svg" alt="">
+    </div>
+    <p class="copy3">Pizzería a la piedra premium. Artesanal, urbana y cercana — masa hecha a mano, horneada al momento, ingredientes seleccionados.</p>
+  </section>
+
+  <!-- ===== ESCENA 4 — CERCA DE TI ===== -->
+  <section class="escena" id="e4" data-nombre="04 — Cerca de ti" aria-labelledby="e4-h">
+    <h2 id="e4-h" class="headline">Los Leones 229</h2>
+    <div class="foto-editorial foto-fachada foto-pending">
+      <span>Fachada Los Leones 229<br>— foto pendiente</span>
+    </div>
+    <ul class="comuna-lista" id="comuna-lista">
+      <li><button type="button" data-comuna="local" data-activa="true"><span class="dot"></span>Providencia (local)</button></li>
+      <li><button type="button" data-comuna="las-condes"><span class="dot"></span>Las Condes</button></li>
+      <li><button type="button" data-comuna="vitacura"><span class="dot"></span>Vitacura</button></li>
+      <li><button type="button" data-comuna="la-reina"><span class="dot"></span>La Reina</button></li>
+    </ul>
+    <div class="mapa" aria-hidden="true">
+      <svg viewBox="0 0 200 200" width="100%" height="100%">
+        <line x1="46" y1="46" x2="150" y2="30" stroke="var(--line)" stroke-width="1.2"/>
+        <line x1="46" y1="46" x2="30" y2="150" stroke="var(--line)" stroke-width="1.2"/>
+        <line x1="46" y1="46" x2="160" y2="150" stroke="var(--line)" stroke-width="1.2"/>
+        <circle id="pin-local" cx="46" cy="46" r="7" fill="var(--rojo)"/>
+        <circle id="pin-vitacura" cx="150" cy="30" r="5" fill="var(--ink-soft)"/>
+        <circle id="pin-la-reina" cx="30" cy="150" r="5" fill="var(--ink-soft)"/>
+        <circle id="pin-las-condes" cx="160" cy="150" r="5" fill="var(--ink-soft)"/>
+      </svg>
+    </div>
+    <div class="links4">
+      <a class="link-editorial" href="https://www.google.com/maps/search/?api=1&query=Agostina%20Pizzas%2C%20Los%20Leones%20229%2C%20Local%205%2C%20Providencia" target="_blank" rel="noopener">
+        Cómo llegar<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="link-editorial" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener">
+        Pedir con delivery<svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== ESCENA 5 — LO QUE VIENE ===== -->
+  <section class="escena" id="e5" data-nombre="05 — Lo que viene" aria-labelledby="e5-h">
+    <div class="contenido5">
+      <h2 id="e5-h" class="headline">Lo que<br>viene</h2>
+      <p class="micro" style="font-size:13px;color:var(--ink-soft);max-width:44ch;">Nuevos sabores, lanzamientos y futuros pop-ups. Todavía no ofrecemos eventos como servicio formal — esta lista es para avisarte apenas exista algo concreto.</p>
+
+      <form id="form-newsletter" novalidate>
+        <label for="fn-email" class="sr-only">Correo electrónico</label>
+        <input id="fn-email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.cl">
+        <button type="submit" class="btn-newsletter">Avisarme →</button>
+        <div class="honeypot" aria-hidden="true">
+          <label for="fn-empresa">No completar</label>
+          <input id="fn-empresa" name="empresa" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <label class="consent">
+          <input type="checkbox" name="consentimiento" required>
+          <span>Acepto recibir novedades de Agostina Pizzas por correo. Política de privacidad [POR CONFIRMAR].</span>
+        </label>
+        <p class="estado-form" id="estado-form" role="status" aria-live="polite"></p>
+      </form>
+
+      <a class="headline pedir-final" href="https://www.agostinapizzas.cl/pedir?categoria=pizzas" target="_blank" rel="noopener">Pedir<br>ahora</a>
+
+      <p class="foot5">
+        <a href="https://instagram.com/agostinapizzas" target="_blank" rel="noopener">Instagram</a> ·
+        <a href="https://www.tiktok.com/@agostinapizzas" target="_blank" rel="noopener">TikTok</a> ·
+        Los Leones 229, Providencia · Providencia · Las Condes · Vitacura · La Reina
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  var recorrido = document.getElementById('recorrido');
+  var escenas = Array.prototype.slice.call(document.querySelectorAll('.escena'));
+  var ticks = Array.prototype.slice.call(document.querySelectorAll('.ticks button'));
+  var ctx = document.getElementById('ctx-mark');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esHorizontal(){ return window.matchMedia('(min-width: 1000px)').matches; }
+
+  function irA(id){
+    var destino = document.getElementById(id);
+    if(!destino) return;
+    destino.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start', inline: 'start' });
+  }
+  ticks.forEach(function(btn){
+    btn.addEventListener('click', function(){ irA(btn.dataset.ir); });
+  });
+
+  /* wheel vertical -> horizontal en escritorio; gestos horizontales nativos pasan sin interceptar */
+  recorrido.addEventListener('wheel', function(e){
+    if(!esHorizontal()) return;
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    recorrido.scrollLeft += (e.deltaY + e.deltaX);
+  }, { passive: false });
+
+  /* escena activa: contexto + ticks, vía IntersectionObserver (sirve en horizontal y vertical) */
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var idx = escenas.indexOf(entry.target);
+        if(idx === -1) return;
+        ticks.forEach(function(b,i){ b.setAttribute('aria-current', String(i === idx)); });
+        if(ctx) ctx.textContent = entry.target.dataset.nombre;
+      });
+    }, { threshold: 0.55 });
+    escenas.forEach(function(s){ io.observe(s); });
+  }
+
+  /* Escena 1 — paralaje sutil del recorte de Giulianna según el cursor */
+  if(!reduce){
+    var cutout = document.getElementById('giulianna-cutout');
+    var e1 = document.getElementById('e1');
+    if(cutout && e1){
+      e1.addEventListener('mousemove', function(ev){
+        var r = e1.getBoundingClientRect();
+        var px = (ev.clientX - r.left) / r.width - 0.5;
+        var py = (ev.clientY - r.top) / r.height - 0.5;
+        cutout.style.transform = 'translate(' + (px*14) + 'px,' + (py*10) + 'px)';
+      });
+      e1.addEventListener('mouseleave', function(){ cutout.style.transform = 'translate(0,0)'; });
+    }
+  }
+
+  /* Escena 2 — una sola foto cambia de encuadre en hover/foco */
+  if(!reduce){
+    var swap = document.getElementById('foto-swap');
+    if(swap){
+      var img = swap.querySelector('img');
+      var list = (img.getAttribute('data-cycle') || '').split(',').filter(Boolean);
+      var original = list[0];
+      function mostrar(src){ img.style.opacity = 0; setTimeout(function(){ img.src = src; img.style.opacity = 1; }, 130); }
+      swap.addEventListener('mouseenter', function(){ if(list[1]) mostrar(list[1]); });
+      swap.addEventListener('focus', function(){ if(list[1]) mostrar(list[1]); });
+      swap.addEventListener('mouseleave', function(){ mostrar(original); });
+      swap.addEventListener('blur', function(){ mostrar(original); });
+    }
+  }
+
+  /* Escena 3 — paralaje diferencial de la foto respecto al titular, según scroll */
+  if(!reduce && esHorizontal()){
+    var foto3 = document.getElementById('foto-parallax');
+    var e3 = document.getElementById('e3');
+    if(foto3 && e3){
+      recorrido.addEventListener('scroll', function(){
+        var r = e3.getBoundingClientRect();
+        var progreso = 1 - Math.min(1, Math.max(0, r.left / window.innerWidth));
+        foto3.style.transform = 'translateX(' + ((progreso - 0.5) * -26) + 'px)';
+      }, { passive: true });
+    }
+  }
+
+  /* Escena 4 — foco/hover en una comuna resalta su punto en el mapa */
+  var lista = document.getElementById('comuna-lista');
+  if(lista){
+    var botones = Array.prototype.slice.call(lista.querySelectorAll('button'));
+    botones.forEach(function(btn){
+      function activar(){
+        botones.forEach(function(b){ b.setAttribute('data-activa', String(b === btn)); });
+        var pin = document.getElementById('pin-' + btn.dataset.comuna);
+        document.querySelectorAll('[id^="pin-"]').forEach(function(p){ p.setAttribute('fill', 'var(--ink-soft)'); p.setAttribute('r', 5); });
+        if(pin){ pin.setAttribute('fill', 'var(--rojo)'); pin.setAttribute('r', 7); }
+      }
+      btn.addEventListener('mouseenter', activar);
+      btn.addEventListener('focus', activar);
+    });
+  }
+
+  /* Escena 5 — formulario de novedades (honeypot, consentimiento, sin proveedor aún) */
+  var form = document.getElementById('form-newsletter');
+  var estado = document.getElementById('estado-form');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var data = new FormData(form);
+      if(data.get('empresa')) return;
+      var email = String(data.get('email') || '');
+      var consiente = form.querySelector('input[name="consentimiento"]').checked;
+      var valido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if(!valido || !consiente){
+        estado.textContent = 'Revisa tu correo y acepta la política de privacidad.';
+        estado.dataset.estado = 'error';
+        return;
+      }
+      /* [PROVEEDOR DE EMAIL POR CONFIRMAR] — no se envía a ningún servicio todavía */
+      estado.textContent = 'Este formulario se activará muy pronto. Vuelve en unos días.';
+      estado.dataset.estado = 'error';
+    });
+  }
+})();
+</script>
+</body>
+</html>

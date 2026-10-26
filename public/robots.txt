@@ -1,0 +1,6 @@
+# Dominio final [POR CONFIRMAR] — actualizar esta línea y SITE_URL en
+# astro.config.mjs en cuanto el dominio definitivo esté decidido.
+User-agent: *
+Allow: /
+
+Sitemap: https://agostina-web.web.app/sitemap-index.xml
