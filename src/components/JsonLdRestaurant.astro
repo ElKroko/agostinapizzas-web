@@ -38,8 +38,8 @@ if (LOCAL.coordenadas.lat && LOCAL.coordenadas.lng) {
     longitude: LOCAL.coordenadas.lng,
   };
 }
-if (LOCAL.horario && LOCAL.horario !== "[POR CONFIRMAR]") {
-  schema.openingHours = LOCAL.horario;
+if (LOCAL.horarioSchema) {
+  schema.openingHours = LOCAL.horarioSchema;
 }
 ---
 

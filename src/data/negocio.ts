@@ -24,9 +24,9 @@ export const LOCAL = {
     codigoPostal: "[POR CONFIRMAR]",
   },
   telefono: "[POR CONFIRMAR]",
-  // Horario real pendiente de confirmación operativa. No se muestra un
-  // horario inventado en el sitio: se marca explícitamente como pendiente.
-  horario: "[POR CONFIRMAR]",
+  // Confirmado por Vicente el 27 oct 2026.
+  horario: "Martes a domingo, de 14:00 a 23:00",
+  horarioSchema: "Tu-Su 14:00-23:00", // formato schema.org (JSON-LD)
   coordenadas: {
     lat: null as number | null,
     lng: null as number | null,
@@ -84,13 +84,13 @@ export const SEO_DEFAULT = {
 
 /**
  * Oferta de slice (lanzamiento 27 oct 2026). Precios confirmados por Pablo.
- * Horario y WhatsApp quedan en null hasta tener el dato real: la landing no
+ * El WhatsApp queda en null hasta tener el dato real: la landing no
  * muestra nada inventado (ver src/pages/slice/index.astro).
  */
 export const SLICE = {
   precioSola: 4990,
   precioConBebida: 5990,
-  horario: null as string | null,
+  horario: "Martes a domingo, 14:00 a 23:00" as string | null,
   whatsapp: null as string | null, // solo dígitos con código de país, ej. "56912345678"
 } as const;
 

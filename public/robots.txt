@@ -3,4 +3,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://agostina-web.web.app/sitemap-index.xml
+Sitemap: https://agostina.masstudio.cl/sitemap-index.xml

@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 // dominio/subdominio propio (no reemplaza aún a agostinapizzas.cl), se usa el
 // hosting por defecto del proyecto Firebase declarado en .firebaserc.
 // Actualizar aquí en cuanto el dominio final esté confirmado.
-const SITE_URL = "https://agostina-web.web.app";
+const SITE_URL = "https://agostina.masstudio.cl";
 
 export default defineConfig({
   site: SITE_URL,
