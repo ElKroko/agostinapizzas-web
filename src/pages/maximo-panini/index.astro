@@ -13,9 +13,20 @@ const sabores = [
   { img: "pomodoro-pesto", t: "Pomodoro y pesto", r: -1.5 },
   { img: "jamon-glaseado", t: "Jamón glaseado", r: 1 },
 ];
-const banda = ["banda-1", "banda-6", "banda-2", "banda-3", "banda-4", "banda-5"];
-const cinta = ["Il fratello di Agostina", "/", "Focaccia de verdad", "/", "Misma cocina", "/", MAXIMO.lanzamiento ?? "Próximamente", "/"];
+// Galería fija: 8 fotos que dan 3 vueltas mientras se hace scroll. a = ancho / alto.
+const galeria = [
+  { img: "g-01628", a: 0.667 },
+  { img: "g-01406", a: 1.5 },
+  { img: "g-01551", a: 0.667 },
+  { img: "g-01437", a: 1.5 },
+  { img: "g-01604", a: 0.667 },
+  { img: "g-01567", a: 1.5 },
+  { img: "g-01392", a: 0.667 },
+  { img: "g-01522", a: 1.5 },
+];
+const vueltas = [0, 1, 2].flatMap((v) => galeria.map((g, i) => ({ ...g, v, i })));
 const ig = MAXIMO.instagram ?? REDES.instagram.url;
+const pronto = MAXIMO.lanzamiento ?? "Próximamente";
 ---
 
 <Layout
@@ -26,46 +37,58 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
   bareChrome={true}
 >
   <header class="mp-hd">
-    <a href="/" class="mp-back" aria-label="Volver a Agostina Pizzas">
+    <a href="/" class="mp-back" aria-label="Ir a Agostina Pizzas">
       <img src="/home/assets/logo-compacto-negro.webp" alt="" width="108" height="56" />
     </a>
-    <span class="mp-pill">{MAXIMO.lanzamiento ?? "Próximamente"}</span>
+    <span class="mp-pill">{pronto}</span>
   </header>
 
-  <main class="mp">
+  <div class="mp">
     <section class="mp-hero">
       <div class="mp-copy">
-        <p class="mp-kick">Il fratello di Agostina</p>
-        <h1 class="mp-logo"><img src="/maximo/logo-rojo.svg" alt={MAXIMO.nombre} width="1687" height="500" /></h1>
-        <p class="mp-h">Paninis de focaccia,<br /><span>buenos y grandes.</span></p>
-        <p class="mp-body">
-          Sale de la misma cocina de Agostina y viene a resolverte el almuerzo. Pocos productos, muy bien resueltos, con ingredientes que se notan.
+        <p class="mp-kick mp-in" style="--d:0">Il fratello di <a class="ag" href="/">Agostina</a></p>
+        <h1 class="mp-logo mp-in mp-wipe" style="--d:1"><img src="/maximo/logo-verde.svg" alt={MAXIMO.nombre} width="1687" height="500" /></h1>
+        <p class="mp-h">
+          <span class="mp-line"><span class="mp-in" style="--d:2">Paninis de focaccia,</span></span>
+          <span class="mp-line"><span class="mp-in mp-acc" style="--d:3">buenos y grandes.</span></span>
         </p>
-        <a class="mp-btn" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-hero">
+        <p class="mp-body mp-in" style="--d:4">
+          Sale de la misma cocina de <a class="ag" href="/">Agostina</a> y viene a resolverte el almuerzo. Pocos productos, muy bien resueltos, con ingredientes que se notan.
+        </p>
+        <a class="mp-btn mp-in" style="--d:5" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-hero">
           Entérate primero
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </a>
       </div>
-      <figure class="mp-foto">
+      <figure class="mp-foto mp-drop" data-par>
         <img src="/maximo/hero-caja-panini.webp" alt="Caja de Máximo Panini detrás de un panini de focaccia con rúcula y tomate" width="933" height="1400" fetchpriority="high" />
         <span class="mp-sticker" aria-hidden="true">Recién<br />horneado</span>
       </figure>
     </section>
 
-    <div class="mp-cinta" aria-hidden="true">
+    <div class="mp-cinta">
       <div class="mp-cinta-in">
-        {[...cinta, ...cinta, ...cinta, ...cinta].map((t) => <span>{t}</span>)}
+        {
+          [0, 1, 2, 3].map((k) => (
+            <>
+              <span>Il fratello di <a href="/" tabindex={k ? -1 : undefined}>Agostina</a></span>
+              <span aria-hidden="true">Focaccia de verdad</span>
+              <span aria-hidden="true">Misma cocina</span>
+              <span aria-hidden="true">{pronto}</span>
+            </>
+          ))
+        }
       </div>
     </div>
 
     <section class="mp-sabores" aria-labelledby="mp-sab-h">
       <div class="mp-sab-head">
-        <h2 id="mp-sab-h" class="mp-h2">Lo que sale<br />del horno</h2>
-        <p class="mp-scr">un martes al almuerzo, o un jueves en la noche</p>
+        <h2 id="mp-sab-h" class="mp-h2 reveal">Lo que sale<br />del horno</h2>
+        <p class="mp-scr reveal">un martes al almuerzo, o un jueves en la noche</p>
       </div>
       <ul class="mp-grid">
         {sabores.map((s, i) => (
-          <li class="mp-card" style={`--r:${s.r}deg`}>
+          <li class="mp-card reveal" style={`--r:${s.r}deg; transition-delay:${(i % 3) * 90}ms`}>
             <div class="mp-card-img"><img src={`/maximo/${s.img}.webp`} alt={s.t} width="667" height="1000" loading="lazy" /></div>
             <p><span>{String(i + 1).padStart(2, "0")}</span>{s.t}</p>
           </li>
@@ -75,46 +98,155 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
 
     <section class="mp-pilares">
       <ol>
-        <li><span>01</span><b>Misma cocina</b><p>La de Agostina. Mismo horno, misma mano.</p></li>
-        <li><span>02</span><b>Focaccia</b><p>Masa alta, aireada y dorada. Crujiente por fuera, suave por dentro.</p></li>
-        <li><span>03</span><b>Contundente</b><p>Pensado para que una sola porción te resuelva la comida.</p></li>
+        <li class="reveal"><span>01</span><b>Misma cocina</b><p>La de <a class="ag" href="/">Agostina</a>. Mismo horno, misma mano.</p></li>
+        <li class="reveal" style="transition-delay:90ms"><span>02</span><b>Focaccia</b><p>Masa alta, aireada y dorada. Crujiente por fuera, suave por dentro.</p></li>
+        <li class="reveal" style="transition-delay:180ms"><span>03</span><b>Contundente</b><p>Pensado para que una sola porción te resuelva la comida.</p></li>
       </ol>
     </section>
 
-    <section class="mp-banda" aria-label="Fotos de Máximo Panini">
-      {banda.map((b) => <div class="mp-banda-img"><img src={`/maximo/${b}.webp`} alt="" loading="lazy" /></div>)}
+    <!-- Galería fija: la página se queda quieta y las fotos avanzan y crecen con el scroll -->
+    <section class="mp-reel" id="mpReel" aria-label="Galería de Máximo Panini">
+      <div class="mp-reel-stick">
+        <p class="mp-reel-ghost" aria-hidden="true"><span>Máximo Panini · Máximo Panini · Máximo Panini · Máximo Panini · </span></p>
+        <div class="mp-reel-track" id="mpTrack">
+          {vueltas.map((g) => (
+            <figure class="mp-reel-it" style={`--a:${g.a}; --y:${[-6, 5, -2, 7, -5, 3, -7, 4][g.i]}vh; --r:${[-2, 1.5, -1, 2.5, -1.5, 1, -2.5, 2][g.i]}deg`} data-a={g.a}>
+              <img src={`/maximo/${g.img}.webp`} alt="" loading={g.v ? "lazy" : "eager"} decoding="async" />
+            </figure>
+          ))}
+        </div>
+        <p class="mp-reel-scr" aria-hidden="true">sigue bajando</p>
+        <div class="mp-reel-bar" aria-hidden="true"><i id="mpBar"></i></div>
+      </div>
     </section>
+  </div>
 
-    <section class="mp-cierre">
-      <img class="mp-cierre-logo" src="/home/assets/maximo-panini-crema.svg" alt={MAXIMO.nombre} width="1687" height="500" loading="lazy" />
-      <p>Muy pronto. Síguenos para saber cuándo abrimos.</p>
-      <a class="mp-btn mp-btn-crema" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-cierre">
+  <!-- Footer fijo al fondo: el contenido sube y lo deja a la vista -->
+  <footer class="mp-foot">
+    <div class="mp-foot-in">
+      <img class="mp-foot-logo" src="/home/assets/maximo-panini-crema.svg" alt={MAXIMO.nombre} width="1687" height="500" loading="lazy" />
+      <p class="mp-foot-lead">{pronto}. Síguenos para saber cuándo abrimos.</p>
+      <a class="mp-btn mp-btn-crema" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-footer">
         Entérate primero
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
       </a>
-    </section>
-
-    <footer class="mp-pie">
-      <p>© 2026 {MAXIMO.nombre} · de la cocina de <a href="/">Agostina Pizzas</a></p>
-    </footer>
-  </main>
+      <nav class="mp-map" aria-label="Mapa del sitio">
+        <div>
+          <p>{MAXIMO.nombre}</p>
+          <a href="#top" data-top>Arriba</a>
+          <a href="#mp-sab-h">Lo que sale del horno</a>
+          <a href="#mpReel">Galería</a>
+        </div>
+        <div>
+          <p><a class="ag" href="/">Agostina Pizzas</a></p>
+          <a href="/">Inicio</a>
+          <a href="/pizzas/">Carta</a>
+          <a href="/slice/">Slice</a>
+          <a href="/delivery/">Delivery</a>
+          <a href="/como-llegar/">Cómo llegar</a>
+          <a href="/nosotros/">Nosotros</a>
+          <a href="/novedades/">Novedades</a>
+        </div>
+        <div>
+          <p>Redes</p>
+          <a href={REDES.instagram.url} target="_blank" rel="noopener">Instagram ↗</a>
+          <a href={REDES.tiktok.url} target="_blank" rel="noopener">TikTok ↗</a>
+        </div>
+      </nav>
+      <p class="mp-foot-pie">© 2026 {MAXIMO.nombre} · de la cocina de <a href="/">Agostina Pizzas</a> · <a href="/privacidad/">Privacidad</a></p>
+    </div>
+  </footer>
 
   <script>
     import "../../scripts/utm.js";
+
+    let stop: (() => void) | null = null;
+
+    function init() {
+      if (stop) stop();
+      const reel = document.getElementById("mpReel");
+      const track = document.getElementById("mpTrack");
+      const bar = document.getElementById("mpBar");
+      if (!reel || !track || !bar) return;
+      const ac = new AbortController();
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const items = [...track.children] as HTMLElement[];
+      const aspects = items.map((el) => Number(el.dataset.a) || 1);
+      const hero = document.querySelector<HTMLElement>("[data-par]");
+      const ghost = reel.querySelector<HTMLElement>(".mp-reel-ghost span");
+      let raf = 0;
+
+      // Tamaño de las fotos: crecen de hMin a hMax a lo largo del recorrido.
+      const sizes = () => {
+        const m = innerWidth < 760;
+        return { hMin: innerHeight * (m ? 0.24 : 0.34), hMax: innerHeight * (m ? 0.5 : 0.66), gap: m ? 16 : 32, pad: innerWidth * 0.06 };
+      };
+      const widthAt = (h: number, gap: number) => aspects.reduce((s, a) => s + a * h + gap, 0);
+
+      // El alto de la sección define cuánto scroll dura la galería fija.
+      function layout() {
+        if (reduce) return;
+        const { hMin, hMax, gap } = sizes();
+        const recorrido = widthAt((hMin + hMax) / 2, gap) - innerWidth;
+        reel!.style.height = `${Math.round(recorrido / 1.8 + innerHeight)}px`;
+        frame();
+      }
+
+      function frame() {
+        raf = 0;
+        if (hero) {
+          const y = Math.min(scrollY, innerHeight);
+          hero.style.transform = `translateY(${y * 0.12}px) rotate(${2 + y * 0.006}deg)`;
+        }
+        if (reduce) return;
+        const r = reel!.getBoundingClientRect();
+        const total = r.height - innerHeight;
+        const p = Math.min(1, Math.max(0, -r.top / total));
+        const { hMin, hMax, gap, pad } = sizes();
+        const h = hMin + (hMax - hMin) * Math.pow(p, 1.25);
+        const w = widthAt(h, gap);
+        const x = pad - p * (w - innerWidth + pad * 2);
+        track!.style.setProperty("--h", `${h}px`);
+        track!.style.setProperty("--gap", `${gap}px`);
+        track!.style.transform = `translate3d(${x}px,0,0)`;
+        if (ghost) ghost.style.transform = `translate3d(${-p * 50}%,0,0)`;
+        bar!.style.transform = `scaleX(${p})`;
+      }
+      const onScroll = () => { if (!raf) raf = requestAnimationFrame(frame); };
+
+      addEventListener("scroll", onScroll, { passive: true, signal: ac.signal });
+      addEventListener("resize", layout, { signal: ac.signal });
+      document.querySelector("[data-top]")?.addEventListener("click", (e) => { e.preventDefault(); scrollTo({ top: 0, behavior: "smooth" }); }, { signal: ac.signal });
+      requestAnimationFrame(() => document.documentElement.classList.add("mp-ready"));
+      layout();
+
+      stop = () => { ac.abort(); cancelAnimationFrame(raf); document.documentElement.classList.remove("mp-ready"); stop = null; };
+    }
+
+    document.addEventListener("astro:page-load", init);
+    document.addEventListener("astro:before-swap", () => stop?.());
   </script>
 </Layout>
 
 <style>
   :global(body) {
-    background: #f5efe6;
+    background: #3e4729;
   }
-  .mp {
-    --rojo: #c73a2a;
+  .mp,
+  .mp-foot {
+    --verde: #5d6a42;
     --crema: #f5efe6;
-    --madera: #b8742a;
     font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
     color: #111;
+  }
+  /* El contenido va encima y deja un hueco del alto de la pantalla para descubrir el footer */
+  .mp {
+    position: relative;
+    z-index: 1;
+    background: var(--crema);
+    margin-bottom: 100svh;
     overflow-x: clip;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
   }
   .mp p {
     margin: 0;
@@ -127,6 +259,18 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     line-height: 0.88;
     margin: 0;
   }
+  /* Enlaces a Agostina */
+  .ag {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--verde);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .ag:hover {
+    color: var(--verde);
+  }
 
   /* header */
   .mp-hd {
@@ -137,15 +281,21 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     justify-content: space-between;
     align-items: center;
     padding: 10px 16px;
-    background: linear-gradient(#f5efe6 75%, rgba(245, 239, 230, 0));
+    pointer-events: none;
+  }
+  .mp-hd > * {
+    pointer-events: auto;
   }
   .mp-back {
     display: inline-flex;
     min-height: 44px;
     align-items: center;
+    padding: 4px 10px;
+    background: rgba(245, 239, 230, 0.92);
+    border-radius: 12px;
   }
   .mp-back img {
-    height: 44px;
+    height: 40px;
     width: auto;
   }
   .mp-pill {
@@ -154,12 +304,17 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     min-height: 44px;
     padding: 0 22px;
     border-radius: 999px;
-    background: var(--rojo, #c73a2a);
+    background: #5d6a42;
     color: #f5efe6;
+    border: 2px solid #f5efe6;
     font-family: "Bebas Neue", sans-serif;
     font-size: 22px;
     letter-spacing: 0.04em;
-    transform: rotate(-3deg);
+    animation: mp-wobble 3.2s ease-in-out infinite;
+  }
+  @keyframes mp-wobble {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(2deg) translateY(-2px); }
   }
 
   /* hero */
@@ -175,7 +330,7 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--rojo);
+    color: var(--verde);
   }
   .mp-logo {
     margin: 14px 0 22px;
@@ -188,8 +343,16 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
   .mp-h {
     font-size: clamp(46px, 7vw, 92px);
   }
-  .mp-h span {
-    color: var(--rojo);
+  .mp-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.04em;
+  }
+  .mp-line > span {
+    display: inline-block;
+  }
+  .mp-acc {
+    color: var(--verde);
   }
   .mp-body {
     margin-top: 20px !important;
@@ -212,10 +375,10 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.25s, transform 0.25s;
+    transition: background 0.25s, transform 0.25s, color 0.25s;
   }
   .mp-btn:hover {
-    background: var(--rojo);
+    background: var(--verde);
     transform: rotate(-2deg);
   }
   .mp-btn svg {
@@ -224,6 +387,10 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     fill: none;
     stroke: currentColor;
     stroke-width: 2.4;
+    transition: transform 0.25s;
+  }
+  .mp-btn:hover svg {
+    transform: translateX(4px);
   }
   .mp-foto {
     position: relative;
@@ -232,6 +399,7 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     box-shadow: 0 24px 48px rgba(17, 17, 17, 0.18);
     transform: rotate(2deg);
     aspect-ratio: 4 / 5;
+    will-change: transform;
   }
   .mp-foto img {
     width: 100%;
@@ -244,7 +412,7 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     left: -18px;
     bottom: 28px;
     padding: 14px 20px 10px;
-    background: var(--rojo);
+    background: var(--verde);
     color: #f5efe6;
     font-family: "Bebas Neue", sans-serif;
     font-size: 30px;
@@ -252,13 +420,50 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     text-align: center;
     border: 3px solid #f5efe6;
     border-radius: 12px;
-    transform: rotate(-8deg);
     box-shadow: 0 8px 18px rgba(17, 17, 17, 0.2);
+    animation: mp-bob 2.8s ease-in-out infinite;
+  }
+  @keyframes mp-bob {
+    0%, 100% { transform: rotate(-8deg) translateY(0); }
+    50% { transform: rotate(-4deg) translateY(-6px); }
+  }
+
+  /* entrada del hero (arranca cuando el script marca mp-ready) */
+  .mp-in {
+    animation: mp-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both paused;
+    animation-delay: calc(var(--d) * 110ms);
+  }
+  .mp-line > .mp-in {
+    animation-name: mp-rise;
+  }
+  .mp-wipe {
+    animation-name: mp-wipe;
+    animation-duration: 1.1s;
+  }
+  .mp-drop {
+    animation: mp-drop 1.1s cubic-bezier(0.2, 0.9, 0.25, 1.15) 0.35s both paused;
+  }
+  :global(.mp-ready) .mp-in,
+  :global(.mp-ready) .mp-drop {
+    animation-play-state: running;
+  }
+  @keyframes mp-up {
+    from { opacity: 0; transform: translateY(24px); }
+  }
+  @keyframes mp-rise {
+    from { transform: translateY(105%); }
+  }
+  @keyframes mp-wipe {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes mp-drop {
+    from { opacity: 0; translate: 0 -60px; rotate: 10deg; }
   }
 
   /* cinta */
   .mp-cinta {
-    background: var(--rojo);
+    background: var(--verde);
     color: #f5efe6;
     overflow: hidden;
     transform: rotate(-1.5deg);
@@ -266,7 +471,6 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
   }
   .mp-cinta-in {
     display: flex;
-    gap: 28px;
     width: max-content;
     padding: 14px 0 10px;
     font-family: "Bebas Neue", sans-serif;
@@ -274,10 +478,19 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     letter-spacing: 0.02em;
     animation: mp-cinta 30s linear infinite;
   }
+  .mp-cinta-in span::after {
+    content: "/";
+    margin: 0 28px;
+    opacity: 0.6;
+  }
+  .mp-cinta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
   @keyframes mp-cinta {
-    to {
-      transform: translateX(-50%);
-    }
+    to { transform: translateX(-50%); }
   }
 
   /* sabores */
@@ -301,9 +514,9 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     font-family: "Yellowtail", cursive;
     font-size: clamp(30px, 3.4vw, 46px);
     line-height: 1.05;
-    color: var(--rojo);
+    color: var(--verde);
     max-width: 14ch;
-    transform: rotate(-4deg);
+    rotate: -4deg;
   }
   .mp-grid {
     list-style: none;
@@ -314,16 +527,18 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     gap: 28px 16px;
   }
   .mp-card {
-    transform: rotate(var(--r));
-    transition: transform 0.3s;
+    rotate: var(--r);
+    transition: rotate 0.3s, translate 0.3s, opacity 0.7s, transform 0.7s;
   }
   .mp-card:hover {
-    transform: rotate(0deg) translateY(-6px);
+    rotate: 0deg;
+    translate: 0 -6px;
   }
   .mp-card-img {
     background: #fff;
     padding: 8px 8px 0;
     box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
+    overflow: hidden;
   }
   .mp-card-img img {
     width: 100%;
@@ -331,6 +546,10 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     display: block;
+    transition: scale 0.5s;
+  }
+  .mp-card:hover .mp-card-img img {
+    scale: 1.06;
   }
   .mp-card p {
     background: #fff;
@@ -341,7 +560,7 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
   }
   .mp-card p span {
-    color: var(--rojo);
+    color: var(--verde);
     margin-right: 8px;
   }
 
@@ -349,20 +568,19 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
   .mp-pilares {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 56px 16px;
+    padding: 56px 16px 72px;
   }
   .mp-pilares ol {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 28px 0 0;
     display: grid;
     gap: 28px;
     border-top: 2px solid #111;
-    padding-top: 28px;
   }
   .mp-pilares span {
     display: block;
-    color: var(--rojo);
+    color: var(--verde);
     font-weight: 800;
     font-size: 12px;
     letter-spacing: 0.16em;
@@ -383,65 +601,176 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
     max-width: 34ch;
   }
 
-  /* banda */
-  .mp-banda {
+  /* galería fija */
+  .mp-reel {
+    position: relative;
+    height: 600vh;
+    background: var(--verde);
+  }
+  .mp-reel-stick {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
     display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 8px 16px 24px;
-    scrollbar-width: none;
-  }
-  .mp-banda::-webkit-scrollbar {
-    display: none;
-  }
-  .mp-banda-img {
-    flex: 0 0 auto;
-    height: 300px;
-    scroll-snap-align: center;
-  }
-  .mp-banda-img img {
-    height: 100%;
-    width: auto;
-    display: block;
-  }
-
-  /* cierre */
-  .mp-cierre {
-    margin-top: 40px;
-    background: var(--rojo);
-    color: #f5efe6;
-    padding: 72px 16px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
     align-items: center;
   }
-  .mp-cierre-logo {
-    width: min(86%, 560px);
+  .mp-reel-ghost {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    margin: 0;
+    white-space: nowrap;
+    font-family: "Yellowtail", cursive;
+    font-size: 30vh;
+    line-height: 1;
+    color: rgba(17, 17, 17, 0.14);
+    pointer-events: none;
+  }
+  .mp-reel-ghost span {
+    display: inline-block;
+    will-change: transform;
+  }
+  .mp-reel-track {
+    --h: 34vh;
+    --gap: 32px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    will-change: transform;
+  }
+  .mp-reel-it {
+    flex: 0 0 auto;
+    margin: 0;
+    height: var(--h);
+    width: calc(var(--h) * var(--a));
+    border: 6px solid var(--crema);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    translate: 0 var(--y);
+    rotate: var(--r);
+    background: #222;
+  }
+  .mp-reel-it img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mp-reel-scr {
+    position: absolute;
+    z-index: 2;
+    left: 6vw;
+    bottom: 7vh;
+    margin: 0;
+    font-family: "Yellowtail", cursive;
+    font-size: 30px;
+    color: var(--crema);
+    rotate: -4deg;
+  }
+  .mp-reel-bar {
+    position: absolute;
+    left: 6vw;
+    right: 6vw;
+    bottom: 4vh;
+    height: 3px;
+    background: rgba(245, 239, 230, 0.25);
+  }
+  .mp-reel-bar i {
+    display: block;
+    height: 100%;
+    background: var(--crema);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  /* footer fijo al fondo */
+  .mp-foot {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    height: 100svh;
+    background: #3e4729;
+    color: var(--crema);
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+  }
+  .mp-foot-in {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 88px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mp-foot-logo {
+    width: min(100%, 760px);
     height: auto;
   }
-  .mp-cierre p {
-    margin-top: 22px;
-    font-size: 16px;
+  .mp-foot-lead {
+    margin: 18px 0 0;
+    font-size: 17px;
     line-height: 1.6;
-    max-width: 40ch;
   }
   .mp-btn-crema {
-    background: #f5efe6;
+    background: var(--crema);
     color: #111;
   }
   .mp-btn-crema:hover {
     background: #111;
-    color: #f5efe6;
+    color: var(--crema);
   }
-  .mp-pie {
-    padding: 24px 16px 32px;
-    text-align: center;
+  .mp-map {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+    width: 100%;
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(245, 239, 230, 0.35);
+  }
+  .mp-map div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mp-map p {
+    margin: 0 0 4px;
+    font-weight: 800;
     font-size: 12px;
-    color: #6b645a;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
   }
-  .mp-pie a {
+  .mp-map a {
+    color: var(--crema);
+    text-decoration: none;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 24px;
+    line-height: 1.1;
+    width: fit-content;
+    transition: translate 0.2s, color 0.2s;
+  }
+  .mp-map p a {
+    font-family: inherit;
+    font-size: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .mp-map a:hover {
+    translate: 6px 0;
+    color: #111;
+  }
+  .mp-foot-pie {
+    margin: 36px 0 0;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  .mp-foot-pie a {
     color: inherit;
   }
 
@@ -469,17 +798,53 @@ const ig = MAXIMO.instagram ?? REDES.instagram.url;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
     }
-    .mp-banda-img {
-      height: 420px;
-    }
     .mp-sticker {
       left: -40px;
       font-size: 38px;
     }
+    .mp-reel-it {
+      border-width: 10px;
+    }
+    .mp-reel-scr {
+      font-size: 40px;
+    }
+    .mp-foot-in {
+      padding: 96px 32px 32px;
+    }
+    .mp-map {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .mp-map a {
+      font-size: 28px;
+    }
   }
+
+  /* sin movimiento: galería como franja deslizable normal */
   @media (prefers-reduced-motion: reduce) {
-    .mp-cinta-in {
+    .mp-cinta-in,
+    .mp-pill,
+    .mp-sticker,
+    .mp-in,
+    .mp-drop {
       animation: none;
+    }
+    .mp-reel {
+      height: auto !important;
+    }
+    .mp-reel-stick {
+      position: relative;
+      height: auto;
+      padding: 48px 0 72px;
+      overflow-x: auto;
+    }
+    .mp-reel-track {
+      --h: 320px;
+      padding: 0 16px;
+    }
+    .mp-reel-ghost,
+    .mp-reel-scr,
+    .mp-reel-bar {
+      display: none;
     }
   }
 </style>
