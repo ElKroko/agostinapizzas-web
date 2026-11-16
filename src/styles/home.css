@@ -608,3 +608,9 @@
   .pill svg{width:2.6vh;height:2.6vh}
   .pill:hover{background:#111;color:#F5EFE6;transform:rotate(-3deg) scale(1.04)}
 }
+/* móvil: «Pizza lovers» sobre los rolls y «El hermano de Agostina» sobre la foto de Máximo */
+@media (max-width:760px){
+  .st-f,.st-l{display:block}
+  .st-f{top:auto;left:auto;bottom:304px;right:8px}
+  .st-l{top:auto;right:auto;bottom:calc(90px + 70vw - 128px);left:14px}
+}
