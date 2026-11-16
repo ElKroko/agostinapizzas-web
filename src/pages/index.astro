@@ -181,19 +181,20 @@ const momentos = [
 
       <!-- P5 · SLICE CORTANDO LA WEB -->
       <section class="pan p5" id="sec-slice" aria-label="Slice: caliente, crujiente, recién hecha" style="background:#C73A2A">
-        <div class="abs tape" style="background:#111" aria-hidden="true">
-          <div class="tape-in disp" style="color:#F5EFE6" id="tape"></div>
-        </div>
-        <div class="abs p5-slice">
-          <img src="/home/assets/slice-ny.webp" alt="" width="673" height="1012" />
-        </div>
-        <p class="abs disp p5-txt" style="margin:0; color:#F5EFE6">Caliente.<br />Crujiente.<br />Recién hecha.</p>
-
-        <div class="abs p5-offer">
-          <p class="disp p5-offer-k">La slice</p>
-          <p class="disp p5-offer-p">{clp(SLICE.precioSola)}</p>
-          <p class="p5-offer-s">o {clp(SLICE.precioConBebida)} con bebida · Los Leones 229</p>
-          <a class="btn p5-offer-b" href="/slice/" data-track="agostina:slice_click" data-origen="home-slice">Ver la slice ↗</a>
+        <div class="p5-stage">
+          <p class="disp p5-word" aria-hidden="true">Slices</p>
+          <div class="p5-pz" id="slicePz" role="img" aria-label="Pizza Giulianna vista desde arriba, cortada en cuatro">
+            {[1, 2, 3, 4].map((n) => (
+              <div class={`p5-q p5-q${n}`}><img src="/home/assets/giulianna-cenital.webp" alt="" width="960" height="960" /></div>
+            ))}
+          </div>
+          <p class="abs disp p5-txt" style="margin:0; color:#F5EFE6">Caliente.<br />Crujiente.<br />Recién hecha.</p>
+          <div class="abs p5-offer">
+            <p class="disp p5-offer-k">La slice</p>
+            <p class="disp p5-offer-p">{clp(SLICE.precioSola)}</p>
+            <p class="p5-offer-s">o {clp(SLICE.precioConBebida)} con bebida · Los Leones 229</p>
+            <a class="btn p5-offer-b" href="/slice/" data-track="agostina:slice_click" data-origen="home-slice">Ver la slice ↗</a>
+          </div>
         </div>
       </section>
 

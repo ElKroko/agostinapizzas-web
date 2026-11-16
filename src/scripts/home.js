@@ -118,8 +118,7 @@ function init() {
 
   /* ---------- Cinta y carrusel Lovers ---------- */
   const tape = $('#tape');
-  tape.innerHTML = '';
-  TAPE.concat(TAPE, TAPE, TAPE, TAPE, TAPE).forEach((t) => tape.appendChild(el('span', null, t)));
+  if (tape) { tape.innerHTML = ''; TAPE.concat(TAPE, TAPE, TAPE, TAPE, TAPE).forEach((t) => tape.appendChild(el('span', null, t))); }
   const lovers = $('#lovers');
   lovers.innerHTML = '';
   PIZ.concat(PIZ).forEach((p, i) => {
@@ -181,6 +180,29 @@ function init() {
     heroPz.style.transform = `translateX(${Math.round(-x * 0.18)}px) rotate(${tilt}deg)`;
     rolls.style.transform = `translateY(${Math.round(Math.sin(x / 300) * 18)}px) rotate(${Math.round(Math.cos(x / 340) * 30) / 10}deg)`;
     endPz.style.transform = `rotate(${Math.round(x * 0.6) / 10}deg)`;
+    paintSlice();
+  }
+
+  /* ---------- Slice: la pizza pierde un cuarto a la vez mientras se recorre el panel ---------- */
+  const secSlice = $('#sec-slice'), slicePz = $('#slicePz');
+  const quarters = slicePz ? [...slicePz.querySelectorAll('.p5-q')] : [];
+  const DIRS = [[1, -1], [1, 1], [-1, 1], [-1, -1]]; // arriba-der, abajo-der, abajo-izq, arriba-izq
+  const ease = (t) => t * t * (3 - 2 * t);
+  function paintSlice() {
+    if (!secSlice || !quarters.length) return;
+    const m = isMobile();
+    const span = m ? secSlice.offsetHeight - track.clientHeight : secSlice.offsetWidth - track.clientWidth;
+    const into = (m ? track.scrollTop : track.scrollLeft) - (m ? secSlice.offsetTop : secSlice.offsetLeft);
+    const p = span > 0 ? Math.max(0, Math.min(1, into / span)) : 0;
+    const far = slicePz.offsetWidth * 1.15;
+    slicePz.style.setProperty('--rot', `${Math.round(p * 300) / 10}deg`);
+    quarters.forEach((q, i) => {
+      // cada cuarto se va en su propio tramo; queda un respiro al inicio y al final
+      const t = ease(Math.max(0, Math.min(1, (p - 0.06 - i * 0.215) / 0.2)));
+      const [dx, dy] = DIRS[i];
+      q.style.transform = t ? `translate(${Math.round(dx * far * t)}px, ${Math.round(dy * far * t)}px) rotate(${Math.round(dx * 28 * t)}deg) scale(${1 - 0.12 * t})` : '';
+      q.style.opacity = t ? String(Math.round((1 - t * t) * 100) / 100) : '';
+    });
   }
   track.addEventListener('scroll', () => {
     if (tick) return;
@@ -191,7 +213,7 @@ function init() {
       const max = m ? track.scrollHeight - track.clientHeight : track.scrollWidth - track.clientWidth;
       scrollX = pos;
       prog.style.width = (max > 0 ? (pos / max) * 100 : 0) + '%';
-      if (!reduced) paint();
+      if (!reduced) paint(); else paintSlice();
     });
   }, { passive: true, signal });
   paint();

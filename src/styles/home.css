@@ -391,20 +391,31 @@
   .st-g{top:auto;bottom:300px}
 }
 
-/* Panel slice: ancho de pantalla, foto nueva y cinta limpia (16 nov 2026) */
-.p5{width:max(100vw,120vh);overflow:hidden}
-.p5-slice{left:calc(50% - 26vh);top:-4vh;width:52vh;height:78vh;transform-origin:50% 0}
-.p5-slice img{object-fit:contain;object-position:50% 0;clip-path:none}
-.p5-txt{left:7vh;top:auto;bottom:9vh}
-.p5-offer{left:auto;right:7vh;top:auto;bottom:9vh}
-.tape{left:-5%;width:110%;top:40vh;height:7.4vh;transform:rotate(-5deg);border-block:.5vh solid #F4D27A;box-shadow:0 1.2vh 2.4vh rgba(0,0,0,.28)}
-.tape-in{gap:4vh;font-size:4vh;letter-spacing:.03em;padding-top:.4vh}
-.tape-in span:nth-child(even){color:#F4D27A}
+/* Panel slice: pizza cenital que pierde 1/4 por scroll, SLICES detrás (16 nov 2026)
+   El panel es más ancho que la pantalla; el escenario queda pegado (sticky) mientras
+   se recorre ese ancho y home.js mueve los cuartos según el avance. */
+.p5{width:calc(100vw + 260vh);overflow:visible}
+.p5-stage{position:sticky;left:0;top:0;width:100vw;height:100%;overflow:hidden}
+.p5-word{position:absolute;left:0;right:0;top:50%;transform:translateY(-54%);text-align:center;font-size:min(52vh,36vw);line-height:.8;letter-spacing:-.01em;color:#F5EFE6;white-space:nowrap;z-index:1;pointer-events:none}
+.p5-pz{position:absolute;left:50%;top:50%;width:min(64vh,42vw);aspect-ratio:1;margin:calc(min(64vh,42vw) / -2) 0 0 calc(min(64vh,42vw) / -2);z-index:3;--rot:0deg;transform:rotate(var(--rot))}
+.p5-q{position:absolute;inset:0;filter:drop-shadow(0 2.2vh 2.4vh rgba(0,0,0,.35));will-change:transform,opacity}
+.p5-q img{width:100%;height:100%}
+.p5-q1 img{clip-path:polygon(50% 50%,50% 0,100% 0,100% 50%)}
+.p5-q2 img{clip-path:polygon(50% 50%,100% 50%,100% 100%,50% 100%)}
+.p5-q3 img{clip-path:polygon(50% 50%,50% 100%,0 100%,0 50%)}
+.p5-q4 img{clip-path:polygon(50% 50%,0 50%,0 0,50% 0)}
+.p5-txt{left:6vh;top:auto;bottom:8vh;font-size:7vh;z-index:4}
+.p5-offer{left:auto;right:6vh;top:auto;bottom:8vh;z-index:5}
 @media (max-width:760px){
-  .p5{width:100% !important;overflow:hidden}
-  .p5-slice{left:calc(50% - 38vw);top:-8px;width:76vw;height:114vw}
-  .p5-txt{left:16px;top:auto;bottom:calc(23vw + 156px)}
-  .p5-offer{left:16px;right:16px;bottom:28px}
-  .tape{left:-10%;width:120%;top:58vw;height:44px;border-block-width:3px}
-  .tape-in{font-size:24px}
+  .pan.p5{width:100% !important;height:330svh;display:block;padding:0;overflow:visible}
+  .p5-stage{top:0;width:100%;height:100svh}
+  .p5-stage .abs{position:absolute}
+  .p5-word{font-size:41vw;top:44%}
+  .p5-pz{width:88vw;margin:-44vw 0 0 -44vw;top:44%}
+  .p5-txt{left:16px;right:auto;top:auto;bottom:28px;font-size:8.6vw}
+  .p5-offer{left:auto;right:16px;top:auto;bottom:28px;width:auto;align-items:flex-end;text-align:right}
+  .p5-offer-k{font-size:16px}
+  .p5-offer-p{font-size:15vw}
+  .p5-offer-s{font-size:11px;max-width:44vw}
+  .p5-offer-b{font-size:18px;margin-top:6px}
 }
