@@ -1,9 +1,10 @@
 """Sube dist/ a agostina.masstudio.cl por SFTP.
 
 Uso (desde la raíz del proyecto, después de `npm run build`):
-    SFTP_PASS='<contraseña>' python -I scripts/deploy-sftp.py [carpeta]   # carpeta por defecto: dist
+    python -I scripts/deploy-sftp.py [carpeta]   # carpeta por defecto: dist
+La clave se lee de SFTP_PASS en el entorno o del archivo .env de la raíz (ignorado por git).
 
-Requiere `pip install paramiko`. La contraseña nunca se guarda en el repo.
+Requiere `pip install paramiko`. La contraseña nunca se guarda en el repo (.env está en .gitignore).
 Sube y sobrescribe; no borra archivos remotos que ya no existan en dist/.
 """
 import os, posixpath, sys
@@ -13,7 +14,20 @@ HOST, PORT, USER, RAIZ = "216.185.51.64", 22, "agostina", "/public_html"
 src = sys.argv[1] if len(sys.argv) > 1 else "dist"
 
 t = paramiko.Transport((HOST, PORT))
-t.connect(username=USER, password=os.environ["SFTP_PASS"])
+def clave():
+    """SFTP_PASS del entorno o, si no está, del archivo .env (ignorado por git)."""
+    if os.environ.get("SFTP_PASS"):
+        return os.environ["SFTP_PASS"]
+    env = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".env")
+    if os.path.exists(env):
+        for linea in open(env, encoding="utf-8"):
+            k, _, v = linea.strip().partition("=")
+            if k.strip() == "SFTP_PASS" and v.strip():
+                return v.strip().strip("'\"")
+    sys.exit("Falta SFTP_PASS: escríbela en .env (SFTP_PASS=...) o como variable de entorno.")
+
+
+t.connect(username=USER, password=clave())
 s = paramiko.SFTPClient.from_transport(t)
 
 

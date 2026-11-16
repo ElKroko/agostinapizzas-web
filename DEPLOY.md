@@ -7,11 +7,11 @@
 ```bash
 cd F:\Codes\AGOSTINA\WEB\agostinapizzas-web
 npm run build
-SFTP_PASS='<contraseña>' python -I scripts/deploy-sftp.py
+python -I scripts/deploy-sftp.py
 ```
 
 - Requiere `pip install paramiko` (una sola vez por PC).
-- La contraseña SFTP la tiene Vicente (la entregó Mauricio); **no va en el repo**. En PowerShell: `$env:SFTP_PASS='...'; python -I scripts/deploy-sftp.py`.
+- La contraseña SFTP la tiene Vicente (la entregó Mauricio); **no va en el repo**. Se escribe una vez en `.env` de la raíz (`SFTP_PASS=...`), que está en `.gitignore`. También sirve como variable de entorno `SFTP_PASS`.
 - El script sube todo `dist/` a `/public_html` y sobrescribe. **No borra** archivos remotos: si se elimina una página, borrarla a mano por SFTP.
 
 ## Datos de conexión

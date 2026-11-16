@@ -16,3 +16,6 @@ assets/fotos-reales/
 
 # Capturas de revisión exportadas desde Claude Design (pesadas, no son parte del sitio).
 agostina web v2/export/
+
+# Clave SFTP local (nunca al repo).
+.env
