@@ -390,3 +390,21 @@
   .st-k{top:auto;bottom:40px;right:auto;left:16px}
   .st-g{top:auto;bottom:300px}
 }
+
+/* Panel slice: ancho de pantalla, foto nueva y cinta limpia (16 nov 2026) */
+.p5{width:max(100vw,120vh);overflow:hidden}
+.p5-slice{left:calc(50% - 26vh);top:-4vh;width:52vh;height:78vh;transform-origin:50% 0}
+.p5-slice img{object-fit:contain;object-position:50% 0;clip-path:none}
+.p5-txt{left:7vh;top:auto;bottom:9vh}
+.p5-offer{left:auto;right:7vh;top:auto;bottom:9vh}
+.tape{left:-5%;width:110%;top:40vh;height:7.4vh;transform:rotate(-5deg);border-block:.5vh solid #F4D27A;box-shadow:0 1.2vh 2.4vh rgba(0,0,0,.28)}
+.tape-in{gap:4vh;font-size:4vh;letter-spacing:.03em;padding-top:.4vh}
+.tape-in span:nth-child(even){color:#F4D27A}
+@media (max-width:760px){
+  .p5{width:100% !important;overflow:hidden}
+  .p5-slice{left:calc(50% - 38vw);top:-8px;width:76vw;height:114vw}
+  .p5-txt{left:16px;top:auto;bottom:calc(23vw + 156px)}
+  .p5-offer{left:16px;right:16px;bottom:28px}
+  .tape{left:-10%;width:120%;top:58vw;height:44px;border-block-width:3px}
+  .tape-in{font-size:24px}
+}

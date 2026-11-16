@@ -119,7 +119,7 @@ function init() {
   /* ---------- Cinta y carrusel Lovers ---------- */
   const tape = $('#tape');
   tape.innerHTML = '';
-  TAPE.concat(TAPE, TAPE, TAPE).forEach((t) => tape.appendChild(el('span', null, t)));
+  TAPE.concat(TAPE, TAPE, TAPE, TAPE, TAPE).forEach((t) => tape.appendChild(el('span', null, t)));
   const lovers = $('#lovers');
   lovers.innerHTML = '';
   PIZ.concat(PIZ).forEach((p, i) => {
