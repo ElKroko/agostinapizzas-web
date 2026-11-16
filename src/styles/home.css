@@ -600,3 +600,11 @@
   .st-c{top:calc(28px + 46vw - 104px)}
   .st-h{bottom:calc(114px + 75vw - 96px)}
 }
+
+/* Escritorio (16 nov 2026): «¡Pide ya!» con protagonismo, relleno rojo como la barra del celular.
+   El anillo crema lo separa del fondo cuando pasa sobre el panel rojo de la slice. */
+@media (min-width:761px){
+  .pill{background:#C73A2A;color:#F5EFE6;border:0;box-shadow:0 0 0 3px #F5EFE6,0 1.2vh 2.6vh rgba(17,17,17,.22);font-size:3vh;padding:1.6vh 3.2vh 1.4vh;gap:1.1vh}
+  .pill svg{width:2.6vh;height:2.6vh}
+  .pill:hover{background:#111;color:#F5EFE6;transform:rotate(-3deg) scale(1.04)}
+}
