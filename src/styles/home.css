@@ -419,3 +419,21 @@
   .p5-offer-s{font-size:11px;max-width:44vw}
   .p5-offer-b{font-size:18px;margin-top:6px}
 }
+
+/* Máximo Panini: fotos reales de la sesión del 16 nov 2026 */
+.p8{min-width:142vh}
+.p8-ph{margin:0;overflow:hidden;background:#111;border:.8vh solid #F5EFE6;box-shadow:0 2vh 4vh rgba(0,0,0,.25);z-index:1}
+.p8-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.p8-ph1{left:max(70vh,56vw);top:9vh;width:34vh;height:46vh;transform:rotate(-2deg)}
+.p8-ph2{left:calc(max(70vh,56vw) + 37vh);top:17vh;width:30vh;height:40vh;transform:rotate(3deg)}
+.p8-note{top:64vh}
+.st-k{left:calc(max(70vh,56vw) + 38vh);top:54vh;z-index:4}
+.st-l{left:calc(max(70vh,56vw) - 5vh);top:44vh;z-index:4}
+@media (max-width:760px){
+  .p8{min-width:0}
+  .p8-ph{border-width:6px}
+  .p8-ph1,.p8-ph2{left:auto;top:auto;width:100%;height:110vw}
+  .p8-ph2{transform:rotate(2deg)}
+  .p8-note{top:auto}
+  .st-k{left:16px;top:auto}
+}
