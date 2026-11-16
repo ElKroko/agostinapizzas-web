@@ -437,3 +437,12 @@
   .p8-note{top:auto}
   .st-k{left:16px;top:auto}
 }
+
+/* Celular (16 nov 2026): la regla de escritorio del título del hero (top:11vh; 30vh) también
+   pegaba en móvil, donde .abs es relative: el título salía gigante, cortado y encima de la
+   descripción de la pizza. */
+@media (max-width:760px){
+  .p1-h1{top:auto;font-size:30vw;line-height:.85;margin-top:-4vw}
+  /* el disco "Est. 2013" tapaba el logo de Preguntas frecuentes; el logo ya dice Est. 2013 */
+  .st-d{display:none}
+}
