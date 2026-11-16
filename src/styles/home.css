@@ -578,12 +578,12 @@
 .stk .sk{display:block;height:auto;filter:drop-shadow(0 10px 12px rgba(17,17,17,.22)) drop-shadow(0 2px 2px rgba(17,17,17,.16))}
 .stk.dragging .sk{filter:drop-shadow(0 18px 22px rgba(17,17,17,.28)) drop-shadow(0 2px 3px rgba(17,17,17,.18))}
 @media (min-width:761px){
-  .sk-ny{width:23vh}.sk-masa{width:27vh}.sk-esperamos{width:27vh}.sk-lovers-tag{width:31vh}.sk-buena{width:22vh}
-  .sk-est{width:17vh}.sk-pizza-lovers{width:28vh}.sk-proximamente{width:29vh}.sk-hermano{width:24vh}
+  .sk-ny{width:26vh}.sk-masa{width:27vh}.sk-esperamos{width:30vh}.sk-lovers-tag{width:32vh}.sk-buena{width:26vh}
+  .sk-est{width:20vh}.sk-pizza-lovers{width:28vh}.sk-proximamente{width:30vh}.sk-hermano{width:26vh}
 }
 @media (max-width:760px){
-  .sk-ny{width:132px}.sk-masa{width:172px}.sk-esperamos{width:168px}.sk-lovers-tag{width:196px}.sk-buena{width:140px}
-  .sk-est{width:110px}.sk-pizza-lovers{width:170px}.sk-proximamente{width:184px}.sk-hermano{width:160px}
+  .sk-ny{width:150px}.sk-masa{width:170px}.sk-esperamos{width:186px}.sk-lovers-tag{width:200px}.sk-buena{width:156px}
+  .sk-est{width:120px}.sk-pizza-lovers{width:180px}.sk-proximamente{width:190px}.sk-hermano{width:160px}
 }
 /* escritorio: cada sticker sobre una foto o en aire libre, nunca sobre títulos */
 @media (min-width:761px){
@@ -592,6 +592,7 @@
   .st-e{left:50vh;top:21vh}
   .st-f{left:140vh;top:34vh}
   .st-k{left:calc(max(70vh,56vw) + 36vh);top:40vh}
+  .st-l{top:38vh}
 }
 @media (max-width:760px){.st-a{left:14px}.st-e{top:24px;right:14px}}
 @media (max-width:760px){

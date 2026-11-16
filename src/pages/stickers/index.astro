@@ -9,15 +9,15 @@ import Sticker, { type StickerName } from "../../components/Sticker.astro";
 import "../../styles/fonts.css";
 
 const set: { name: StickerName; t: string; uso: string; cm: string; r: number }[] = [
-  { name: "ny", t: "New York Style", uso: "Home · hero, sobre la pizza", cm: "7 × 7 cm", r: -6 },
-  { name: "masa", t: "Masa hecha a mano", uso: "Home · Nosotros, sobre la foto", cm: "8 × 4,2 cm", r: 4 },
+  { name: "ny", t: "New York Style", uso: "Home · hero, sobre la pizza", cm: "9 × 3,3 cm", r: -2 },
+  { name: "masa", t: "Masa hecha a mano", uso: "Home · Nosotros, sobre la foto", cm: "7,5 × 4,4 cm", r: 2 },
   { name: "esperamos", t: "¡Te esperamos!", uso: "Home · Los Leones 229", cm: "8 × 4,5 cm", r: -3 },
-  { name: "buena", t: "Buena pizza, buena gente", uso: "Home · cierre y Momentos", cm: "7 × 7 cm", r: 5 },
-  { name: "lovers-tag", t: "#AgostinaLovers", uso: "Home · Momentos", cm: "9 × 3,3 cm", r: -4 },
-  { name: "pizza-lovers", t: "Pizza lovers", uso: "Home · Lovers (escritorio)", cm: "8,5 × 3,3 cm", r: 3 },
-  { name: "est", t: "Est. 2013", uso: "Home · Preguntas (escritorio)", cm: "5,5 × 5,5 cm", r: 8 },
-  { name: "proximamente", t: "Próximamente", uso: "Home · Máximo Panini", cm: "8,4 × 3,8 cm", r: -5 },
-  { name: "hermano", t: "El hermano de Agostina", uso: "Home · Máximo Panini (escritorio)", cm: "7,5 × 4,3 cm", r: 4 },
+  { name: "buena", t: "Buena pizza, buena gente", uso: "Home · cierre y Momentos", cm: "7,5 × 4,6 cm", r: 2 },
+  { name: "lovers-tag", t: "#AgostinaLovers", uso: "Home · Momentos", cm: "9 × 3 cm", r: -2 },
+  { name: "pizza-lovers", t: "Pizza lovers", uso: "Home · Lovers (escritorio)", cm: "8,5 × 3,2 cm", r: 2 },
+  { name: "est", t: "Est. 2013", uso: "Home · Preguntas (escritorio)", cm: "6 × 3,4 cm", r: 3 },
+  { name: "proximamente", t: "Próximamente", uso: "Home · Máximo Panini", cm: "8,5 × 3,4 cm", r: -2 },
+  { name: "hermano", t: "El hermano de Agostina", uso: "Home · Máximo Panini (escritorio)", cm: "7,5 × 4,7 cm", r: 2 },
 ];
 ---
 
@@ -27,7 +27,7 @@ const set: { name: StickerName; t: string; uso: string; cm: string; r: number }[
       <img src="/home/assets/logo-compacto-negro.webp" alt="Agostina Pizzas" width="1200" height="825" class="sh-logo" />
       <div>
         <h1 class="sh-h">Stickers</h1>
-        <p class="sh-lead">Nueve calcomanías de marca. Las mismas piezas viven en la home y salen a imprenta desde aquí.</p>
+        <p class="sh-lead">Nueve calcomanías de lettering, sin fondo. Las mismas piezas viven en la home y salen a imprenta desde aquí.</p>
       </div>
     </header>
 
@@ -71,10 +71,10 @@ const set: { name: StickerName; t: string; uso: string; cm: string; r: number }[
     <section class="sh-notes" aria-label="Notas para imprenta">
       <h2 class="sh-h2">Para imprenta</h2>
       <ul>
-        <li>El borde blanco es la línea de troquel: corte por contorno, sin margen extra.</li>
+        <li>Solo letras: el contorno blanco que rodea cada palabra es la línea de troquel (corte por contorno, sin fondo ni margen extra).</li>
         <li>Vinilo blanco mate o semimate; los tamaños de la hoja son sugeridos.</li>
         <li>El SVG trae las fuentes incrustadas. Si la imprenta pide curvas, se convierten al abrirlo en Illustrator.</li>
-        <li>Cursiva: Yellowtail (reemplazo web de Nefelibata). Apoyos: Montserrat ExtraBold.</li>
+        <li>Cursiva: Yellowtail (reemplazo web de Nefelibata).</li>
       </ul>
     </section>
   </div>
@@ -124,7 +124,6 @@ const set: { name: StickerName; t: string; uso: string; cm: string; r: number }[
     // Descarga con fuentes incrustadas, para que el archivo se vea igual fuera de la web.
     const FONTS: [string, string, number][] = [
       ["Yellowtail", "/home/fonts/yellowtail-latin-400-normal.woff2", 400],
-      ["Montserrat", "/home/fonts/montserrat-latin-800-normal.woff2", 800],
     ];
     let fontCss: Promise<string> | null = null;
     const b64 = (buf: ArrayBuffer) => { let s = ""; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000)); return btoa(s); };
