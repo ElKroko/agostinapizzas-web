@@ -108,7 +108,7 @@ const pronto = MAXIMO.lanzamiento ?? "Próximamente";
       <div class="mp-show-stick">
         {galeria.map((g, i) => (
           <figure class="mp-show-it" style={`z-index:${i + 1}`}>
-            <img src={`/maximo/${g.img}.webp`} alt="" loading={i < 2 ? "eager" : "lazy"} decoding="async" />
+            <img src={`/maximo/${g.img}.webp?v=hd`} alt="" loading={i < 2 ? "eager" : "lazy"} decoding="async" />
           </figure>
         ))}
         <div class="mp-show-ui" aria-hidden="true">
