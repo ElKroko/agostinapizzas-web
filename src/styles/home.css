@@ -93,8 +93,8 @@
 .p4-ph3{left:98vh;top:11vh;width:27vh;height:46vh}
 .p4-info{left:128vh;top:11vh;width:24vh;display:flex;flex-direction:column;gap:2.2vh;font-size:1.5vh;line-height:1.5}
 .p4-lab{font-family:'Bebas Neue',sans-serif;font-size:2.6vh;letter-spacing:.03em;line-height:1}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:1vh;min-height:44px;padding:1.2vh 2vh;font-family:'Bebas Neue',sans-serif;font-size:2.4vh;letter-spacing:.04em;transition:transform .2s,background .2s,color .2s}
-.btn:hover{transform:translateY(-2px) rotate(-1.5deg)}
+.ag .btn{display:inline-flex;align-items:center;justify-content:center;gap:1vh;min-height:44px;padding:1.2vh 2vh;font-family:'Bebas Neue',sans-serif;font-size:2.4vh;letter-spacing:.04em;transition:transform .2s,background .2s,color .2s}
+.ag .btn:hover{transform:translateY(-2px) rotate(-1.5deg)}
 
 /* P5 slice */
 .p5{width:84vh;z-index:6}
@@ -181,7 +181,7 @@
   .p4-sub{font-size:13px}
   .p4-ph3{width:100%;height:110vw;font-size:16px}
   .p4-info{width:100%;font-size:14px}.p4-lab{font-size:22px}
-  .btn{font-size:20px}
+  .ag .btn{font-size:20px}
   .p5{height:150vw;padding:0}
   .p5-slice{position:absolute;left:-55vw;top:-12px;width:210vw;height:210vw}
   .p5-txt{position:absolute;left:16px;top:auto;bottom:24px;font-size:15vw}
@@ -285,6 +285,7 @@
 .p5 :focus-visible,.p3-faq :focus-visible{outline-color:#111}
 
 /* ---------- oferta de slice (franja roja) ---------- */
+/* .ag .btn: en el build global.css carga después y su .btn (Montserrat 14px) ganaba */
 .p5-offer{left:49vh;top:62vh;width:32vh;z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:.8vh;color:#F5EFE6}
 .p5-offer-k{font-size:3.2vh;letter-spacing:.14em;opacity:.95}
 .p5-offer-p{font-size:12vh;color:#F4D27A;line-height:.85;text-shadow:0 .6vh 0 rgba(17,17,17,.18)}
@@ -327,7 +328,7 @@
   .p5-offer-k{font-size:22px}
   .p5-offer-p{font-size:26vw}
   .p5-offer-s{font-size:13px}
-  .p5-offer-b{font-size:20px;margin-top:8px}
+  .ag .p5-offer-b{font-size:20px;margin-top:8px}
   .p4-ph1{width:100%;height:46vw}
   .p7-con{display:flex;flex-wrap:wrap;gap:8px}
 }
@@ -417,7 +418,7 @@
   .p5-offer-k{font-size:16px}
   .p5-offer-p{font-size:15vw}
   .p5-offer-s{font-size:11px;max-width:44vw}
-  .p5-offer-b{font-size:18px;margin-top:6px}
+  .ag .p5-offer-b{font-size:18px;margin-top:6px}
 }
 
 /* Máximo Panini: fotos reales de la sesión del 16 nov 2026 */
