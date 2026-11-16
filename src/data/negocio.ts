@@ -79,7 +79,7 @@ export const SEO_DEFAULT = {
   titleSuffix: "Agostina Pizzas",
   descripcion:
     "Pizzería a la piedra premium, New York Style, desde 2013. Masa hecha a mano, horneada al momento, en Los Leones 229, Providencia. Delivery en Providencia, Las Condes, Vitacura y La Reina.",
-  ogImage: "/assets/hero-pepperoni.jpg",
+  ogImage: "/og-agostina.jpg",
 } as const;
 
 /**

@@ -10,6 +10,8 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  /** Título para WhatsApp/redes; por defecto «<title> — Agostina Pizzas». */
+  ogTitle?: string;
   noIndex?: boolean;
   /** La home usa su propia interfaz fija (logo/CTA) en vez del Nav/Footer estándar. */
   bareChrome?: boolean;
@@ -19,10 +21,12 @@ const {
   title,
   description = SEO_DEFAULT.descripcion,
   ogImage = SEO_DEFAULT.ogImage,
+  ogTitle,
   noIndex = false,
   bareChrome = false,
 } = Astro.props;
 
+const shareTitle = ogTitle ?? `${title} — ${SEO_DEFAULT.titleSuffix}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
 ---
@@ -43,13 +47,15 @@ const ogImageUrl = new URL(ogImage, Astro.site);
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Agostina Pizzas" />
-    <meta property="og:title" content={title} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="es_CL" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={shareTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
