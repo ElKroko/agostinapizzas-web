@@ -42,7 +42,8 @@ function init() {
   const ac = new AbortController();
   const { signal } = ac;
   let raf = 0, tick = 0;
-  teardown = () => { ac.abort(); cancelAnimationFrame(raf); cancelAnimationFrame(tick); teardown = null; };
+  let introOff = () => {};
+  teardown = () => { ac.abort(); cancelAnimationFrame(raf); cancelAnimationFrame(tick); introOff(); teardown = null; };
 
   const isMobile = () => track.clientWidth <= CFG.mobileBp;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -162,7 +163,7 @@ function init() {
 
   function goTo(id) {
     const t = document.getElementById(id); if (!t) return;
-    if (isMobile()) track.scrollTo({ top: Math.max(0, t.offsetTop - 10), behavior: reduced ? 'auto' : 'smooth' });
+    if (isMobile()) track.scrollTo({ top: Math.max(0, t.offsetTop - (id === 'sec-menu' ? 0 : 10)), behavior: reduced ? 'auto' : 'smooth' });
     else { target = Math.min(t.offsetLeft, track.scrollWidth - track.clientWidth); startAnim(); }
   }
   document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => {
@@ -173,8 +174,10 @@ function init() {
   /* ---------- Parallax + progreso ---------- */
   const rolls = $('#rolls'), endPz = $('#endPz'), prog = $('#prog');
   const pars = [...document.querySelectorAll('[data-par]')].map((n) => ({ n, s: parseFloat(n.dataset.par), sec: n.closest('section') }));
+  const secMenu = $('#sec-menu');
   function paint() {
-    const x = scrollX;
+    // en móvil el hero queda bajo la intro: el parallax cuenta desde el hero, no desde arriba
+    const x = Math.max(0, scrollX - (isMobile() ? secMenu.offsetTop : 0));
     if (!isMobile()) { const vw = track.clientWidth; pars.forEach((p) => { const d = (p.sec.offsetLeft + p.n.offsetLeft + p.n.offsetWidth / 2) - (x + vw / 2); const y = Math.max(-60, Math.min(60, -d * p.s)); p.n.style.transform = `translateY(${Math.round(y)}px)`; }); }
     const tilt = Math.round((Math.sin(x / 260) * 4 + (spin % 2 ? -3 : 3)) * 10) / 10;
     heroPz.style.transform = `translateX(${Math.round(-x * 0.18)}px) rotate(${tilt}deg)`;
@@ -242,7 +245,22 @@ function init() {
   }, { signal });
 
   // Animación de entrada (se salta con prefers-reduced-motion por CSS).
-  requestAnimationFrame(() => $('.ag').classList.add('ready'));
+  const ag = $('.ag');
+  requestAnimationFrame(() => ag.classList.add('ready'));
+
+  /* ---------- Intro móvil (GSAP se carga solo en móvil y solo si la intro corre) ---------- */
+  if (isMobile() && !ag.classList.contains('no-intro')) {
+    let alive = true;
+    introOff = () => { alive = false; };
+    import('./intro.js').then(({ initIntro }) => {
+      if (!alive) return;
+      const off = initIntro({ ag, track, onBar: (on) => ag.classList.toggle('bar-on', on) });
+      introOff = off;
+    }).catch(() => ag.classList.add('no-intro')); // sin GSAP: hero directo
+  } else if (location.hash && isMobile()) {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (document.getElementById(id)) requestAnimationFrame(() => { track.scrollTop = Math.max(0, document.getElementById(id).offsetTop - 10); });
+  }
 }
 
 document.addEventListener('astro:page-load', init);

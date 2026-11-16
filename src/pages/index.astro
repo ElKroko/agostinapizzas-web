@@ -13,6 +13,9 @@ const faq = [
   ...(SLICE.horario ? [{ q: "¿Cuál es el horario?", a: SLICE.horario }] : []),
 ];
 
+// Intro móvil: pizzas de la carta en capas de profundidad (máx. 9 + pizza principal + logo = 11 imágenes).
+const capasIntro = ["giulianna", "margarita", "delfina", "alessia", "bianca", "isabella", "julieta", "martina", "rossa"];
+
 const momentos = [
   { n: 1, img: "life-ensayo-banda", alt: "Banda ensayando con una caja de pizza abierta", t: "Ensayo con la banda", par: "0.05" },
   { n: 2, img: "life-home-studio", alt: "Productor en su home studio comiendo pizza", t: "Sesión en el estudio", par: "-0.04" },
@@ -27,6 +30,12 @@ const momentos = [
 
 <Layout title="Pizzería a la piedra, New York Style" ogTitle="Agostina Pizzas · Pizza New York Style en Los Leones 229" bareChrome={true}>
   <div class="ag">
+    <script is:inline>
+      // La intro se salta si se entra con #ancla o con movimiento reducido (antes del primer pintado).
+      (function (ag) {
+        if (location.hash || matchMedia("(prefers-reduced-motion: reduce)").matches) ag.classList.add("no-intro");
+      })(document.currentScript.parentElement);
+    </script>
     <!-- HEADER -->
     <header class="hd">
       <button type="button" data-go="sec-menu" aria-label="Agostina Pizzas — volver al inicio" style="min-height:44px">
@@ -48,6 +57,19 @@ const momentos = [
         Recorrido horizontal en pantallas grandes: usa la rueda del mouse, el trackpad, las flechas del teclado o el menú inferior.
         En móvil es un recorrido vertical normal.
       </p>
+
+      <!-- INTRO (solo móvil): motion graphics manejados por el scroll; ver src/scripts/intro.js -->
+      <section class="intro" id="intro" aria-label="Intro animada">
+        <div class="in-stage">
+          <div class="in-bg"></div>
+          <div class="in-flash"></div>
+          <img class="in-main" src="/home/assets/cut-agostina.webp" alt="" fetchpriority="high" />
+          {capasIntro.map((n) => <img class="in-p" src={`/home/assets/cut-${n}.webp`} alt="" decoding="async" />)}
+          <img class="in-logo" src="/home/assets/logo-rojo.webp" alt="" />
+          <p class="disp in-hint" aria-hidden="true">Desliza</p>
+          <button type="button" class="in-skip" id="introSkip">Saltar intro</button>
+        </div>
+      </section>
 
       <!-- P1 · HERO + MENÚ -->
       <section class="pan p1" id="sec-menu" aria-label="Inicio y menú">
@@ -207,12 +229,14 @@ const momentos = [
               <p class="p55-body">Ensayos, azoteas, sesiones en el estudio, noches de lavandería. La pizza llega donde está el plan.</p>
               <a class="btn" href={REDES.instagram.url} target="_blank" rel="noopener" style="background:#111; color:#F5EFE6">Etiquétanos {REDES.instagram.handle} ↗</a>
             </div>
-            {momentos.map((m) => (
-              <figure class={`abs mo mo-${m.n}`} data-par={m.par}>
-                <div class="mo-img"><img src={`/home/assets/${m.img}.webp`} alt={m.alt} loading="lazy" /></div>
-                <figcaption><span>{String(m.n).padStart(2, "0")}</span> {m.t}</figcaption>
-              </figure>
-            ))}
+            <div class="mo-row">
+              {momentos.map((m) => (
+                <figure class={`abs mo mo-${m.n}`} data-par={m.par}>
+                  <div class="mo-img"><img src={`/home/assets/${m.img}.webp`} alt={m.alt} loading="lazy" /></div>
+                  <figcaption><span>{String(m.n).padStart(2, "0")}</span> {m.t}</figcaption>
+                </figure>
+              ))}
+            </div>
             <p class="abs scr p55-note" style="margin:0; color:#C73A2A">la pizza va donde está el plan</p>
             <div class="stk st-h" data-st aria-hidden="true">
               <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:999px">#AgostinaLovers</div>
@@ -326,6 +350,13 @@ const momentos = [
       </div>
     </footer>
     <div class="prog" id="prog" style="width:0%"></div>
+    <!-- Barra fija de pedido (solo móvil) -->
+    <a class="mbar" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:pedir_click" data-origen="home-barra-movil">
+      <span class="mbar-t disp">¡Pide ya!
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 4c6-2 12-2 18 0L12 22 3 4z"></path><circle cx="10" cy="8" r="1.4" fill="currentColor"></circle><circle cx="14.5" cy="11" r="1.4" fill="currentColor"></circle></svg>
+      </span>
+      <span class="sr-only">(se abre en el sistema de pedidos)</span>
+    </a>
   </div>
 
   <script>

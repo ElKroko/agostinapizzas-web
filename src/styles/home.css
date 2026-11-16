@@ -446,3 +446,128 @@
   /* el disco "Est. 2013" tapaba el logo de Preguntas frecuentes; el logo ya dice Est. 2013 */
   .st-d{display:none}
 }
+
+/* ======================================================================
+   Home móvil compacta + intro + barra «¡Pide ya!» (16 nov 2026)
+   La intro y la barra existen solo en móvil; en escritorio quedan ocultas.
+   ====================================================================== */
+.intro,.mbar{display:none}
+.mo-row{display:contents} /* en escritorio las fotos siguen posicionadas contra la sección */
+
+@media (max-width:760px){
+  .ag{--barh:calc(60px + env(safe-area-inset-bottom,0px));--stage:calc(100dvh - var(--barh))}
+  /* el recorrido termina sobre la barra: la barra enmarca la página y nunca tapa contenido */
+  .ag-track{height:calc(100% - var(--barh))}
+  .prog{bottom:var(--barh);height:3px}
+  .pill{display:none} /* la barra inferior reemplaza la píldora en móvil */
+
+  /* ---------- barra fija ---------- */
+  .mbar{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:60;height:var(--barh);padding-bottom:env(safe-area-inset-bottom,0px);align-items:center;justify-content:center;background:#C73A2A;color:#F5EFE6;box-shadow:0 -6px 18px rgba(17,17,17,.18)}
+  .mbar-t{display:inline-flex;align-items:center;gap:10px;font-size:32px;line-height:1;letter-spacing:.04em;padding-top:4px;transition:opacity .35s,transform .35s}
+  .mbar:active .mbar-t{transform:scale(.96)}
+  .ag:not(.no-intro):not(.bar-on) .mbar-t{opacity:0;transform:translateY(12px)}
+  .ag:not(.no-intro):not(.bar-on) .mbar{box-shadow:none}
+  .mbar:focus-visible{outline:3px solid #111;outline-offset:-6px}
+
+  /* ---------- intro ---------- */
+  .intro{display:block;flex:0 0 auto;position:relative;z-index:30;height:calc(var(--stage) * 2.75);margin-bottom:calc(var(--stage) * -1);pointer-events:none}
+  .ag.no-intro .intro{display:none}
+  .in-stage{position:sticky;top:0;height:var(--stage);overflow:hidden;contain:layout paint}
+  .in-bg{position:absolute;inset:0;background:#C73A2A}
+  .in-flash{position:absolute;left:50%;top:50%;width:250vmax;height:250vmax;margin:-125vmax 0 0 -125vmax;border-radius:50%;background:#F5EFE6;will-change:transform,opacity}
+  .in-main,.in-p,.in-logo{position:absolute;left:50%;top:50%;will-change:transform,opacity;backface-visibility:hidden}
+  .in-main{width:84vw;filter:drop-shadow(0 18px 18px rgba(0,0,0,.3))}
+  .in-p{width:58vw}
+  .in-logo{width:74vw;z-index:2}
+  .in-hint{position:absolute;left:0;right:0;bottom:26px;text-align:center;color:#F5EFE6;font-size:26px;letter-spacing:.12em}
+  .in-hint::after{content:"";display:block;width:2px;height:28px;margin:8px auto 0;background:#F5EFE6;animation:hintline 1.6s ease-in-out infinite;transform-origin:top}
+  .in-skip{position:absolute;top:16px;right:16px;pointer-events:auto;min-height:44px;padding:0 14px;border:1.5px solid rgba(245,239,230,.6) !important;border-radius:999px;color:#F5EFE6 !important;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;z-index:3}
+  .ag:not(.no-intro):not(.hd-on) .hd{opacity:0;pointer-events:none}
+  .ag:not(.no-intro) .hd{transition:opacity .3s}
+
+  /* ---------- compactación: menos aire en todas las secciones ---------- */
+  .pan{gap:12px;padding:76px 16px 28px}
+  .pan+.pan{padding-top:28px}
+  .kick{font-size:11px}
+
+  /* hero + menú */
+  .p1-pz{width:104vw;margin-left:-6vw}
+  .p1-h1{font-size:27vw}
+  .p1-mt{font-size:56px;margin-top:6px}
+  .p1-list{font-size:12px;gap:2px 10px}
+  .card{width:48vw;height:58vw}
+  .card-l{font-size:17px}
+  .st-a{top:calc(76px + 9vw);right:auto;left:6px}
+
+  /* nosotros: foto, texto y título; el mazo al lado de los datos */
+  .p2{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;row-gap:12px;align-items:start}
+  .p2-photo{grid-column:1/-1;height:46vw}
+  .p2-copy{grid-column:1/-1;font-size:14px;line-height:1.5}
+  .p2-h{grid-column:1/-1;font-size:16vw}
+  .p2-arrow{width:24px;height:24px}
+  .p2-stack{grid-column:1;grid-row:span 2;width:100%;height:56vw;margin:4px 0 0}
+  .p2-meta{grid-column:2;font-size:20px;align-self:end}
+  .p2-shuf{grid-column:2;text-align:left;align-self:start}
+  .st-c{top:calc(28px + 46vw - 70px)}
+
+  /* preguntas: logo más chico */
+  .p3-faqbtn{font-size:38px}
+  .p3-logo{width:62%;align-self:center}
+  .faq-t{font-size:40px}.faq-q{font-size:22px}
+
+  /* Los Leones: dos fotos en fila; foto e info lado a lado */
+  .p4{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;row-gap:10px;align-items:start}
+  .p4-ph1,.p4-ph2{width:100%;height:30vw}
+  .p4-small,.p4-h,.p4-sub{grid-column:1/-1}
+  .p4-small{margin-top:4px;font-size:15px}
+  .p4-h{font-size:21vw}
+  .p4-ph3{width:100%;height:62vw}
+  .p4-info{gap:12px;font-size:13px}
+  .p4-info .btn{font-size:18px;padding:8px 12px;width:100%}
+  .p4-lab{font-size:20px}
+  .st-e{top:14px;bottom:auto;right:8px}
+
+  /* slice: misma animación en menos recorrido (330svh → 2,1 pantallas) */
+  .pan.p5{height:calc(var(--stage) * 2.1)}
+  .p5-stage{height:var(--stage)}
+
+  /* momentos: carrusel horizontal con scroll-snap (1,5 tarjetas a la vista) */
+  .p55{gap:12px}
+  .p55-h{font-size:17vw}
+  .p55-body{font-size:14px}
+  .mo-row{display:flex;gap:12px;overflow-x:auto;margin:4px -16px 0;padding:0 16px 4px;scroll-snap-type:x mandatory;scroll-padding-left:16px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .mo-row::-webkit-scrollbar{display:none}
+  .mo,.mo:nth-of-type(even){flex:0 0 60vw;width:60vw;align-self:auto;scroll-snap-align:start;gap:6px}
+  .mo figcaption{font-size:17px}
+  .p55-note{font-size:28px;margin-top:2px}
+  .st-h{top:auto;bottom:calc(114px + 75vw - 64px);right:8px}
+  .st-i{display:none}
+
+  /* lovers */
+  .p6-word{width:76%}
+  .p6-lovers{font-size:22vw;margin-top:-11vw}
+  .p6-rolls{width:72%;align-self:center;margin-top:-6vw}
+  .lv{width:36vw}.lv img{height:24vw;max-width:36vw}.lv-n{font-size:18px}
+
+  /* Máximo Panini: una sola foto */
+  .pan.p8{gap:12px;padding-bottom:28px}
+  .p8-logo{width:72% !important}
+  .p8-h{font-size:11vw}
+  .p8-body{font-size:14px;line-height:1.5}
+  .p8-chips{gap:6px}.p8 .chip{font-size:15px;padding:6px 12px}
+  .p8-ph2{display:none}
+  .p8-ph1{height:70vw;transform:rotate(-1.5deg);margin-top:6px}
+  .p8-note{font-size:26px}
+  .st-k{top:auto;bottom:calc(28px + 26px * 2.2 + 40px);left:auto;right:12px}
+
+  /* cierre */
+  .pan.p7{gap:12px;padding-bottom:0}
+  .p7-ins{width:64px}
+  .p7-h{font-size:19vw}
+  .p7-con{gap:6px}.p7 .chip{font-size:15px;padding:6px 12px}
+  .p7-pz{width:92vw;margin:-2vw 0 -34vw 4vw}
+  .p7-legal{position:relative;z-index:2;background:#F5EFE6;margin:0 -16px !important;padding:12px 16px 0}
+  .p7-soc{position:relative;z-index:2;background:#F5EFE6;margin:-12px -16px 0;padding:10px 16px 18px}
+  .st-g{top:auto;bottom:150px;right:16px}
+}
+@keyframes hintline{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(0);transform-origin:bottom}}
