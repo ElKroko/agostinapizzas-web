@@ -14,18 +14,14 @@ const { slug, nombre, descripcion, imagen, destacada = false, numero } = Astro.p
 ---
 
 <article class="tarjeta-pizza">
-  <a class="tarjeta-media" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:producto_click" data-slug={slug} data-nombre={nombre} aria-label={`Pedir pizza ${nombre}`}>
-    {destacada && <span class="tarjeta-badge">La favorita</span>}
-    {
-      imagen ? (
+  {
+    imagen && (
+      <a class="tarjeta-media" href={URL_PEDIDOS} target="_blank" rel="noopener" data-track="agostina:producto_click" data-slug={slug} data-nombre={nombre} aria-label={`Pedir pizza ${nombre}`}>
+        {destacada && <span class="tarjeta-badge">La favorita</span>}
         <img src={imagen} alt={`Pizza ${nombre} — ${descripcion}`} loading="lazy" width="900" height="720" />
-      ) : (
-        <span class="tarjeta-placeholder" role="img" aria-label={`Foto pendiente de la pizza ${nombre}`}>
-          Foto pendiente
-        </span>
-      )
-    }
-  </a>
+      </a>
+    )
+  }
   <div class="tarjeta-body">
     {numero && <span class="tarjeta-num">{numero}</span>}
     <h3>{nombre}</h3>

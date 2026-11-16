@@ -364,3 +364,29 @@
   .st-k{left:auto;right:12px;top:150px}.st-l{left:auto;right:16px;top:260px}
   .p8 .chip{font-size:18px}
 }
+
+/* ======================================================================
+   Revisión visual del 16 nov 2026
+   ====================================================================== */
+/* Lovers: el sticker queda bajo el logo, no sobre la palabra Lovers */
+.st-f{left:6vh;top:45vh}
+/* el título del hero no toca el botón ¡Pide ya! del encabezado */
+.p1-h1{top:11vh;font-size:30vh}
+/* Momentos: el sticker ya no tapa el pie de foto 06 */
+.st-i{left:232vh;top:72vh}
+/* Lovers: la fila de pizzas se desvanece en los bordes en vez de cortarse en seco */
+.p6-mq{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10vh,#000 calc(100% - 10vh),transparent);mask-image:linear-gradient(90deg,transparent,#000 10vh,#000 calc(100% - 10vh),transparent)}
+@media (max-width:760px){
+  /* Máximo Panini: el min-width de escritorio desbordaba el celular */
+  .p8{min-width:0}
+  .p8-logo{width:100% !important;max-width:100%}
+  .p8-h{font-size:15vw}
+  .p6-mq{-webkit-mask-image:none;mask-image:none}
+  /* stickers sobre fotos, nunca sobre texto */
+  .st-c{top:calc(36px + 56vw - 92px)}
+  .st-e{top:60px}
+  .st-f,.st-l{display:none}
+  .pan.p8{padding-bottom:130px}
+  .st-k{top:auto;bottom:40px;right:auto;left:16px}
+  .st-g{top:auto;bottom:300px}
+}

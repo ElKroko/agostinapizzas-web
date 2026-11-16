@@ -273,7 +273,12 @@ ul {
 }
 
 .titulo-seccion {
-  font-size: clamp(32px, 5vw, 58px);
+  font-size: clamp(38px, 6vw, 80px);
+  line-height: 0.92;
+}
+/* el rótulo rojo nunca pega con el título que le sigue */
+.eyebrow {
+  margin-bottom: 12px;
 }
 .copy-seccion {
   font-size: 16.5px;

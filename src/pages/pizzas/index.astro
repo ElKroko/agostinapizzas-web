@@ -88,7 +88,7 @@ const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
         </ul>
       </div>
       <div class="cta-final">
-        <CtaPedir origen="pizzas-cierre" texto="Ver todo en el sistema de pedidos" />
+        <CtaPedir origen="pizzas-cierre" texto="Ver todo y pedir" />
       </div>
     </div>
   </section>
@@ -96,10 +96,12 @@ const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
 
 <style>
   .cabecera-pagina {
-    padding: 140px 0 var(--space-5);
+    padding-top: 140px;
+    padding-bottom: var(--space-5);
   }
   .titulo-pagina {
-    font-size: clamp(38px, 6vw, 72px);
+    font-size: clamp(48px, 8.4vw, 112px);
+    line-height: 0.9;
     margin: var(--space-2) 0 var(--space-3);
   }
   .nota-tamanos {
@@ -143,9 +145,7 @@ const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
   .grid-carta {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
+    gap: var(--space-2);
   }
   @media (min-width: 700px) {
     .grid-carta {
@@ -180,6 +180,9 @@ const giulianna = buscarPizza(PIZZA_HEROE_SLUG)!;
   }
   .lista-simple li strong {
     color: var(--fg);
+  }
+  #basics :global(.tarjeta-pizza) {
+    background: var(--color-crema);
   }
   .cta-final {
     margin-top: var(--space-4);
