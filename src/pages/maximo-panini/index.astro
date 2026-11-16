@@ -1,0 +1,485 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { MAXIMO, REDES } from "../../data/negocio";
+import "../../styles/fonts.css";
+
+// Máximo Panini aún no se lanza: sin precios, nombres de sabores ni fecha.
+// Los rótulos describen lo que se ve en las fotos de la sesión del 16 nov 2026.
+const sabores = [
+  { img: "jamon-gratinado", t: "Jamón y queso gratinado", r: -2 },
+  { img: "mechada-pimenton", t: "Mechada con pimentón asado", r: 1.5 },
+  { img: "palta-tomate", t: "Palta, tomate y albahaca", r: -1 },
+  { img: "prosciutto-rucula", t: "Prosciutto, rúcula y parmesano", r: 2 },
+  { img: "pomodoro-pesto", t: "Pomodoro y pesto", r: -1.5 },
+  { img: "jamon-glaseado", t: "Jamón glaseado", r: 1 },
+];
+const banda = ["banda-1", "banda-6", "banda-2", "banda-3", "banda-4", "banda-5"];
+const cinta = ["Il fratello di Agostina", "/", "Focaccia de verdad", "/", "Misma cocina", "/", MAXIMO.lanzamiento ?? "Próximamente", "/"];
+const ig = MAXIMO.instagram ?? REDES.instagram.url;
+---
+
+<Layout
+  title={`${MAXIMO.nombre}, il fratello di Agostina`}
+  description="Paninis de focaccia, buenos y grandes. Máximo Panini sale de la misma cocina de Agostina Pizzas."
+  ogImage="/maximo/hero-caja-panini.webp"
+  noIndex={true}
+  bareChrome={true}
+>
+  <header class="mp-hd">
+    <a href="/" class="mp-back" aria-label="Volver a Agostina Pizzas">
+      <img src="/home/assets/logo-compacto-negro.webp" alt="" width="108" height="56" />
+    </a>
+    <span class="mp-pill">{MAXIMO.lanzamiento ?? "Próximamente"}</span>
+  </header>
+
+  <main class="mp">
+    <section class="mp-hero">
+      <div class="mp-copy">
+        <p class="mp-kick">Il fratello di Agostina</p>
+        <h1 class="mp-logo"><img src="/maximo/logo-rojo.svg" alt={MAXIMO.nombre} width="1687" height="500" /></h1>
+        <p class="mp-h">Paninis de focaccia,<br /><span>buenos y grandes.</span></p>
+        <p class="mp-body">
+          Sale de la misma cocina de Agostina y viene a resolverte el almuerzo. Pocos productos, muy bien resueltos, con ingredientes que se notan.
+        </p>
+        <a class="mp-btn" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-hero">
+          Entérate primero
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      </div>
+      <figure class="mp-foto">
+        <img src="/maximo/hero-caja-panini.webp" alt="Caja de Máximo Panini detrás de un panini de focaccia con rúcula y tomate" width="933" height="1400" fetchpriority="high" />
+        <span class="mp-sticker" aria-hidden="true">Recién<br />horneado</span>
+      </figure>
+    </section>
+
+    <div class="mp-cinta" aria-hidden="true">
+      <div class="mp-cinta-in">
+        {[...cinta, ...cinta, ...cinta, ...cinta].map((t) => <span>{t}</span>)}
+      </div>
+    </div>
+
+    <section class="mp-sabores" aria-labelledby="mp-sab-h">
+      <div class="mp-sab-head">
+        <h2 id="mp-sab-h" class="mp-h2">Lo que sale<br />del horno</h2>
+        <p class="mp-scr">un martes al almuerzo, o un jueves en la noche</p>
+      </div>
+      <ul class="mp-grid">
+        {sabores.map((s, i) => (
+          <li class="mp-card" style={`--r:${s.r}deg`}>
+            <div class="mp-card-img"><img src={`/maximo/${s.img}.webp`} alt={s.t} width="667" height="1000" loading="lazy" /></div>
+            <p><span>{String(i + 1).padStart(2, "0")}</span>{s.t}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mp-pilares">
+      <ol>
+        <li><span>01</span><b>Misma cocina</b><p>La de Agostina. Mismo horno, misma mano.</p></li>
+        <li><span>02</span><b>Focaccia</b><p>Masa alta, aireada y dorada. Crujiente por fuera, suave por dentro.</p></li>
+        <li><span>03</span><b>Contundente</b><p>Pensado para que una sola porción te resuelva la comida.</p></li>
+      </ol>
+    </section>
+
+    <section class="mp-banda" aria-label="Fotos de Máximo Panini">
+      {banda.map((b) => <div class="mp-banda-img"><img src={`/maximo/${b}.webp`} alt="" loading="lazy" /></div>)}
+    </section>
+
+    <section class="mp-cierre">
+      <img class="mp-cierre-logo" src="/home/assets/maximo-panini-crema.svg" alt={MAXIMO.nombre} width="1687" height="500" loading="lazy" />
+      <p>Muy pronto. Síguenos para saber cuándo abrimos.</p>
+      <a class="mp-btn mp-btn-crema" href={ig} target="_blank" rel="noopener" data-track="agostina:maximo_click" data-origen="maximo-cierre">
+        Entérate primero
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </section>
+
+    <footer class="mp-pie">
+      <p>© 2026 {MAXIMO.nombre} · de la cocina de <a href="/">Agostina Pizzas</a></p>
+    </footer>
+  </main>
+
+  <script>
+    import "../../scripts/utm.js";
+  </script>
+</Layout>
+
+<style>
+  :global(body) {
+    background: #f5efe6;
+  }
+  .mp {
+    --rojo: #c73a2a;
+    --crema: #f5efe6;
+    --madera: #b8742a;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+    overflow-x: clip;
+  }
+  .mp p {
+    margin: 0;
+  }
+  .mp-h,
+  .mp-h2 {
+    font-family: "Bebas Neue", "Arial Narrow", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.88;
+    margin: 0;
+  }
+
+  /* header */
+  .mp-hd {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: linear-gradient(#f5efe6 75%, rgba(245, 239, 230, 0));
+  }
+  .mp-back {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+  .mp-back img {
+    height: 44px;
+    width: auto;
+  }
+  .mp-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: var(--rojo, #c73a2a);
+    color: #f5efe6;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    transform: rotate(-3deg);
+  }
+
+  /* hero */
+  .mp-hero {
+    display: grid;
+    gap: 32px;
+    padding: 96px 16px 48px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .mp-kick {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rojo);
+  }
+  .mp-logo {
+    margin: 14px 0 22px;
+  }
+  .mp-logo img {
+    width: min(100%, 620px);
+    height: auto;
+    display: block;
+  }
+  .mp-h {
+    font-size: clamp(46px, 7vw, 92px);
+  }
+  .mp-h span {
+    color: var(--rojo);
+  }
+  .mp-body {
+    margin-top: 20px !important;
+    max-width: 46ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #3a352e;
+  }
+  .mp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    min-height: 52px;
+    padding: 0 26px;
+    background: #111;
+    color: #f5efe6;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.25s;
+  }
+  .mp-btn:hover {
+    background: var(--rojo);
+    transform: rotate(-2deg);
+  }
+  .mp-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+  }
+  .mp-foto {
+    position: relative;
+    margin: 0;
+    border: 10px solid #fff;
+    box-shadow: 0 24px 48px rgba(17, 17, 17, 0.18);
+    transform: rotate(2deg);
+    aspect-ratio: 4 / 5;
+  }
+  .mp-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mp-sticker {
+    position: absolute;
+    left: -18px;
+    bottom: 28px;
+    padding: 14px 20px 10px;
+    background: var(--rojo);
+    color: #f5efe6;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 30px;
+    line-height: 0.95;
+    text-align: center;
+    border: 3px solid #f5efe6;
+    border-radius: 12px;
+    transform: rotate(-8deg);
+    box-shadow: 0 8px 18px rgba(17, 17, 17, 0.2);
+  }
+
+  /* cinta */
+  .mp-cinta {
+    background: var(--rojo);
+    color: #f5efe6;
+    overflow: hidden;
+    transform: rotate(-1.5deg);
+    margin: 24px -10px;
+  }
+  .mp-cinta-in {
+    display: flex;
+    gap: 28px;
+    width: max-content;
+    padding: 14px 0 10px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.02em;
+    animation: mp-cinta 30s linear infinite;
+  }
+  @keyframes mp-cinta {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* sabores */
+  .mp-sabores {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 64px 16px 32px;
+  }
+  .mp-sab-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 40px;
+    margin-bottom: 40px;
+  }
+  .mp-h2 {
+    font-size: clamp(56px, 9vw, 120px);
+  }
+  .mp-scr {
+    font-family: "Yellowtail", cursive;
+    font-size: clamp(30px, 3.4vw, 46px);
+    line-height: 1.05;
+    color: var(--rojo);
+    max-width: 14ch;
+    transform: rotate(-4deg);
+  }
+  .mp-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
+  }
+  .mp-card {
+    transform: rotate(var(--r));
+    transition: transform 0.3s;
+  }
+  .mp-card:hover {
+    transform: rotate(0deg) translateY(-6px);
+  }
+  .mp-card-img {
+    background: #fff;
+    padding: 8px 8px 0;
+    box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
+  }
+  .mp-card-img img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+  }
+  .mp-card p {
+    background: #fff;
+    padding: 10px 10px 12px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 21px;
+    line-height: 1;
+    box-shadow: 0 14px 30px rgba(17, 17, 17, 0.14);
+  }
+  .mp-card p span {
+    color: var(--rojo);
+    margin-right: 8px;
+  }
+
+  /* pilares */
+  .mp-pilares {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 56px 16px;
+  }
+  .mp-pilares ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 28px;
+    border-top: 2px solid #111;
+    padding-top: 28px;
+  }
+  .mp-pilares span {
+    display: block;
+    color: var(--rojo);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+  }
+  .mp-pilares b {
+    display: block;
+    margin: 6px 0 8px;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+  .mp-pilares p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #3a352e;
+    max-width: 34ch;
+  }
+
+  /* banda */
+  .mp-banda {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 8px 16px 24px;
+    scrollbar-width: none;
+  }
+  .mp-banda::-webkit-scrollbar {
+    display: none;
+  }
+  .mp-banda-img {
+    flex: 0 0 auto;
+    height: 300px;
+    scroll-snap-align: center;
+  }
+  .mp-banda-img img {
+    height: 100%;
+    width: auto;
+    display: block;
+  }
+
+  /* cierre */
+  .mp-cierre {
+    margin-top: 40px;
+    background: var(--rojo);
+    color: #f5efe6;
+    padding: 72px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mp-cierre-logo {
+    width: min(86%, 560px);
+    height: auto;
+  }
+  .mp-cierre p {
+    margin-top: 22px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 40ch;
+  }
+  .mp-btn-crema {
+    background: #f5efe6;
+    color: #111;
+  }
+  .mp-btn-crema:hover {
+    background: #111;
+    color: #f5efe6;
+  }
+  .mp-pie {
+    padding: 24px 16px 32px;
+    text-align: center;
+    font-size: 12px;
+    color: #6b645a;
+  }
+  .mp-pie a {
+    color: inherit;
+  }
+
+  @media (min-width: 760px) {
+    .mp-hero {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 64px;
+      padding: 120px 32px 64px;
+      min-height: 100vh;
+    }
+    .mp-sabores,
+    .mp-pilares {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    .mp-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 48px 32px;
+    }
+    .mp-card p {
+      font-size: 26px;
+    }
+    .mp-pilares ol {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .mp-banda-img {
+      height: 420px;
+    }
+    .mp-sticker {
+      left: -40px;
+      font-size: 38px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mp-cinta-in {
+      animation: none;
+    }
+  }
+</style>
