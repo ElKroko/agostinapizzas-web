@@ -1,0 +1,133 @@
+---
+/**
+ * Stickers de marca Agostina Pizzas: vector troquelado (borde blanco = línea de corte).
+ * Una sola fuente para la home y para la hoja de imprenta (/stickers/).
+ * Texto en Yellowtail (cursiva de frases cortas; el lettering del logo no se usa como fuente)
+ * con apoyos en Montserrat. Colores de marca: rojo, crema, negro, oliva y el amarillo del cierre.
+ */
+export type StickerName =
+  | "ny" | "masa" | "esperamos" | "lovers-tag" | "buena" | "est" | "pizza-lovers" | "proximamente" | "hermano";
+
+interface Props { name: StickerName; uid?: string; label?: string }
+const { name, uid = name, label } = Astro.props;
+
+const C = { rojo: "#C73A2A", crema: "#F5EFE6", negro: "#111111", oliva: "#5D6A42", sol: "#F4D27A", blanco: "#FFFFFF" };
+const SCR = "Yellowtail, cursive";
+const SANS = "Montserrat, Helvetica Neue, sans-serif";
+const CUT = 22; // ancho del borde blanco de troquel (unidades del viewBox)
+
+// círculo festoneado (para «Buena pizza, buena gente»)
+function scallop(cx: number, cy: number, R: number, n: number) {
+  const pt = (i: number) => {
+    const a = (i / n) * Math.PI * 2 - Math.PI / 2;
+    return [cx + R * Math.cos(a), cy + R * Math.sin(a)].map((v) => Math.round(v * 10) / 10);
+  };
+  const b = Math.round(R * Math.sin(Math.PI / n) * 10) / 10;
+  let d = `M${pt(0).join(" ")}`;
+  for (let i = 1; i <= n; i++) d += ` A${b} ${b} 0 0 1 ${pt(i).join(" ")}`;
+  return d + "Z";
+}
+const arcTop = (cx: number, cy: number, r: number) => `M${cx - r} ${cy} A${r} ${r} 0 0 1 ${cx + r} ${cy}`;
+const arcBot = (cx: number, cy: number, r: number) => `M${cx - r} ${cy} A${r} ${r} 0 0 0 ${cx + r} ${cy}`;
+
+const TICKET = "M30 16 H290 A14 14 0 0 1 304 30 V66 A18 18 0 0 0 304 102 V138 A14 14 0 0 1 290 152 H30 A14 14 0 0 1 16 138 V102 A18 18 0 0 0 16 66 V30 A14 14 0 0 1 30 16 Z";
+const RIBBON = "M16 22 H344 L318 66 L344 110 H16 L42 66 Z";
+const TAG = "M78 18 H300 A16 16 0 0 1 316 34 V118 A16 16 0 0 1 300 134 H78 L20 76 Z";
+const HEART = "M0 -6 C-4 -14 -16 -14 -16 -4 C-16 4 -6 10 0 16 C6 10 16 4 16 -4 C16 -14 4 -14 0 -6 Z";
+
+const vb: Record<StickerName, [number, number]> = {
+  ny: [260, 260], masa: [320, 168], esperamos: [320, 180], "lovers-tag": [360, 132], buena: [270, 270],
+  est: [220, 220], "pizza-lovers": [340, 132], proximamente: [336, 152], hermano: [300, 172],
+};
+const [W, H] = vb[name];
+const id = (s: string) => `sk-${uid}-${s}`;
+---
+
+<svg class={`sk sk-${name}`} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg" role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : "true"} data-sticker={name}>
+  {name === "ny" && (
+    <>
+      <defs>
+        <path id={id("t")} d={arcTop(130, 130, 78)} />
+        <path id={id("b")} d={arcBot(130, 130, 90)} />
+      </defs>
+      <circle cx="130" cy="130" r="110" fill={C.blanco} stroke={C.blanco} stroke-width={CUT} />
+      <circle cx="130" cy="130" r="110" fill={C.rojo} />
+      <circle cx="130" cy="130" r="98" fill="none" stroke={C.crema} stroke-width="2" />
+      <text font-family={SANS} font-weight="800" font-size="13" letter-spacing="3.4" fill={C.crema}><textPath href={`#${id("t")}`} startOffset="50%" text-anchor="middle">PIZZA A LA PIEDRA</textPath></text>
+      <text font-family={SANS} font-weight="800" font-size="13" letter-spacing="3.4" fill={C.crema}><textPath href={`#${id("b")}`} startOffset="50%" text-anchor="middle">DESDE 2013</textPath></text>
+      <text x="130" y="138" text-anchor="middle" font-family={SCR} font-size="47" fill={C.crema} transform="rotate(-8 130 130)">New York</text>
+      <text x="130" y="170" text-anchor="middle" font-family={SANS} font-weight="800" font-size="17" letter-spacing="9" fill={C.sol}>STYLE</text>
+    </>
+  )}
+  {name === "masa" && (
+    <>
+      <path d={TICKET} fill={C.blanco} stroke={C.blanco} stroke-width={CUT} stroke-linejoin="round" />
+      <path d={TICKET} fill={C.oliva} />
+      <path d={TICKET} fill="none" stroke={C.crema} stroke-width="2" stroke-dasharray="6 6" transform="translate(160 84) scale(.9) translate(-160 -84)" />
+      <text x="160" y="80" text-anchor="middle" font-family={SCR} font-size="44" fill={C.crema}>Masa hecha</text>
+      <text x="160" y="124" text-anchor="middle" font-family={SANS} font-weight="800" font-size="16" letter-spacing="8" fill={C.sol}>A MANO</text>
+    </>
+  )}
+  {name === "esperamos" && (
+    <>
+      <ellipse cx="160" cy="90" rx="142" ry="72" fill={C.blanco} stroke={C.blanco} stroke-width={CUT} />
+      <ellipse cx="160" cy="90" rx="142" ry="72" fill={C.crema} />
+      <ellipse cx="160" cy="90" rx="130" ry="61" fill="none" stroke={C.rojo} stroke-width="3" />
+      <text x="160" y="96" text-anchor="middle" font-family={SCR} font-size="40" fill={C.rojo} transform="rotate(-4 160 90)">¡Te esperamos!</text>
+      <text x="160" y="126" text-anchor="middle" font-family={SANS} font-weight="800" font-size="12" letter-spacing="4.5" fill={C.negro}>LOS LEONES 229</text>
+    </>
+  )}
+  {name === "lovers-tag" && (
+    <>
+      <path d={RIBBON} fill={C.blanco} stroke={C.blanco} stroke-width={CUT} stroke-linejoin="round" />
+      <path d={RIBBON} fill={C.rojo} />
+      <path d="M42 34 H318 M42 98 H318" stroke={C.crema} stroke-width="1.6" stroke-dasharray="2 5" stroke-linecap="round" />
+      <text x="180" y="80" text-anchor="middle" font-family={SCR} font-size="37" fill={C.crema}>#AgostinaLovers</text>
+    </>
+  )}
+  {name === "buena" && (
+    <>
+      <path d={scallop(135, 135, 108, 18)} fill={C.blanco} stroke={C.blanco} stroke-width={CUT} stroke-linejoin="round" />
+      <path d={scallop(135, 135, 108, 18)} fill={C.sol} />
+      <circle cx="135" cy="135" r="92" fill="none" stroke={C.negro} stroke-width="1.6" stroke-dasharray="3 6" stroke-linecap="round" />
+      <text x="135" y="122" text-anchor="middle" font-family={SCR} font-size="39" fill={C.negro} transform="rotate(-6 135 135)">Buena pizza,</text>
+      <text x="138" y="166" text-anchor="middle" font-family={SCR} font-size="39" fill={C.rojo} transform="rotate(-6 135 135)">buena gente</text>
+      <path d={HEART} fill={C.rojo} transform="translate(135 205) scale(.62)" />
+    </>
+  )}
+  {name === "est" && (
+    <>
+      <defs><path id={id("t")} d={arcTop(110, 110, 66)} /></defs>
+      <circle cx="110" cy="110" r="92" fill={C.blanco} stroke={C.blanco} stroke-width={CUT} />
+      <circle cx="110" cy="110" r="92" fill={C.negro} />
+      <text font-family={SANS} font-weight="800" font-size="11.5" letter-spacing="3.2" fill={C.crema}><textPath href={`#${id("t")}`} startOffset="50%" text-anchor="middle">AGOSTINA PIZZAS</textPath></text>
+      <text x="110" y="116" text-anchor="middle" font-family={SCR} font-size="46" fill={C.crema}>Est.</text>
+      <text x="110" y="156" text-anchor="middle" font-family={SANS} font-weight="800" font-size="30" letter-spacing="2" fill={C.rojo}>2013</text>
+    </>
+  )}
+  {name === "pizza-lovers" && (
+    <>
+      <rect x="16" y="16" width="308" height="100" rx="50" fill={C.blanco} stroke={C.blanco} stroke-width={CUT} />
+      <rect x="16" y="16" width="308" height="100" rx="50" fill={C.negro} />
+      <path d={HEART} fill={C.rojo} transform="translate(68 66) scale(1.25)" />
+      <text x="196" y="80" text-anchor="middle" font-family={SCR} font-size="44" fill={C.crema}>Pizza lovers</text>
+    </>
+  )}
+  {name === "proximamente" && (
+    <>
+      <path d={TAG} fill={C.blanco} stroke={C.blanco} stroke-width={CUT} stroke-linejoin="round" />
+      <path d={TAG} fill={C.crema} />
+      <circle cx="62" cy="76" r="9" fill={C.blanco} stroke={C.oliva} stroke-width="3" />
+      <text x="196" y="82" text-anchor="middle" font-family={SCR} font-size="42" fill={C.oliva}>Próximamente</text>
+      <text x="196" y="112" text-anchor="middle" font-family={SANS} font-weight="800" font-size="11.5" letter-spacing="4.2" fill={C.negro}>MÁXIMO PANINI</text>
+    </>
+  )}
+  {name === "hermano" && (
+    <>
+      <rect x="16" y="16" width="268" height="140" rx="34" fill={C.blanco} stroke={C.blanco} stroke-width={CUT} />
+      <rect x="16" y="16" width="268" height="140" rx="34" fill={C.negro} />
+      <text x="150" y="78" text-anchor="middle" font-family={SCR} font-size="44" fill={C.blanco} transform="rotate(-5 150 86)">El hermano</text>
+      <text x="150" y="124" text-anchor="middle" font-family={SCR} font-size="44" fill={C.sol} transform="rotate(-5 150 86)">de Agostina</text>
+    </>
+  )}
+</svg>

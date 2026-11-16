@@ -9,8 +9,16 @@
    Solo se animan transform y opacity. */
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+// Paradas con imán (fracción del recorrido de la intro): pizza roja → todas las pizzas → hero.
+// Dentro de la intro el scroll nativo queda bloqueado y cada gesto avanza o retrocede una
+// parada con duración fija, así un scroll fuerte no se salta escenas ni marea.
+const STOPS = [0, 0.6, 1];
+const STEP_TIME = [1.1, 1.6]; // segundos: 0→1 y 1→2 (la explosión y el logo necesitan más)
+const SWIPE = 28; // px mínimos para contar un deslizamiento
 
 // posición de cada capa (fracción del escenario desde el centro), profundidad 0..1 y giro
 const LAYERS = [
@@ -113,10 +121,66 @@ export function initIntro({ ag, track, onBar }) {
       .to(flash, { autoAlpha: 0, duration: 0.4 }, 9.6)
       .to(logo, { autoAlpha: 0, duration: 0.25 }, 9.75);
 
-    const onSkip = () => track.scrollTo({ top: dist(), behavior: 'auto' });
+    /* ---------- imán: una parada por gesto ---------- */
+    let moving = null, locked = false, y0 = null, wheelAt = 0;
+    const lock = (on) => { locked = on; track.style.overflowY = on ? 'hidden' : ''; };
+    const nearest = () => {
+      const p = track.scrollTop / dist();
+      return STOPS.reduce((b, s, i) => (Math.abs(s - p) < Math.abs(STOPS[b] - p) ? i : b), 0);
+    };
+    const goStop = (i, from) => {
+      i = Math.max(0, Math.min(STOPS.length - 1, i));
+      // un tramo: su tiempo; dos tramos (saltar intro): la suma un poco más rápida; misma parada: reacomodo corto
+      const t = i === from ? 0.5 : STEP_TIME.slice(Math.min(i, from), Math.max(i, from)).reduce((a, b) => a + b, 0) * (Math.abs(i - from) > 1 ? 0.7 : 1);
+      lock(true);
+      moving = gsap.to(track, {
+        scrollTo: { y: STOPS[i] * dist(), autoKill: false }, duration: t, ease: 'power1.inOut',
+        onComplete: () => { moving = null; if (i === STOPS.length - 1) lock(false); },
+      });
+    };
+    const step = (dir) => { if (!moving) goStop(nearest() + dir, nearest()); };
+
+    // dentro de la intro (antes del hero) manda el imán
+    const inIntro = () => track.scrollTop < dist() - 2;
+    const onScroll = () => {
+      if (moving || locked || !inIntro()) return;
+      // se entró a la intro subiendo desde el hero: corta la inercia y vuelve a «todas las pizzas»
+      lock(true); goStop(1, 2);
+    };
+    const onTouchStart = (e) => { if (locked) y0 = e.touches[0].clientY; };
+    const onTouchMove = (e) => { if (locked && e.cancelable) e.preventDefault(); };
+    const onTouchEnd = (e) => {
+      if (!locked || y0 == null) return;
+      const dy = y0 - e.changedTouches[0].clientY; y0 = null;
+      if (Math.abs(dy) > SWIPE) step(dy > 0 ? 1 : -1);
+    };
+    const onWheel = (e) => {
+      if (!locked) return;
+      e.preventDefault();
+      const now = performance.now();
+      if (Math.abs(e.deltaY) < 4 || now - wheelAt < 450) { wheelAt = now; return; }
+      wheelAt = now; step(e.deltaY > 0 ? 1 : -1);
+    };
+    const onSkip = () => { if (moving) moving.kill(); moving = null; goStop(STOPS.length - 1, nearest()); };
+    track.addEventListener('scroll', onScroll, { passive: true });
+    track.addEventListener('touchstart', onTouchStart, { passive: true });
+    track.addEventListener('touchmove', onTouchMove, { passive: false });
+    track.addEventListener('touchend', onTouchEnd, { passive: true });
+    track.addEventListener('wheel', onWheel, { passive: false });
     skip.addEventListener('click', onSkip);
+    if (inIntro()) { lock(true); if (track.scrollTop > 2) goStop(nearest(), nearest()); }
     ScrollTrigger.refresh();
-    return () => { skip.removeEventListener('click', onSkip); ag.classList.remove('hd-on'); stage.style.visibility = ''; };
+    return () => {
+      if (moving) moving.kill();
+      lock(false);
+      track.removeEventListener('scroll', onScroll);
+      track.removeEventListener('touchstart', onTouchStart);
+      track.removeEventListener('touchmove', onTouchMove);
+      track.removeEventListener('touchend', onTouchEnd);
+      track.removeEventListener('wheel', onWheel);
+      skip.removeEventListener('click', onSkip);
+      ag.classList.remove('hd-on'); stage.style.visibility = '';
+    };
   });
 
   return () => mm.revert();

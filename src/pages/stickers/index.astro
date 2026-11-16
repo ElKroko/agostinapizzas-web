@@ -1,0 +1,161 @@
+---
+/**
+ * Hoja de stickers de Agostina Pizzas (oculta: noindex, sin enlaces).
+ * Usa el mismo componente que la home, así web e imprenta no se separan.
+ * Cada sticker se descarga en SVG (fuentes incrustadas) o PNG de 2400 px.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Sticker, { type StickerName } from "../../components/Sticker.astro";
+import "../../styles/fonts.css";
+
+const set: { name: StickerName; t: string; uso: string; cm: string; r: number }[] = [
+  { name: "ny", t: "New York Style", uso: "Home · hero, sobre la pizza", cm: "7 × 7 cm", r: -6 },
+  { name: "masa", t: "Masa hecha a mano", uso: "Home · Nosotros, sobre la foto", cm: "8 × 4,2 cm", r: 4 },
+  { name: "esperamos", t: "¡Te esperamos!", uso: "Home · Los Leones 229", cm: "8 × 4,5 cm", r: -3 },
+  { name: "buena", t: "Buena pizza, buena gente", uso: "Home · cierre y Momentos", cm: "7 × 7 cm", r: 5 },
+  { name: "lovers-tag", t: "#AgostinaLovers", uso: "Home · Momentos", cm: "9 × 3,3 cm", r: -4 },
+  { name: "pizza-lovers", t: "Pizza lovers", uso: "Home · Lovers (escritorio)", cm: "8,5 × 3,3 cm", r: 3 },
+  { name: "est", t: "Est. 2013", uso: "Home · Preguntas (escritorio)", cm: "5,5 × 5,5 cm", r: 8 },
+  { name: "proximamente", t: "Próximamente", uso: "Home · Máximo Panini", cm: "8,4 × 3,8 cm", r: -5 },
+  { name: "hermano", t: "El hermano de Agostina", uso: "Home · Máximo Panini (escritorio)", cm: "7,5 × 4,3 cm", r: 4 },
+];
+---
+
+<Layout title="Stickers" noIndex={true} bareChrome={true}>
+  <div class="sh">
+    <header class="sh-top">
+      <img src="/home/assets/logo-compacto-negro.webp" alt="Agostina Pizzas" width="1200" height="825" class="sh-logo" />
+      <div>
+        <h1 class="sh-h">Stickers</h1>
+        <p class="sh-lead">Nueve calcomanías de marca. Las mismas piezas viven en la home y salen a imprenta desde aquí.</p>
+      </div>
+    </header>
+
+    <section class="sh-sheet" aria-label="Hoja de stickers">
+      {set.map((s) => (
+        <figure class="sh-cell">
+          <div class="sh-art" style={`--r:${s.r}deg`}>
+            <Sticker name={s.name} uid={`sheet-${s.name}`} label={s.t} />
+          </div>
+          <figcaption>
+            <span class="sh-name">{s.t}</span>
+            <span class="sh-meta">{s.uso} · {s.cm}</span>
+            <span class="sh-dl">
+              <button type="button" data-dl="svg" data-name={s.name}>SVG</button>
+              <button type="button" data-dl="png" data-name={s.name}>PNG</button>
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </section>
+
+    <section class="sh-ctx" aria-label="Stickers en contexto">
+      <div class="sh-board sh-red">
+        <div class="sh-pin" style="--r:-7deg;left:6%;top:14%;width:34%"><Sticker name="ny" uid="ctx-ny" /></div>
+        <div class="sh-pin" style="--r:5deg;left:46%;top:10%;width:46%"><Sticker name="lovers-tag" uid="ctx-lt" /></div>
+        <div class="sh-pin" style="--r:-3deg;left:44%;top:52%;width:40%"><Sticker name="buena" uid="ctx-bu" /></div>
+        <div class="sh-pin" style="--r:6deg;left:4%;top:62%;width:36%"><Sticker name="est" uid="ctx-est" /></div>
+      </div>
+      <div class="sh-board sh-photo">
+        <img src="/home/assets/real-pizza-burrata-mesa.webp" alt="" loading="lazy" />
+        <div class="sh-pin" style="--r:-5deg;left:6%;top:8%;width:46%"><Sticker name="masa" uid="ctx-ma" /></div>
+        <div class="sh-pin" style="--r:4deg;left:50%;top:56%;width:46%"><Sticker name="esperamos" uid="ctx-es" /></div>
+        <div class="sh-pin" style="--r:-4deg;left:5%;top:79%;width:42%"><Sticker name="pizza-lovers" uid="ctx-pl" /></div>
+      </div>
+      <div class="sh-board sh-olive">
+        <div class="sh-pin" style="--r:-4deg;left:8%;top:16%;width:52%"><Sticker name="proximamente" uid="ctx-pr" /></div>
+        <div class="sh-pin" style="--r:6deg;left:40%;top:54%;width:50%"><Sticker name="hermano" uid="ctx-he" /></div>
+      </div>
+    </section>
+
+    <section class="sh-notes" aria-label="Notas para imprenta">
+      <h2 class="sh-h2">Para imprenta</h2>
+      <ul>
+        <li>El borde blanco es la línea de troquel: corte por contorno, sin margen extra.</li>
+        <li>Vinilo blanco mate o semimate; los tamaños de la hoja son sugeridos.</li>
+        <li>El SVG trae las fuentes incrustadas. Si la imprenta pide curvas, se convierten al abrirlo en Illustrator.</li>
+        <li>Cursiva: Yellowtail (reemplazo web de Nefelibata). Apoyos: Montserrat ExtraBold.</li>
+      </ul>
+    </section>
+  </div>
+
+  <style>
+    :global(body){background:#EDE5D8;margin:0}
+    :global(::selection){background:#C73A2A;color:#F5EFE6}
+    .sh{--rojo:#C73A2A;--crema:#F5EFE6;--negro:#111;--oliva:#5D6A42;max-width:1180px;margin:0 auto;padding:clamp(24px,5vw,56px) clamp(16px,4vw,40px) 80px;color:var(--negro);font-family:Montserrat,'Helvetica Neue',sans-serif}
+    .sh-top{display:flex;align-items:flex-end;gap:clamp(16px,3vw,32px);margin-bottom:clamp(28px,5vw,48px)}
+    .sh-logo{width:clamp(84px,12vw,132px);height:auto}
+    .sh-h{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(56px,10vw,120px);line-height:.85;margin:0;letter-spacing:-.005em}
+    .sh-lead{margin:10px 0 0;max-width:46ch;font-size:15px;line-height:1.55;color:#4a453e}
+    .sh-sheet{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#FBF8F2;border-radius:14px;padding:clamp(12px,2vw,20px);box-shadow:0 1px 2px rgba(17,17,17,.06),0 24px 48px -24px rgba(17,17,17,.28)}
+    .sh-cell{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;padding:28px 16px 18px}
+    .sh-art{width:min(100%,250px);height:200px;display:grid;place-items:center}
+    .sh-art :global(.sk){width:100%;height:100%;transform:rotate(var(--r));filter:drop-shadow(0 6px 10px rgba(17,17,17,.18)) drop-shadow(0 1px 1px rgba(17,17,17,.2));transition:transform .5s cubic-bezier(.16,1,.3,1)}
+    .sh-cell:hover .sh-art :global(.sk){transform:rotate(0) scale(1.04)}
+    figcaption{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+    .sh-name{font-weight:700;font-size:14px}
+    .sh-meta{font-size:12px;color:#5e574d}
+    .sh-dl{display:flex;gap:6px;margin-top:6px}
+    .sh-dl button{font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;min-height:36px;padding:0 14px;border-radius:999px;border:1.5px solid var(--negro);background:transparent;color:var(--negro);cursor:pointer;transition:background .2s,color .2s}
+    .sh-dl button:hover{background:var(--negro);color:var(--crema)}
+    .sh-dl button:focus-visible{outline:3px solid var(--rojo);outline-offset:2px}
+    .sh-dl button[data-busy]{opacity:.5;pointer-events:none}
+    .sh-ctx{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:16px;margin-top:clamp(28px,5vw,48px)}
+    .sh-board{position:relative;aspect-ratio:4/5;border-radius:14px;overflow:hidden}
+    .sh-red{background:var(--rojo)}
+    .sh-olive{background:var(--oliva)}
+    .sh-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .sh-pin{position:absolute}
+    .sh-pin :global(.sk){width:100%;height:auto;transform:rotate(var(--r));filter:drop-shadow(0 8px 12px rgba(17,17,17,.3))}
+    .sh-notes{margin-top:clamp(28px,5vw,48px);max-width:68ch}
+    .sh-h2{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:40px;line-height:.9;margin:0 0 12px}
+    .sh-notes ul{margin:0;padding-left:18px;font-size:14px;line-height:1.65;color:#3d3832}
+    @media (max-width:760px){
+      .sh-ctx{grid-template-columns:1fr}
+      .sh-board{aspect-ratio:1}
+      .sh-sheet{grid-template-columns:1fr 1fr}
+      .sh-cell{padding:18px 6px 14px}
+      .sh-art{height:150px}
+    }
+    @media (prefers-reduced-motion:reduce){.sh-art :global(.sk){transition:none}}
+  </style>
+
+  <script>
+    // Descarga con fuentes incrustadas, para que el archivo se vea igual fuera de la web.
+    const FONTS: [string, string, number][] = [
+      ["Yellowtail", "/home/fonts/yellowtail-latin-400-normal.woff2", 400],
+      ["Montserrat", "/home/fonts/montserrat-latin-800-normal.woff2", 800],
+    ];
+    let fontCss: Promise<string> | null = null;
+    const b64 = (buf: ArrayBuffer) => { let s = ""; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode(...u.subarray(i, i + 0x8000)); return btoa(s); };
+    const getFonts = () => (fontCss ??= Promise.all(FONTS.map(async ([f, url, w]) => `@font-face{font-family:'${f}';font-weight:${w};src:url(data:font/woff2;base64,${b64(await (await fetch(url)).arrayBuffer())}) format('woff2')}`)).then((x) => x.join("")));
+
+    async function svgText(name: string) {
+      const src = document.querySelector(`.sh-sheet svg[data-sticker="${name}"]`) as SVGSVGElement;
+      const svg = src.cloneNode(true) as SVGSVGElement;
+      svg.removeAttribute("class"); svg.removeAttribute("role"); svg.removeAttribute("aria-label");
+      const [, , w, h] = svg.getAttribute("viewBox")!.split(" ").map(Number);
+      svg.setAttribute("width", String(w * 4)); svg.setAttribute("height", String(h * 4));
+      const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
+      style.textContent = await getFonts();
+      svg.insertBefore(style, svg.firstChild);
+      return { text: new XMLSerializer().serializeToString(svg), w, h };
+    }
+    const save = (blob: Blob, file: string) => { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); };
+
+    document.addEventListener("click", async (e) => {
+      const b = (e.target as HTMLElement).closest("[data-dl]") as HTMLButtonElement | null; if (!b) return;
+      const name = b.dataset.name!, kind = b.dataset.dl!;
+      b.dataset.busy = "";
+      try {
+        const { text, w, h } = await svgText(name);
+        const svgBlob = new Blob([text], { type: "image/svg+xml" });
+        if (kind === "svg") return save(svgBlob, `agostina-sticker-${name}.svg`);
+        const img = new Image(); img.src = URL.createObjectURL(svgBlob); await img.decode();
+        const W = 2400, H = Math.round((W * h) / w), c = document.createElement("canvas"); c.width = W; c.height = H;
+        c.getContext("2d")!.drawImage(img, 0, 0, W, H);
+        c.toBlob((p) => p && save(p, `agostina-sticker-${name}.png`), "image/png");
+      } finally { delete b.dataset.busy; }
+    });
+  </script>
+</Layout>

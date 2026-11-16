@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { LOCAL, REDES, SLICE, HOME, MAXIMO, URL_PEDIDOS } from "../data/negocio";
+import Sticker from "../components/Sticker.astro";
 import "../styles/home.css";
 
 const clp = (n: number) => "$" + n.toLocaleString("es-CL");
@@ -109,7 +110,7 @@ const momentos = [
         <svg class="spark" style="left:52vh; top:44vh; width:3.4vh; height:3.4vh" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#111"></path></svg>
 
         <div class="stk st-a" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.6vh 2.6vh 1.2vh; font-size:4.2vh; border-radius:12px; text-align:center">New York<br />Style</div>
+          <div class="bob"><Sticker name="ny" uid="ny" /></div>
         </div>
         <div class="stk st-b" data-st aria-hidden="true">
           <div class="bob" style="width:15vh; min-width:90px; background:#fff; border-radius:999px; padding:6px; box-shadow:0 10px 22px rgba(17,17,17,.22)">
@@ -132,7 +133,7 @@ const momentos = [
         <p class="abs disp p2-meta" style="margin:0; color:#5D6A42; line-height:1.1">Pizza a la piedra / New York Style / Los Leones 229</p>
 
         <div class="stk st-c" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="background:#5D6A42; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:6px">Masa hecha a mano</div>
+          <div class="bob"><Sticker name="masa" uid="masa" /></div>
         </div>
         <svg class="spark" style="left:88vh; top:80vh; width:4vh; height:4vh; animation-delay:-1.2s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"></path></svg>
       </section>
@@ -166,7 +167,7 @@ const momentos = [
         </div>
 
         <div class="stk st-d" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="width:15vh; height:15vh; min-width:84px; min-height:84px; border-radius:999px; background:#111; color:#F5EFE6; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:3vh; line-height:.9; text-align:center">Est.<br /><span style="font-size:5vh; color:#C73A2A">2013</span></div>
+          <div class="bob"><Sticker name="est" uid="est" /></div>
         </div>
       </section>
 
@@ -197,7 +198,7 @@ const momentos = [
           </div>
         </div>
         <div class="stk st-e" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="background:#F5EFE6; color:#C73A2A; border-color:#C73A2A; padding:1.4vh 2.6vh 1vh; font-size:3.8vh; border-radius:999px">Te esperamos</div>
+          <div class="bob"><Sticker name="esperamos" uid="esperamos" /></div>
         </div>
       </section>
 
@@ -239,11 +240,11 @@ const momentos = [
             </div>
             <p class="abs scr p55-note" style="margin:0; color:#C73A2A">la pizza va donde está el plan</p>
             <div class="stk st-h" data-st aria-hidden="true">
-              <div class="bob vinyl disp" style="background:#C73A2A; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:999px">#AgostinaLovers</div>
-            </div>
+          <div class="bob"><Sticker name="lovers-tag" uid="lovers-tag" /></div>
+        </div>
             <div class="stk st-i" data-st aria-hidden="true">
-              <div class="bob vinyl disp" style="background:#F5EFE6; color:#111; padding:1.2vh 2.2vh .8vh; font-size:3vh; border-radius:6px; border-color:#111">Buena pizza,<br />buena gente</div>
-            </div>
+          <div class="bob"><Sticker name="buena" uid="buena-mo" /></div>
+        </div>
             <svg class="spark" style="left:182vh; top:84vh; width:3.6vh; height:3.6vh; animation-delay:-.9s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#C73A2A"></path></svg>
           </section>
         )
@@ -260,10 +261,7 @@ const momentos = [
         </div>
         <div class="abs p6-mq"><div class="mq-in" id="lovers"></div></div>
         <div class="stk st-f" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="background:#111; color:#F5EFE6; padding:1.4vh 2.4vh 1vh; font-size:3.6vh; border-radius:10px; display:flex; align-items:center; gap:1vh">
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="#C73A2A"></path></svg>
-            Pizza lovers
-          </div>
+          <div class="bob"><Sticker name="pizza-lovers" uid="pizza-lovers" /></div>
         </div>
         <svg class="spark" style="left:80vh; top:36vh; width:3.6vh; height:3.6vh; animation-delay:-.6s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#5D6A42"></path></svg>
       </section>
@@ -295,11 +293,11 @@ const momentos = [
             <p class="abs scr p8-ghost" aria-hidden="true">Panini</p>
             <p class="abs scr p8-note">un martes al almuerzo, o un jueves en la noche</p>
             <div class="stk st-k" data-st aria-hidden="true">
-              <div class="bob vinyl disp" style="background:#fff; color:#111; padding:1.6vh 3vh 1.2vh; font-size:5vh; border-radius:12px; text-align:center">{MAXIMO.lanzamiento ?? "Próximamente"}</div>
-            </div>
+          <div class="bob"><Sticker name="proximamente" uid="proximamente" /></div>
+        </div>
             <div class="stk st-l" data-st aria-hidden="true">
-              <div class="bob vinyl disp" style="background:#111; color:#fff; padding:1.2vh 2.4vh .9vh; font-size:3.2vh; border-radius:999px; text-align:center">El hermano<br />de Agostina</div>
-            </div>
+          <div class="bob"><Sticker name="hermano" uid="hermano" /></div>
+        </div>
             <svg class="spark" style="left:62vh; top:12vh; width:3.6vh; height:3.6vh; animation-delay:-.4s" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" fill="#fff"></path></svg>
           </section>
         )
@@ -326,7 +324,7 @@ const momentos = [
           <a href={REDES.tiktok.url} target="_blank" rel="noopener">TikTok ↗</a>
         </div>
         <div class="stk st-g" data-st aria-hidden="true">
-          <div class="bob vinyl disp" style="background:#F4D27A; color:#111; padding:1.4vh 2.4vh 1vh; font-size:3.4vh; border-radius:8px">Buena pizza,<br />buena gente</div>
+          <div class="bob"><Sticker name="buena" uid="buena" /></div>
         </div>
       </section>
     </main>

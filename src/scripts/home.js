@@ -224,14 +224,20 @@ function init() {
   /* ---------- Stickers arrastrables ---------- */
   document.querySelectorAll('[data-st]').forEach((s) => {
     let ox = 0, oy = 0, sx = 0, sy = 0, dragging = false;
+    // límites: el sticker no sale de su sección (ni del ancho visible en móvil)
+    let lim = null;
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
     s.addEventListener('pointerdown', (e) => {
       if (e.target.closest('a, button')) return;
       dragging = true; sx = e.clientX - ox; sy = e.clientY - oy;
+      const r = s.getBoundingClientRect(), sec = s.closest('section').getBoundingClientRect(), tr = track.getBoundingClientRect(), pad = 14;
+      const L = Math.max(sec.left, tr.left) + pad, R = Math.min(sec.right, tr.right) - pad, T = sec.top + pad, B = sec.bottom - pad;
+      lim = { x0: ox + (L - r.left), x1: ox + (R - r.right), y0: oy + (T - r.top), y1: oy + (B - r.bottom) };
       s.setPointerCapture(e.pointerId); s.classList.add('dragging'); e.preventDefault();
     }, { signal });
     s.addEventListener('pointermove', (e) => {
       if (!dragging) return;
-      ox = e.clientX - sx; oy = e.clientY - sy;
+      ox = clamp(e.clientX - sx, lim.x0, Math.max(lim.x0, lim.x1)); oy = clamp(e.clientY - sy, lim.y0, Math.max(lim.y0, lim.y1));
       s.style.transform = `translate(${ox}px, ${oy}px)`;
     }, { signal });
     const end = () => { dragging = false; s.classList.remove('dragging'); };
