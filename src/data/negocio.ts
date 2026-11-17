@@ -88,9 +88,9 @@ export const SEO_DEFAULT = {
  * muestra nada inventado (ver src/pages/slice/index.astro).
  */
 export const SLICE = {
-  precioSola: 4990,
-  precioConBebida: 5990,
-  horario: "Martes a domingo, 14:00 a 23:00" as string | null,
+  precioSola: 3990,
+  precioConBebida: 4990,
+  horario: "Martes a domingo, 12:00 a 16:00" as string | null, // horas confirmadas por Pablo el 17 nov; días por confirmar
   whatsapp: null as string | null, // solo dígitos con código de país, ej. "56912345678"
 } as const;
 
@@ -102,6 +102,8 @@ export const SLICE = {
  */
 export const MAXIMO = {
   nombre: "Máximo Panini",
+  // Handle probable: "maximopanini" (17 nov, sin confirmar). Activar con
+  // "https://instagram.com/maximopanini" cuando se confirme y la cuenta exista.
   instagram: null as string | null,
   lanzamiento: null as string | null,
 } as const;
